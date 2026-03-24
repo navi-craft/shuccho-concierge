@@ -4,10 +4,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>出張コンシェルジュ｜出張先で使えるビジネス便利ツール</title>
+<title>出張コンシェルジュ｜出張h先で使えるビジネス便利ツール</title>
 <meta name="description" content="出張先での飲食店検索・タクシー手配・ホテル予約・道案内・お土産探しをワンタップで。GPS連動で現在地周辺の情報をすぐに表示。ビジネスマンの出張をサポートする無料Webアプリ。">
 <meta name="keywords" content="出張,ビジネス,飲食店検索,タクシー,ホテル予約,道案内,お土産,コンシェルジュ,出張便利ツール">
-<meta name="author" content="出張コンシェルジュ">
+<meta name="author" content="出張コンシェルジュ">h
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://wlanseleven96-crypto.github.io/shuccho-concierge/">
 
@@ -82,7 +82,7 @@ body{
 .dep-icon{font-size:17px;}
 .dep-lbl{font-size:13px;color:var(--muted);transition:color .2s;}
 .dep-lbl.set{color:var(--text);}
-.dep-btn{font-size:11px;color:var(--gold);padding:6px 12px;background:rgba(201,168,76,.1);border-radius:6px;white-space:nowrap;flex-shrink:0;}
+.dep-btn{font-size:12px;color:var(--gold);padding:6px 14px;background:rgba(201,168,76,.1);border-radius:6px;white-space:nowrap;flex-shrink:0;}
 .dep-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
 .dep-body.on{display:block;}
 .dep-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
@@ -925,9 +925,18 @@ function loadHotel() {
 
 /* 楽天トラベルでホテル予約 */
 function bookHotelRakuten() {
-  const keyword = gpsLoc ? (gpsLoc.name || '駅前') + ' ビジネスホテル' : 'ビジネスホテル';
-  openLink(rakutenTravelLink(keyword));
-}
+    const saved = localStorage.getItem('hotel') || '';
+    let keyword;
+    if (saved) {
+      keyword = saved.replace(/ホテル|hotel|HOTEL/gi, '').trim() + ' ホテル';
+      if (keyword.trim() === 'ホテル') keyword = saved;
+    } else if (gpsLoc) {
+      keyword = (gpsLoc.name || '駅前') + ' ビジネスホテル';
+    } else {
+      keyword = 'ビジネスホテル';
+    }
+    openLink(rakutenTravelLink(keyword));
+  }
 
 /* ホテルパネル読込時に予約ボタンも更新 */
 function updateHotelBooking() {
