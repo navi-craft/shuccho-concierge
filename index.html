@@ -310,8 +310,7 @@ body{
         <div class="ma-row">
           <button class="ma-btn" id="maMap" onclick="mealAct('map')">🗺 道案内</button>
           <button class="ma-btn" onclick="mealAct('taxi')">🚕 タクシー</button>
-          <button class="ma-btn" onclick="mealAct('another')">🍺 もう一軒</button>
-        </div>
+</div>
         <div class="rbox" id="mealRes"></div>
       </div>
     </div>
@@ -421,7 +420,7 @@ function afLink(type, keyword) {
 
 /* 楽天トラベルアフィリエイトリンク生成 */
 function rakutenTravelLink(keyword) {
-  const travelUrl = 'https://kw.travel.rakuten.co.jp/keyword/Search.do?f_query=' + encodeURIComponent(keyword);
+  const travelUrl = 'https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=' + encodeURIComponent(keyword);
   return 'https://hb.afl.rakuten.co.jp/hgc/' + CONFIG.RAKUTEN_ID + '/?pc=' + encodeURIComponent(travelUrl) + '&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
 }
 
@@ -949,42 +948,6 @@ function mealAct(type) {
   if (type === 'taxi') {
     res.innerHTML = `<div class="rb-title">🚕 タクシーを手配</div><div class="rb-body"><div class="af-row"><button class="af-btn" style="background:rgba(78,203,141,.12);border-color:rgba(78,203,141,.3);color:var(--green);" onclick="openLink('https://go.mo-t.com/')">🟢 GOタクシー</button><button class="af-btn" style="background:rgba(0,0,0,.2);border-color:var(--border);color:var(--text);" onclick="openLink('https://www.uber.com/jp/ja/ride/')">⚫ Uber</button></div></div>`;
     res.className = 'rbox on blue'; return;
-  }
-
-  if (type === 'another') {
-    const depVal = document.getElementById('depTime').value;
-    const depOn  = document.getElementById('depBody').classList.contains('on');
-    if (!depVal || !depOn) {
-      res.innerHTML = `<div class="rb-title">🍺 もう一軒</div><div class="rb-body">上の <strong style="color:var(--gold)">「出発時刻を設定する」</strong> を入力すると、何時まで飲めるか逆算します。</div>`;
-      res.className = 'rbox on gold'; return;
-    }
-    const [h,m] = depVal.split(':').map(Number);
-    const nowMins = getNowMins();
-    let dep = h*60+m;
-    if (dep <= nowMins) dep += 1440;
-    const dinnerEnd  = nowMins + 60;
-    const latestOut  = dep - 60;
-    const avail      = latestOut - dinnerEnd;
-    if (avail < 30) {
-      res.innerHTML = `<div class="rb-title">⚠ 時間がありません</div><div class="rb-body">出発まで余裕がないため、ホテルへ戻ることをおすすめします。</div>`;
-      res.className = 'rbox on red'; return;
-    }
-    // もう一軒：居酒屋・バーをAPIで検索
-    res.innerHTML = `<div class="rb-title">🍺 もう一軒いけます</div><div class="rb-body">残り <strong style="color:var(--gold-l)">${mt(avail)}</strong>。<br><strong style="color:var(--blue)">${ft(latestOut)}までに出れば</strong>間に合います。<br><br>近くの居酒屋・バーを検索中…</div>`;
-    res.className = 'rbox on blue';
-    if (gpsLoc) {
-      searchWithExpand(gpsLoc.lat, gpsLoc.lng, 'bar').then(({places}) => {
-        if (!places.length) return;
-        const bHtml = places.slice(0,3).map(p => {
-          const name = p.displayName?.text || 'バー';
-          const addr = p.formattedAddress || '';
-          const rating = p.rating ? `★${p.rating.toFixed(1)}` : '';
-          const mapUrl = gpsLoc ? `https://www.google.com/maps/dir/?api=1&origin=${gpsLoc.lat},${gpsLoc.lng}&destination=${encodeURIComponent(name+' '+addr)}&travelmode=walking` : '#';
-          return `<div class="bitem" onclick="openLink('${mapUrl}')"><div><div class="b-name">${name}</div><div class="b-meta">${[rating,addr].filter(Boolean).join(' · ')}</div></div><div class="b-time">${ft(dinnerEnd+10)}〜${ft(latestOut)}</div></div>`;
-        }).join('');
-        res.innerHTML = `<div class="rb-title">🍺 もう一軒いけます</div><div class="rb-body">残り <strong style="color:var(--gold-l)">${mt(avail)}</strong>。<strong style="color:var(--blue)">${ft(latestOut)}までに出れば</strong>間に合います。</div><div class="blist">${bHtml}</div>`;
-      }).catch(() => {});
-    }
   }
 }
 </script>
