@@ -564,14 +564,16 @@ async function searchPlaces(lat, lng, type, keyword = '', radius = CONFIG.RADIUS
 }
 
 // 自動で検索半径を拡大しながら検索
-async function searchWithExpand(lat, lng, type, keyword = '') {
-  const radii = [500, 1000, 3000, 5000];
-  for (const r of radii) {
-    const places = await searchPlaces(lat, lng, type, keyword, r);
-    if (places.length > 0) return { places, radius: r };
+async function searchWithExpand(lat, lng, type, keyword = '', minResults = 1) {
+    const radii = [500, 1000, 3000, 5000];
+    let best = [];
+    for (const r of radii) {
+      const places = await searchPlaces(lat, lng, type, keyword, r);
+      if (places.length >= minResults) return { places, radius: r };
+      if (places.length > best.length) best = places;
+    }
+    return { places: best, radius: 5000 };
   }
-  return { places: [], radius: 5000 };
-}
 
 /* ══════════════════════════════════════════════
    デモデータ（APIキー未設定時）
@@ -673,7 +675,7 @@ async function buildCVS(loc) {
   const con = document.getElementById('cvsList');
   con.innerHTML = '<div class="loading">コンビニを検索中</div>';
   try {
-    const { places } = await searchWithExpand(loc.lat, loc.lng, 'convenience_store');
+    const { places } = await searchWithExpand(loc.lat, loc.lng, 'convenience_store', '', 3);
     if (!places.length) { con.innerHTML = '<div class="err">⚠ コンビニが見つかりませんでした。</div>'; return; }
     con.innerHTML = '';
     places.forEach(p => {
