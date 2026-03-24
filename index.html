@@ -461,7 +461,7 @@ function afLink(type, keyword) {
 
 /* 楽天トラベルアフィリエイトリンク生成 */
 function rakutenTravelLink(keyword) {
-  const travelUrl = 'https://travel.rakuten.co.jp/keyword/kwSearch.html?f_keyword=' + encodeURIComponent(keyword);
+  const travelUrl = 'https://kw.travel.rakuten.co.jp/keyword/Search.do?f_query=' + encodeURIComponent(keyword);
   return 'https://hb.afl.rakuten.co.jp/hgc/' + CONFIG.RAKUTEN_ID + '/?pc=' + encodeURIComponent(travelUrl) + '&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
 }
 
@@ -821,7 +821,7 @@ async function getPrefKeyword(loc) {
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
     const d = await res.json();
-    const state = d.address.state || '';
+    const state = d.address.state || d.address.province || '';
     _lastPrefState = state; // キャッシュ
     // 都道府県名から定番お土産名をキーワードとして返す
     for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
@@ -844,7 +844,7 @@ async function getPrefDetail(loc) {
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
     const d = await res.json();
-    const state = d.address.state || '';
+    const state = d.address.state || d.address.province || '';
     _lastPrefState = state;
     for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
       if (state.includes(key)) return detail;
@@ -968,7 +968,7 @@ function toggleDep() {
   const btn  = document.getElementById('depBtn');
   const isOn = body.classList.toggle('on');
   btn.textContent = isOn ? '閉じる' : '設定する';
-  if (isOn) updateCD();
+  // updateCDは入力変更時のみ呼ばれる（自動クローズ防止）
 }
 
 function updateCD() {
