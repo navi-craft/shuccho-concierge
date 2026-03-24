@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ═══════════════════════════════════════════
+       SEO: タイトル・ディスクリプション
+       必要に応じて文言を変更してください
+  ════════════════════════════════════════════ -->
+  <title>神奈川県 飲食店開業ナビ｜仕入れ先・保健所手続き・税理士・保険をまとめて確認</title>
+  <meta name="description" content="神奈川県（横浜市・川崎市・相模原市・藤沢市など）で飲食店を開業するときに必要な役所手続き・食材仕入れ先・税理士・保険・求人・POSを業態別に一覧表示。比較・評価なし、選ぶのはオーナー。" />
+  <meta name="keywords" content="神奈川県 飲食店 開業, 横浜市 飲食店 開業, 神奈川県 飲食店営業許可, 飲食店 仕入れ先 神奈川, 神奈川県 飲食店 税理士" />
+  <meta property="og:title" content="神奈川県 飲食店開業ナビ" />
+  <meta property="og:description" content="神奈川県で飲食店を開業するときに必要なものをまとめて確認できる無料ナビ。" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root {
+      --bg:#f8f9fb; --card:#fff; --text:#1a1f2e; --muted:#6b7280; --line:#e8eaed;
+      --accent:#e85d04; --accent-soft:#fff4ee;
+      --warn:#d97706; --warn-soft:#fffbeb;
+      --green:#059669; --green-soft:#ecfdf5;
+      --blue:#2563eb; --blue-soft:#eff6ff;
+      --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+      --shadow:0 8px 24px rgba(0,0,0,.09);
+      --r:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;}
+    a{color:inherit;text-decoration:none;}
+
+    /* ── HEADER ── */
+    .hd{background:var(--card);border-bottom:1px solid var(--line);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm);}
+    .logo{font-size:15px;font-weight:800;letter-spacing:-.02em;}
+    .logo span{color:var(--accent);}
+    .hd-r{font-size:11px;color:var(--muted);}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(140deg,#111827 0%,#1e2d40 60%,#1a3a5c 100%);color:#fff;padding:52px 20px 44px;text-align:center;}
+    .hbadge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 13px;border-radius:999px;margin-bottom:14px;letter-spacing:.05em;}
+    .hero h1{font-size:clamp(22px,5vw,42px);font-weight:900;line-height:1.18;margin-bottom:12px;letter-spacing:-.02em;}
+    .hero h1 em{color:#fb923c;font-style:normal;}
+    .hero-sub{color:rgba(255,255,255,.72);font-size:13px;max-width:540px;margin:0 auto;}
+    .hero-feats{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:18px;}
+    .hf{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.13);border-radius:999px;padding:5px 12px;font-size:11px;color:rgba(255,255,255,.88);}
+
+    /* ── STEPS ── */
+    .wrap{max-width:820px;margin:0 auto;padding:36px 18px 80px;}
+    .slabel{display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+    .snum{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;}
+    .snum.done{background:var(--green);}
+    .stext{font-size:15px;font-weight:700;}
+    .ssub{font-size:11px;color:var(--muted);}
+
+    /* ── BUSINESS TYPE GRID ── */
+    .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:32px;}
+    .tcard{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:16px 8px 12px;text-align:center;cursor:pointer;transition:border-color .13s,box-shadow .13s,transform .1s;user-select:none;}
+    .tcard:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px);}
+    .tcard.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(232,93,4,.1);}
+    .tcard .ti{font-size:30px;margin-bottom:6px;display:block;}
+    .tcard .tl{font-size:13px;font-weight:700;}
+    .tcard .ts{font-size:10px;color:var(--muted);margin-top:2px;}
+
+    /* ── CITY STEP ── */
+    .citystep{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;box-shadow:var(--shadow-sm);display:none;}
+    .citystep.vis{display:block;}
+    .crow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;}
+    .crow select{flex:1;min-width:150px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;background:#f9fafb;color:var(--text);}
+    .gobtn{background:var(--accent);color:#fff;border:none;border-radius:9px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .12s;}
+    .gobtn:hover{background:#c44e02;}
+    .gobtn:disabled{background:#d1d5db;cursor:default;}
+
+    /* ── RESULTS ── */
+    .res{display:none;}
+    .res.vis{display:block;}
+    .rhead{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow-sm);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+    .rtitle{font-size:19px;font-weight:800;margin-bottom:2px;}
+    .rtitle span{color:var(--accent);}
+    .rmeta{font-size:11px;color:var(--muted);}
+    .rbtn{background:none;border:1px solid var(--line);border-radius:7px;padding:6px 12px;font-size:12px;color:var(--muted);cursor:pointer;font-weight:600;}
+    .rbtn:hover{background:#f3f4f6;}
+    .pbar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:11px 16px;margin-bottom:12px;font-size:11px;color:var(--muted);}
+
+    /* ── ACCORDION ── */
+    .acc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:7px;box-shadow:var(--shadow-sm);overflow:hidden;}
+    .acc-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;gap:8px;}
+    .acc-hd:hover{background:#fafafa;}
+    .acc-l{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+    .acc-ic{font-size:19px;flex-shrink:0;}
+    .acc-ti{font-size:14px;font-weight:700;}
+    .acc-r{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+    .abadge{font-size:10px;padding:3px 8px;border-radius:999px;font-weight:700;white-space:nowrap;}
+    .ab-warn{background:var(--warn-soft);color:var(--warn);}
+    .ab-green{background:var(--green-soft);color:var(--green);}
+    .ab-gray{background:#f3f4f6;color:#374151;}
+    .ab-ora{background:var(--accent-soft);color:var(--accent);}
+    .chevron{font-size:11px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+    .acc.open .chevron{transform:rotate(180deg);}
+    .acc-body{display:none;border-top:1px solid var(--line);padding:14px 18px 18px;}
+    .acc.open .acc-body{display:block;}
+
+    /* ── OFFICIAL ── */
+    .ocard{background:var(--warn-soft);border:1px solid #fde68a;border-radius:11px;padding:12px 14px;margin-bottom:8px;}
+    .ocard h4{font-size:12px;font-weight:700;color:var(--warn);margin-bottom:9px;}
+    .prows{display:grid;gap:6px;}
+    .prow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#fff;border-radius:8px;padding:9px 11px;border:1px solid #fde68a;}
+    .pname{font-size:13px;font-weight:700;}
+    .psub{font-size:11px;color:var(--muted);margin-top:1px;}
+    .plink-g{font-size:12px;font-weight:700;color:var(--blue);background:var(--blue-soft);padding:8px 12px;border-radius:8px;white-space:nowrap;flex-shrink:0;}
+    .plink-g:hover{background:#dbeafe;}
+    .onote{font-size:11px;color:var(--muted);margin-top:7px;}
+
+    /* ── VENDOR ── */
+    .slbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 7px;}
+    .slbl:first-child{margin-top:0;}
+    .vlist{display:grid;gap:7px;}
+    .vc{display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;transition:box-shadow .12s;}
+    .vc:hover{box-shadow:var(--shadow);}
+    .vic{width:38px;height:38px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+    .vb{flex:1;min-width:0;}
+    .vtype{font-size:10px;color:var(--muted);margin-bottom:1px;}
+    .vname{font-size:13px;font-weight:700;line-height:1.3;}
+    .vtags{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px;}
+    .vtags span{font-size:10px;padding:2px 6px;border-radius:999px;background:#f3f4f6;color:#4b5563;}
+    .vbtn{display:inline-block;font-size:12px;font-weight:700;padding:7px 11px;border-radius:7px;background:var(--accent);color:#fff;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+    .vbtn:hover{opacity:.85;}
+
+    /* search fallback */
+    .scard{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px dashed #c4cbda;border-radius:10px;background:#f9fafb;margin-top:7px;}
+    .scard .sc-b{flex:1;}
+    .scard .sc-t{font-size:12px;font-weight:600;color:var(--muted);}
+    .scard .sc-s{font-size:10px;color:#9ca3af;}
+    .slink{font-size:11px;font-weight:700;color:var(--blue);background:var(--blue-soft);padding:6px 10px;border-radius:7px;white-space:nowrap;flex-shrink:0;}
+
+    .affnote{font-size:11px;color:var(--muted);margin-top:10px;padding-top:9px;border-top:1px solid var(--line);}
+    .warn-box{background:var(--warn-soft);border:1px solid #fde68a;border-radius:9px;padding:10px 13px;margin-bottom:9px;font-size:12px;color:#92400e;}
+    .info-box{background:#fef9c3;border:1px solid #fde047;border-radius:9px;padding:10px 13px;margin-bottom:9px;font-size:12px;color:#713f12;}
+
+    footer{text-align:center;padding:24px 20px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);background:var(--card);}
+
+    @media(max-width:560px){
+      .tgrid{grid-template-columns:repeat(4,1fr);gap:7px;}
+      .tcard{padding:12px 4px 9px;}
+      .tcard .ti{font-size:24px;}
+      .tcard .tl{font-size:11px;}
+      .vc{flex-wrap:wrap;}
+      .prow{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hd">
+  <div class="logo">飲食店<span>開業ナビ</span><span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:8px;">神奈川県版</span></div>
+  <div class="hd-r">無料 ／ 比較・評価なし</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hbadge">神奈川県 完全対応</div>
+  <h1><em>神奈川県</em>で飲食店を開業する<br>前に確認すること、全部ここに。</h1>
+  <p class="hero-sub">業態と市区町村を選ぶだけ。役所の手続きから食材仕入れ・保険・税理士・求人まで一気に表示。推薦なし、選ぶのはあなた。</p>
+  <div class="hero-feats">
+    <span class="hf">🏛️ 保健所・役所手続き</span>
+    <span class="hf">🥩 食材・仕入れ先</span>
+    <span class="hf">🍶 酒類・飲料</span>
+    <span class="hf">🔥 ガス・電力</span>
+    <span class="hf">🍳 厨房機器</span>
+    <span class="hf">🎵 BGM・USEN</span>
+    <span class="hf">🗑️ ごみ回収</span>
+    <span class="hf">🛡️ 保険</span>
+    <span class="hf">📊 税理士・会計</span>
+    <span class="hf">💳 POS・レジ</span>
+  </div>
+</div>
+
+<!-- STEPS -->
+<div class="wrap">
+
+  <!-- STEP 1 -->
+  <div class="slabel">
+    <div class="snum" id="s1">1</div>
+    <div><div class="stext">業態を選んでください</div><div class="ssub">どんな飲食店を開きますか？</div></div>
+  </div>
+
+  <div class="tgrid">
+    <div class="tcard" onclick="pickT('yakitori',this)"><span class="ti">🍡</span><div class="tl">焼き鳥屋</div><div class="ts">炭火焼・串</div></div>
+    <div class="tcard" onclick="pickT('yakiniku',this)"><span class="ti">🥩</span><div class="tl">焼肉屋</div><div class="ts">ホルモン含む</div></div>
+    <div class="tcard" onclick="pickT('ramen',this)"><span class="ti">🍜</span><div class="tl">ラーメン屋</div><div class="ts">つけ麺含む</div></div>
+    <div class="tcard" onclick="pickT('teishoku',this)"><span class="ti">🍛</span><div class="tl">定食・カレー</div><div class="ts">うどん・そば</div></div>
+    <div class="tcard" onclick="pickT('izakaya',this)"><span class="ti">🍺</span><div class="tl">居酒屋・バー</div><div class="ts">ダイニングバー</div></div>
+    <div class="tcard" onclick="pickT('cafe',this)"><span class="ti">☕</span><div class="tl">カフェ・喫茶</div><div class="ts">スイーツ含む</div></div>
+    <div class="tcard" onclick="pickT('bento',this)"><span class="ti">🍱</span><div class="tl">弁当・テイクアウト</div><div class="ts">デリバリー</div></div>
+    <div class="tcard" onclick="pickT('sushi',this)"><span class="ti">🍣</span><div class="tl">寿司・海鮮</div><div class="ts">魚介全般</div></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="citystep" id="cityStep">
+    <div class="slabel" style="margin-bottom:0">
+      <div class="snum" id="s2">2</div>
+      <div><div class="stext">開業予定の市区町村を選んでください</div><div class="ssub">神奈川県内の近場業者を優先表示します</div></div>
+    </div>
+    <div class="crow">
+      <select id="citySel" onchange="onCity()">
+        <option value="">市区町村を選択</option>
+        <option>横浜市</option><option>川崎市</option><option>相模原市</option>
+        <option>藤沢市</option><option>横須賀市</option><option>鎌倉市</option>
+        <option>平塚市</option><option>厚木市</option><option>小田原市</option>
+        <option>茅ヶ崎市</option>
+      </select>
+      <button class="gobtn" id="goBtn" onclick="showR()" disabled>表示する →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="res" id="resWrap">
+    <div class="rhead">
+      <div>
+        <div class="rtitle" id="rTitle">横浜市 × <span>焼き鳥屋</span></div>
+        <div class="rmeta">役所手続きから仕入れ先・保険・税理士・求人まで。推薦なし、選ぶのはあなた。</div>
+      </div>
+      <button class="rbtn" onclick="doReset()">← 選び直す</button>
+    </div>
+    <div class="pbar">📋 掲載業者への推薦・保証はしていません。一部リンクはアフィリエイトリンクです（掲載順・内容への影響なし）。最新情報は各社へ直接ご確認ください。</div>
+    <div id="accWrap"></div>
+  </div>
+
+</div><!-- /wrap -->
+
+<footer>
+  飲食店開業ナビ 神奈川県版 ／ 掲載情報は参考情報です。各社の最新情報は直接ご確認ください。<br>
+  Copyright © 飲食店開業ナビ
+</footer>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  役所手続き設定                                              ║
+// ║  全項目 Google検索で案内。リンク切れの心配なし。             ║
+// ║  【変更不要】検索キーワードだけここで管理する。              ║
+// ╚══════════════════════════════════════════════════════════════╝
+const YAKUSHO_QUERIES = {
+  hokenjo:  (city) => city + ' 保健所 飲食店営業許可',
+  shobo:    (city) => city + ' 消防署 防火管理者 飲食店',
+  zeimusho: ()     => '開業届 書き方 提出 税務署',
+  keisatsu: (city) => city + ' 警察署 深夜酒類提供飲食店 届出',
+};
+
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+let selT = null, selCity = null;
+
+const TYPE_CFG = {
+  yakitori: { label:'焼き鳥屋',  sake:true,  shokuLabel:'食肉（鶏）・炭・仕入れ先' },
+  yakiniku: { label:'焼肉屋',    sake:true,  shokuLabel:'食肉（牛・豚・ホルモン）・炭' },
+  ramen:    { label:'ラーメン屋', sake:false, shokuLabel:'麺・スープ素材・チャーシュー' },
+  teishoku: { label:'定食・カレー・うどん・そば', sake:false, shokuLabel:'食材・調味料・だし素材' },
+  izakaya:  { label:'居酒屋・バー', sake:true, shokuLabel:'食材全般・おつまみ系' },
+  cafe:     { label:'カフェ・喫茶', sake:false, shokuLabel:'コーヒー豆・食材・スイーツ素材' },
+  bento:    { label:'弁当・テイクアウト', sake:false, shokuLabel:'食材・容器・包材' },
+  sushi:    { label:'寿司・海鮮',  sake:true,  shokuLabel:'鮮魚・海鮮全般' },
+};
+
+// ══════════════════════════════════
+// VENDOR DATA
+// 【更新方法】このブロックの中の業者情報を書き換えてください
+// 最終更新: 2026年3月
+// ══════════════════════════════════
+const DATA = {
+
+  // ── 食材・食肉 ──
+  shoku_local: [
+    { ic:'🥩', name:'株式会社久世（横浜営業所）',   type:'業務用食品総合商社（首都圏No.1クラス）', tags:['横浜拠点','食材全般','飲食店実績豊富'], url:'https://www.kuse.co.jp/' },
+    { ic:'🥩', name:'三浦魚類株式会社',           type:'三浦半島の鮮魚卸（創業40年超）',      tags:['三浦半島','鮮魚特化','地元卸'],       url:'https://www.miura-gyorui.co.jp/' },
+    { ic:'🛒', name:'横浜丸中青果',           type:'青果卸売市場（青果野菜専門）',  tags:['青果専門','横浜市場','仲卸ネットワーク'],         url:'https://www.yokohama-marunaka.co.jp/' },
+  ],
+  shoku_search: '食材 仕入れ 業務用 飲食店 神奈川',
+
+  // ── 酒類・飲料 ──
+  sake_local: [
+    { ic:'🍶', name:'なんでも酒やカクヤス（業務用・神奈川）', type:'業務用酒類卸・配達専門', tags:['神奈川対応','365日配達','業務用特化'], url:'https://www.kakuyasu.co.jp/b2b/' },
+    { ic:'🍶', name:'ベルーナグルメ業務用',               type:'ワイン・酒類通販',  tags:['ワイン充実','全国対応','メニュー提案'], url:'https://belluna-gourmet.com/' },
+  ],
+  sake_national: [
+    { ic:'🍶', name:'なんでも酒やカクヤス（通販）', type:'業務用酒類 全国配送対応', tags:['全国対応','配達無料','多ジャンル'], url:'https://www.kakuyasu.co.jp/' },
+  ],
+
+  // ── ガス・電力 ──
+  // 東京ガス等は公式URLが変更リスクがあるためGoogle検索で案内
+  gas_search: '神奈川 都市ガス 業務用 飲食店 開栓 契約',
+
+  // ── 厨房機器 ──
+  kitchen_local: [
+    { ic:'🍳', name:'テンポスバスターズ（横浜店）', type:'業務用厨房機器 新品・中古 神奈川多店舗', tags:['横浜店舗','中古あり','開業支援'], url:'https://tenposbusters.co.jp/' },
+    { ic:'🍳', name:'中古厨房.com（神奈川）',           type:'中古厨房機器専門 即日対応',            tags:['中古専門','コスト節約','即日対応'],  url:'https://www.chuko-kitchen.com/' },
+  ],
+  kitchen_national: [
+    // ═══ AFFILIATE: テンポスドットコム アフィリエイトリンクに差し替え ═══
+    { ic:'🍳', name:'テンポスドットコム（通販）', type:'業務用厨房機器 全国通販', tags:['全国配送','新品・中古','開業支援'], url:'https://www.tenpos.com/', aff:true },
+  ],
+
+  // ── 消耗品・衛生用品 ──
+  shoumou_national: [
+    // ═══ AFFILIATE: モノタロウ アフィリエイトリンクに差し替え ═══
+    { ic:'📦', name:'モノタロウ',           type:'業務用消耗品 通販',         tags:['翌日配送','業務用専門','まとめ割'],  url:'https://www.monotaro.com/', aff:true },
+    // ═══ AFFILIATE: アスクル アフィリエイトリンクに差し替え ═══
+    { ic:'📦', name:'アスクル（法人向け）', type:'消耗品・衛生用品 定期便可', tags:['定期便OK','翌日配送','衛生用品充実'], url:'https://www.askul.co.jp/', aff:true },
+  ],
+
+  // ── BGM ──
+  bgm_national: [
+    // ═══ AFFILIATE: USEN アフィリエイトリンクに差し替え ═══
+    { ic:'🎵', name:'USEN（有線放送）',     type:'業務用BGM 著作権処理済み', tags:['著作権処理済','月額制','全国対応'], url:'https://usen.com/', aff:true },
+    { ic:'🎵', name:'Spotify for Business', type:'業務用BGMサービス',        tags:['選曲豊富','スマホ管理','中小向き'], url:'https://forbusiness.spotify.com/ja/' },
+  ],
+
+  // ── ごみ回収 ──
+  gomi_search: 'ごみ回収 一般廃棄物 飲食店 産業廃棄物 許可業者',
+
+  // ── 清掃・害虫駆除 ──
+  clean_local: [
+    { ic:'🧹', name:'害虫駆除 清掃 飲食店 厨房',   type:'神奈川県の害虫駆除・衛生管理', tags:['神奈川対応','飲食店対応','HACCP対応'], url:'https://www.google.com/search?q=%E5%AE%B3%E8%99%AB%E9%A7%86%E9%99%A4%20%E6%B8%85%E6%8E%83%20%E9%A3%B2%E9%A3%9F%E5%BA%97%20%E7%A5%9E%E5%A5%88%E5%B7%9D' },
+  ],
+  clean_search: '害虫駆除 清掃 飲食店 厨房 神奈川',
+
+  // ── 保険 ──
+  hoken_national: [
+    { ic:'🛡️', name:'東京海上日動（飲食業向け）',  type:'火災・賠償責任・食中毒保険', tags:['食中毒対応','施設賠償','全国代理店'], url:'https://www.tokiomarine-nichido.co.jp/' },
+    { ic:'🛡️', name:'損保ジャパン（店舗総合保険）', type:'飲食店向け店舗総合保険',    tags:['店舗総合','全国対応','ネット見積可'], url:'https://www.sompo-japan.co.jp/' },
+  ],
+
+  // ── 税理士 ──
+  tax_local: [
+    { ic:'📊', name:'税理士法人アイ・パートナーズ',             type:'横浜・飲食開業支援 実績豊富', tags:['横浜拠点','飲食特化','開業支援'],   url:'https://www.i-partners.jp/' },
+  ],
+  tax_national: [
+    // ═══ AFFILIATE: freee アフィリエイトリンクに差し替え ═══
+    { ic:'📊', name:'freee（クラウド会計）',           type:'個人事業主向け クラウド会計', tags:['青色申告対応','銀行自動連携','スマホ管理'], url:'https://www.freee.co.jp/', aff:true },
+    // ═══ AFFILIATE: マネーフォワード アフィリエイトリンクに差し替え ═══
+    { ic:'📊', name:'マネーフォワードクラウド',       type:'クラウド会計・確定申告',      tags:['確定申告対応','クラウド','銀行連携'],       url:'https://biz.moneyforward.com/', aff:true },
+    { ic:'📊', name:'税理士ドットコム',               type:'全国の税理士を無料紹介',       tags:['無料紹介','飲食対応','全国検索可'],          url:'https://www.zeiri4.com/' },
+  ],
+
+  // ── 求人 ──
+  kyuujin_local: [
+    { ic:'👤', name:'Indeed（神奈川県 飲食店）',       type:'神奈川向け求人 無料枠あり', tags:['神奈川県','飲食求人','無料枠'],     url:'https://jp.indeed.com/q-%E9%A3%B2%E9%A3%9F%E5%BA%97-l-%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C-%E6%B1%82%E4%BA%BA.html' },
+    { ic:'👤', name:'飲食店ドットコム求人（神奈川）', type:'飲食専門 神奈川エリア特化',   tags:['飲食特化','神奈川対応','即戦力'], url:'https://job.inshokuten.com/kanto/work/prefArea-kanagawa/' },
+  ],
+  kyuujin_national: [
+    { ic:'👤', name:'食べログ求人',  type:'飲食専門 即戦力向け',         tags:['飲食特化','全国対応','即戦力採用'], url:'https://job.tabelog.com/' },
+  ],
+
+  // ── POS・レジ ──
+  pos_national: [
+    // ═══ AFFILIATE: Airレジ アフィリエイトリンクに差し替え ═══
+    { ic:'💳', name:'Airレジ（リクルート）',  type:'飲食向けPOS 無料プランあり',    tags:['無料から','飲食特化','スマホ対応'],   url:'https://airregi.jp/', aff:true },
+    // ═══ AFFILIATE: Square アフィリエイトリンクに差し替え ═══
+    { ic:'💳', name:'Square（スクエア）',     type:'カード決済統合 初期費用0円',    tags:['初期費用0円','カード一体','小中規模'], url:'https://squareup.com/jp/ja', aff:true },
+    { ic:'💳', name:'ユビレジ',              type:'iPad対応 テーブル管理・予約連携', tags:['テーブル管理','予約連携','飲食特化'],  url:'https://ubiregi.com/' },
+  ],
+};
+
+// ── 役所手続きデータ生成 ──
+// 全項目 Google検索ボタンのみ。リンク切れの心配なし。
+function getProcedures(city) {
+  return [
+    { name:'保健所',  sub:`飲食店営業許可（必須）— ${city}担当の保健所へ。事前相談を強く推奨。`, googleQ: YAKUSHO_QUERIES.hokenjo(city) },
+    { name:'消防署',  sub:'防火管理者選任届（客席30席以上 or 延床300㎡以上で必要）',             googleQ: YAKUSHO_QUERIES.shobo(city)    },
+    { name:'税務署',  sub:'開業届（開業後1か月以内）＋青色申告承認申請書（同時提出推奨）',       googleQ: YAKUSHO_QUERIES.zeimusho()       },
+    { name:'警察署',  sub:'深夜酒類提供飲食店営業届（バー・居酒屋等 0時以降営業の場合のみ）',   googleQ: YAKUSHO_QUERIES.keisatsu(city)   },
+  ];
+}
+
+// ══════════════════════════════════
+// SECTIONS BUILDER
+// ══════════════════════════════════
+function buildSections(tc){
+  return [
+    { ic:'🏛️', ti:'まずやること（役所手続き）',                badge:'最重要・先にやる', bc:'ab-warn',
+      body: renderProc() },
+    { ic:'🥩', ti:`食材・仕入れ先（${tc.shokuLabel}）`,         badge:'毎週必要',         bc:'ab-ora',
+      body: renderV({ local:DATA.shoku_local, sq:DATA.shoku_search+' '+selCity }) },
+    { ic:'🍶', ti:'酒類・飲料の仕入れ先',                       badge: tc.sake?'必須':'状況次第', bc: tc.sake?'ab-ora':'ab-gray',
+      body: renderV({ local:DATA.sake_local, national:DATA.sake_national }) },
+    { ic:'🔥', ti:'ガス・電力',                                  badge:'固定費',           bc:'ab-gray',
+      body: renderV({ sq:DATA.gas_search+' '+selCity }) },
+    { ic:'🍳', ti:'厨房機器',                                    badge:'開業時購入',       bc:'ab-gray',
+      body: renderV({ local:DATA.kitchen_local, national:DATA.kitchen_national }) },
+    { ic:'📦', ti:'消耗品・衛生用品',                            badge:'定期発注',         bc:'ab-gray',
+      body: renderV({ national:DATA.shoumou_national }) },
+    { ic:'🎵', ti:'BGM（店内音楽）',                             badge:'著作権に注意！',   bc:'ab-warn',
+      body: `<div class="warn-box">⚠️ <strong>個人用Spotify・YouTubeを店内でかけることは著作権法上問題になる場合があります。</strong>必ず業務用サービスを利用してください。</div>`+renderV({ national:DATA.bgm_national }) },
+    { ic:'🗑️', ti:'ごみ回収（産業廃棄物）',                     badge:'月次契約',         bc:'ab-gray',
+      body: `<div class="info-box">⚠️ <strong>飲食店の廃棄物は家庭ごみの日には出せません。</strong>産業廃棄物・一般廃棄物収集業者との契約が必要です。</div>`+renderV({ sq:DATA.gomi_search+' '+selCity }) },
+    { ic:'🧹', ti:'清掃・害虫駆除',                              badge:'運営維持',         bc:'ab-gray',
+      body: renderV({ local:DATA.clean_local, sq:DATA.clean_search+' '+selCity }) },
+    { ic:'🛡️', ti:'保険（火災・賠償責任・食中毒）',              badge:'開業前に必ず加入', bc:'ab-warn',
+      body: renderV({ national:DATA.hoken_national }) },
+    { ic:'📊', ti:'税理士・会計',                                badge:'開業時から顧問を', bc:'ab-green',
+      body: renderV({ local:DATA.tax_local, national:DATA.tax_national }) },
+    { ic:'👤', ti:'求人・採用',                                  badge:'必要に応じて',     bc:'ab-gray',
+      body: renderV({ local:DATA.kyuujin_local, national:DATA.kyuujin_national }) },
+    { ic:'💳', ti:'POS・レジシステム',                           badge:'補助',             bc:'ab-gray',
+      body: renderV({ national:DATA.pos_national }) },
+  ];
+}
+
+function renderProc(){
+  const rows = getProcedures(selCity).map(p => `
+    <div class="prow">
+      <div>
+        <div class="pname">${p.name}</div>
+        <div class="psub">${p.sub}</div>
+      </div>
+      <a class="plink-g" href="https://www.google.com/search?q=${encodeURIComponent(p.googleQ)}" target="_blank" rel="noopener">🔍 Google検索</a>
+    </div>`).join('');
+  return `<div class="ocard"><h4>⚠️ 開業前に完了が必要な届出・許可（${selCity}の目安）</h4><div class="prows">${rows}</div></div>
+    <div class="onote">※ ボタンを押すと最新情報をGoogle検索できます。エリア・業態・規模によって必要な届出が異なるため、各窓口に事前確認してください。</div>`;
+}
+
+function renderV({ local=[], national=[], sq=null }){
+  let html = '';
+  let hasAff = false;
+
+  if(local.length){
+    html += `<div class="slbl">📍 神奈川県の地域業者</div><div class="vlist">${local.map(v=>{if(v.aff)hasAff=true;return vc(v);}).join('')}</div>`;
+  }
+  if(sq){
+    html += `<div class="scard"><span style="font-size:18px">🔍</span><div class="sc-b"><div class="sc-t">他の地域業者をGoogle検索で探す</div><div class="sc-s">${selCity}周辺の業者を確認できます</div></div><a class="slink" href="https://www.google.com/search?q=${encodeURIComponent(selCity+' '+sq)}" target="_blank" rel="noopener">検索する →</a></div>`;
+  }
+  if(national.length){
+    html += `<div class="slbl" style="margin-top:${local.length?'14px':'0'}">🌏 全国対応サービス</div><div class="vlist">${national.map(v=>{if(v.aff)hasAff=true;return vc(v);}).join('')}</div>`;
+  }
+  if(hasAff) html += `<div class="affnote">※ 「公式サイト」の一部はアフィリエイトリンクです。リンク経由の申し込みで報酬が発生する場合がありますが、掲載順・内容への影響はありません。</div>`;
+  return html;
+}
+
+function vc(v){
+  return `<div class="vc"><div class="vic">${v.ic}</div><div class="vb"><div class="vtype">${v.type}</div><div class="vname">${v.name}</div><div class="vtags">${v.tags.map(t=>`<span>${t}</span>`).join('')}</div></div><a class="vbtn" href="${v.url}" target="_blank" rel="noopener">公式サイト</a></div>`;
+}
+
+// ══════════════════════════════════
+// UI
+// ══════════════════════════════════
+function pickT(type, el){
+  selT = type;
+  document.querySelectorAll('.tcard').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('s1').classList.add('done');
+  document.getElementById('cityStep').classList.add('vis');
+  document.getElementById('resWrap').classList.remove('vis');
+  chkBtn();
+}
+
+function onCity(){
+  selCity = document.getElementById('citySel').value;
+  chkBtn();
+}
+
+function chkBtn(){
+  document.getElementById('goBtn').disabled = !(selT && selCity);
+}
+
+function showR(){
+  const tc = TYPE_CFG[selT];
+  document.getElementById('rTitle').innerHTML = `${selCity} × <span>${tc.label}</span>`;
+  document.getElementById('s2').classList.add('done');
+
+  const wrap = document.getElementById('accWrap');
+  wrap.innerHTML = '';
+
+  buildSections(tc).forEach((sec, i)=>{
+    const d = document.createElement('div');
+    d.className = 'acc' + (i===0?' open':'');
+    d.innerHTML = `
+      <div class="acc-hd">
+        <div class="acc-l"><span class="acc-ic">${sec.ic}</span><div class="acc-ti">${sec.ti}</div></div>
+        <div class="acc-r"><span class="abadge ${sec.bc}">${sec.badge}</span><span class="chevron">▼</span></div>
+      </div>
+      <div class="acc-body">${sec.body}</div>`;
+    d.querySelector('.acc-hd').addEventListener('click',()=>d.classList.toggle('open'));
+    wrap.appendChild(d);
+  });
+
+  document.getElementById('resWrap').classList.add('vis');
+  setTimeout(()=>document.getElementById('resWrap').scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function doReset(){
+  selT=null; selCity=null;
+  document.querySelectorAll('.tcard').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('s1').classList.remove('done');
+  document.getElementById('s2').classList.remove('done');
+  document.getElementById('cityStep').classList.remove('vis');
+  document.getElementById('resWrap').classList.remove('vis');
+  document.getElementById('citySel').value='';
+  document.getElementById('goBtn').disabled=true;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
