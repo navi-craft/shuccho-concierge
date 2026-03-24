@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>出張コンシェルジュ｜出張先で使えるビジネス便利ツール</title>
+<meta name="description" content="出張先での飲食店検索・タクシー手配・ホテル予約・道案内・お土産探しをワンタップで。GPS連動で現在地周辺の情報をすぐに表示。ビジネスマンの出張をサポートする無料Webアプリ。">
+<meta name="keywords" content="出張,ビジネス,飲食店検索,タクシー,ホテル予約,道案内,お土産,コンシェルジュ,出張便利ツール">
+<meta name="author" content="出張コンシェルジュ">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://shuccho-concierge.netlify.app/">
+
+<!-- OGP（SNSシェア用） -->
+<meta property="og:title" content="出張コンシェルジュ｜出張先で使えるビジネス便利ツール">
+<meta property="og:description" content="飲食店・タクシー・ホテル予約・道案内・お土産をワンタップで。GPS連動で出張先の情報をすぐに表示。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shuccho-concierge.netlify.app/">
+<meta property="og:site_name" content="出張コンシェルジュ">
+<meta property="og:locale" content="ja_JP">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="出張コンシェルジュ｜出張先で使えるビジネス便利ツール">
+<meta name="twitter:description" content="飲食店・タクシー・ホテル予約・道案内・お土産をワンタップで。GPS連動で出張先の情報をすぐに表示。">
+
+<!--
+=============================================================
+  出張コンシェルジュ v2.0
+  
+  【APIキー設定手順】
+  1. https://console.cloud.google.com でプロジェクト作成
+  2. 以下のAPIを有効化：
+     - Maps JavaScript API
+     - Places API (New)
+  3. APIキーを作成し、HTTPリファラー制限を設定
+     （例：stately-gumption-339741.netlify.app/*）
+  4. 下記 CONFIG.GOOGLE_API_KEY を差し替える
+  
+  【アフィリエイト設定手順】
+  1. Amazonアソシエイト: https://affiliate.amazon.co.jp
+     → 審査通過後 CONFIG.AMAZON_TAG を差し替える
+  2. 楽天アフィリエイト: https://affiliate.rakuten.co.jp
+     → 審査通過後 CONFIG.RAKUTEN_ID を差し替える
+=============================================================
+-->
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
+<style>
+/* ── リセット & 変数 ─────────────────────── */
+:root{
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --border:#2a2f3e;
+  --gold:#c9a84c; --gold-l:#e8c97a;
+  --text:#e8eaf0; --muted:#7a7f94;
+  --blue:#4a8fff; --green:#4ecb8d; --red:#ff6b6b; --orange:#ff9f43; --pink:#e879a0;
+  --radius:14px; --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overscroll-behavior:none;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Noto Sans JP',sans-serif;
+  min-height:100vh;display:flex;justify-content:center;
+  padding:24px 14px calc(120px + var(--safe-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+.app{width:100%;max-width:390px;}
+
+/* ── ヘッダー ───────────────────────────── */
+.hd{text-align:center;margin-bottom:28px;}
+.hd-logo{font-family:'DM Serif Display',serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+.hd-title{font-size:22px;font-weight:300;letter-spacing:.5px;margin-bottom:6px;}
+.hd-loc{font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px;min-height:18px;}
+.hd-loc .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .3s;}
+.hd-loc.got .dot{background:var(--green);box-shadow:0 0 6px var(--green);}
+.hd-loc.got{color:var(--text);}
+
+/* ── 出発時刻 ───────────────────────────── */
+.dep{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;}
+.dep-hd{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.dep-left{display:flex;align-items:center;gap:10px;}
+.dep-icon{font-size:17px;}
+.dep-lbl{font-size:13px;color:var(--muted);transition:color .2s;}
+.dep-lbl.set{color:var(--text);}
+.dep-btn{font-size:11px;color:var(--gold);padding:6px 12px;background:rgba(201,168,76,.1);border-radius:6px;white-space:nowrap;flex-shrink:0;}
+.dep-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.dep-body.on{display:block;}
+.dep-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.dep-row label{font-size:12px;color:var(--muted);white-space:nowrap;}
+.dep-row input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:20px;font-family:'DM Serif Display',serif;outline:none;width:130px;}
+.dep-row input:focus{border-color:var(--gold);}
+.cd{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:10px;display:none;text-align:center;}
+.cd.on{display:block;}
+.cd-lbl{font-size:11px;color:var(--muted);margin-bottom:2px;}
+.cd-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--gold-l);}
+
+/* ── メインボタン ────────────────────────── */
+.btn-full{width:100%;margin-bottom:10px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.mbtn{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:18px 10px;cursor:pointer;text-align:center;
+  font-family:'Noto Sans JP',sans-serif;
+  transition:all .18s;position:relative;overflow:hidden;
+  -webkit-user-select:none;user-select:none;
+}
+.mbtn::after{content:'';position:absolute;inset:0;background:var(--c,var(--gold));opacity:0;transition:opacity .2s;}
+.mbtn:active:not(:disabled){transform:scale(.97);}
+.mbtn:not(:disabled):hover{border-color:var(--c,var(--gold));}
+.mbtn:not(:disabled):hover::after{opacity:.06;}
+.mbtn.active{border-color:var(--c,var(--gold));}
+.mbtn:disabled{opacity:.38;cursor:default;}
+.mi{font-size:26px;margin-bottom:6px;}
+.mt{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ms{font-size:10px;color:var(--muted);}
+.coming{font-size:10px;font-weight:500;margin-top:3px;}
+
+/* ── パネル ──────────────────────────────── */
+.panel{display:none;margin-bottom:14px;animation:fadeUp .3s ease;}
+.panel.on{display:block;}
+.pc{background:var(--surface);border-radius:16px;overflow:visible;}
+.pc-hd{padding:14px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.pc-icon{font-size:18px;}
+.pc-title{font-size:14px;font-weight:500;}
+.pc-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.pc-body{padding:12px 14px 180px;}
+
+/* ── リスト共通 ──────────────────────────── */
+.list{display:flex;flex-direction:column;gap:7px;}
+.item{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:11px 13px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:flex-start;}
+.item:active{transform:scale(.98);}
+.item.sel{border-color:var(--gold);background:rgba(201,168,76,.06);}
+.item-name{font-size:13px;font-weight:500;margin-bottom:2px;}
+.item-meta{font-size:11px;color:var(--muted);}
+.item-badge{font-size:11px;font-weight:600;white-space:nowrap;margin-left:8px;flex-shrink:0;}
+.badge-open{color:var(--green);}
+.badge-closed{color:var(--red);}
+.item-tags{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;}
+.tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;}
+.tag-r{background:rgba(201,168,76,.15);color:var(--gold);}
+.tag-s{background:rgba(74,143,255,.15);color:var(--blue);}
+.tag-l{background:rgba(78,203,141,.15);color:var(--green);}
+.tag-c{background:rgba(122,127,148,.15);color:var(--muted);}
+
+/* ── アクションリスト ────────────────────── */
+.alist{display:flex;flex-direction:column;gap:7px;}
+.aitem{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:12px 14px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:12px;}
+.aitem:active{transform:scale(.98);}
+.aitem:hover{border-color:var(--blue);}
+.aitem-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
+.aitem-title{font-size:13px;font-weight:500;margin-bottom:1px;}
+.aitem-sub{font-size:11px;color:var(--muted);}
+
+/* ── 食後アクション ──────────────────────── */
+.meal-acts{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.meal-acts.on{display:block;}
+.ma-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.ma-row{display:flex;gap:6px;flex-wrap:wrap;}
+.ma-btn{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:8px 12px;color:var(--text);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;transition:all .18s;}
+.ma-btn:active{transform:scale(.97);}
+
+/* ── 結果ボックス ────────────────────────── */
+.rbox{border-radius:10px;padding:12px;font-size:12px;margin-top:8px;display:none;animation:fadeUp .3s ease;line-height:1.8;}
+.rbox.on{display:block;}
+.rbox.blue{background:rgba(74,143,255,.08);border:1px solid rgba(74,143,255,.2);}
+.rbox.green{background:rgba(78,203,141,.08);border:1px solid rgba(78,203,141,.2);}
+.rbox.gold{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);}
+.rbox.red{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);}
+.rbox.pink{background:rgba(232,121,160,.08);border:1px solid rgba(232,121,160,.2);}
+.rb-title{font-size:13px;font-weight:700;margin-bottom:5px;}
+.rb-body{color:var(--muted);}
+
+/* ── バーリスト ──────────────────────────── */
+.blist{margin-top:8px;display:flex;flex-direction:column;gap:5px;}
+.bitem{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;}
+.b-name{font-size:12px;font-weight:500;}
+.b-meta{font-size:11px;color:var(--muted);margin-top:1px;}
+.b-time{font-size:11px;color:var(--blue);font-weight:600;white-space:nowrap;margin-left:8px;}
+
+/* ── 目的地入力 ──────────────────────────── */
+.dest-wrap{margin-bottom:12px;}
+.dest-wrap label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:1px;}
+.dest-row{display:flex;gap:8px;}
+.dest-row input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;color:var(--text);font-size:13px;font-family:'Noto Sans JP',sans-serif;outline:none;}
+.dest-row input:focus{border-color:var(--gold);}
+.dest-row button{background:var(--blue);border:none;border-radius:9px;padding:10px 14px;color:#fff;font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;font-weight:500;white-space:nowrap;}
+
+/* ── ホテル保存 ──────────────────────────── */
+.hotel-saved{background:rgba(78,203,141,.07);border:1px solid rgba(78,203,141,.2);border-radius:9px;padding:9px 12px;font-size:12px;color:var(--green);margin-bottom:10px;display:none;}
+.hotel-saved.on{display:block;}
+
+/* ── お土産 ──────────────────────────────── */
+.omi-item{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:11px 13px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.omi-item:active{transform:scale(.98);}
+.omi-item.sel{border-color:var(--pink);}
+.omi-rank{font-size:18px;flex-shrink:0;}
+.omi-name{font-size:13px;font-weight:500;margin-bottom:1px;}
+.omi-meta{font-size:11px;color:var(--muted);}
+
+/* ── アフィリエイトボタン ─────────────────── */
+.af-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.af-btn{background:rgba(232,121,160,.12);border:1px solid rgba(232,121,160,.3);border-radius:8px;padding:9px 14px;color:var(--pink);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;font-weight:500;transition:all .18s;}
+.af-btn:active{transform:scale(.97);}
+.af-btn.amz{background:rgba(255,159,67,.12);border-color:rgba(255,159,67,.3);color:var(--orange);}
+.af-btn.rak{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.3);color:var(--red);}
+.af-btn.hot{background:rgba(74,143,255,.12);border-color:rgba(74,143,255,.3);color:var(--blue);}
+
+/* ── カテゴリーボタン ────────────────────── */
+.cat-btn{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:7px 12px;color:var(--muted);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.cat-btn.active{border-color:var(--gold);color:var(--gold-l);background:rgba(201,168,76,.08);}
+.cat-btn:active{transform:scale(.97);}
+
+/* ── ローディング ────────────────────────── */
+.loading{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
+.loading::after{content:'';display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin-left:8px;vertical-align:middle;}
+
+/* ── エラー ──────────────────────────────── */
+.err{background:rgba(255,107,107,.07);border:1px solid rgba(255,107,107,.2);border-radius:10px;padding:11px;font-size:12px;color:var(--red);line-height:1.7;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ヘッダー -->
+<div class="hd">
+  <div class="hd-logo">Business Concierge</div>
+  <div class="hd-title">出張コンシェルジュ</div>
+  <div class="hd-loc" id="locBar">
+    <span class="dot"></span>
+    <span id="locTxt">ボタンをタップすると現在地を取得します</span>
+  </div>
+</div>
+
+<!-- 出発時刻（任意） -->
+<div class="dep">
+  <div class="dep-hd" onclick="toggleDep()">
+    <div class="dep-left">
+      <span class="dep-icon">⏰</span>
+      <span class="dep-lbl" id="depLbl">出発時刻を設定する（任意）</span>
+    </div>
+    <span class="dep-btn" id="depBtn">設定する</span>
+  </div>
+  <div class="dep-body" id="depBody">
+    <div class="dep-row">
+      <label>明日の出発時刻</label>
+      <input type="time" id="depTime" value="06:00" oninput="updateCD()">
+    </div>
+    <div class="cd" id="cd">
+      <div class="cd-lbl">出発まで残り</div>
+      <div class="cd-val" id="cdVal">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- メインボタン群（案Aレイアウト） -->
+<button class="mbtn btn-full" style="--c:var(--gold);" id="btn-food" onclick="openPanel('food')">
+  <div class="mi" style="font-size:30px;">🍜</div>
+  <div class="mt" style="font-size:15px;">お店を探す</div>
+  <div class="ms">営業中・近くの店・領収書OK</div>
+</button>
+
+<div class="grid2">
+  <button class="mbtn" style="--c:var(--blue);" id="btn-map" onclick="openPanel('map')">
+    <div class="mi">🗺</div><div class="mt">道案内・乗り換え</div><div class="ms">目的地を入力してナビ</div>
+  </button>
+  <button class="mbtn" style="--c:var(--green);" id="btn-taxi" onclick="openPanel('taxi')">
+    <div class="mi">🚕</div><div class="mt">タクシーを呼ぶ</div><div class="ms">現在地から手配</div>
+  </button>
+</div>
+
+<div class="grid2">
+  <button class="mbtn" style="--c:var(--orange);" id="btn-cvs" onclick="openPanel('cvs')">
+    <div class="mi">🏪</div><div class="mt">コンビニを探す</div><div class="ms">24時間・最寄り</div>
+  </button>
+  <button class="mbtn" style="--c:var(--green);" id="btn-hotel" onclick="openPanel('hotel')">
+    <div class="mi">🏨</div><div class="mt">ホテルへ戻る</div><div class="ms">登録ホテルへ道案内</div>
+  </button>
+</div>
+
+<button class="mbtn btn-full" style="--c:var(--pink);margin-bottom:20px;" id="btn-omiyage" onclick="openPanel('omiyage')">
+  <div class="mi">🎁</div><div class="mt">お土産を探す</div><div class="ms">現在地の名物・評価順・ネット注文OK</div>
+</button>
+
+<!-- ══ パネル群 ══════════════════════════════ -->
+
+<!-- タクシー -->
+<div class="panel" id="panel-taxi">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🚕</span><div><div class="pc-title">タクシーを呼ぶ</div><div class="pc-sub" id="taxi-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div class="alist">
+        <div class="aitem" onclick="openLink('https://go.mo-t.com/')">
+          <span class="aitem-icon">🟢</span>
+          <div><div class="aitem-title">GO タクシー</div><div class="aitem-sub">現在地から最短で手配</div></div>
+        </div>
+        <div class="aitem" onclick="openLink('https://www.uber.com/jp/ja/ride/')">
+          <span class="aitem-icon">⚫</span>
+          <div><div class="aitem-title">Uber</div><div class="aitem-sub">Uberアプリへ</div></div>
+        </div>
+        <div class="aitem" onclick="openLink('https://didi.com/jp/')">
+          <span class="aitem-icon">🟠</span>
+          <div><div class="aitem-title">DiDi</div><div class="aitem-sub">DiDiアプリへ</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 道案内 -->
+<div class="panel" id="panel-map">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🗺</span><div><div class="pc-title">道案内・乗り換え</div><div class="pc-sub" id="map-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div class="dest-wrap">
+        <label>目的地（ホテル名・駅名・会社名）</label>
+        <div class="dest-row">
+          <input type="text" id="destInput" placeholder="例：東京駅、〇〇株式会社">
+          <button onclick="openMap()">開く</button>
+        </div>
+      </div>
+      <div class="alist">
+        <div class="aitem" onclick="openMap('transit')"><span class="aitem-icon">🚇</span><div><div class="aitem-title">電車・地下鉄で行く</div><div class="aitem-sub">乗換案内込みでGoogleマップへ</div></div></div>
+        <div class="aitem" onclick="openMap('walking')"><span class="aitem-icon">🚶</span><div><div class="aitem-title">徒歩で行く</div><div class="aitem-sub">徒歩ルートをGoogleマップへ</div></div></div>
+        <div class="aitem" onclick="openMap('driving')"><span class="aitem-icon">🚕</span><div><div class="aitem-title">タクシーで行く</div><div class="aitem-sub">距離・料金の目安を確認</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- お店 -->
+<div class="panel" id="panel-food">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🍜</span><div><div class="pc-title">お店を探す</div><div class="pc-sub" id="food-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <!-- カテゴリー選択 -->
+      <div id="foodCats" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="cat-btn active" data-type="restaurant" onclick="selectCat(this,'restaurant','🍜','定食・ラーメン')">🍜 定食・ラーメン</button>
+        <button class="cat-btn" data-type="bar" onclick="selectCat(this,'bar','🍺','居酒屋・バー')">🍺 居酒屋・バー</button>
+        <button class="cat-btn" data-type="sushi_restaurant" onclick="selectCat(this,'sushi_restaurant','🍣','寿司・和食')">🍣 寿司・和食</button>
+        <button class="cat-btn" data-type="japanese_restaurant" onclick="selectCat(this,'japanese_restaurant','🍖','焼肉・中華')">🍖 焼肉・中華</button>
+        <button class="cat-btn" data-type="cafe" onclick="selectCat(this,'cafe','☕','カフェ・軽食')">☕ カフェ・軽食</button>
+      </div>
+      <div class="list" id="foodList"><div class="loading">お店を検索中</div></div>
+      <div class="meal-acts" id="mealActs">
+        <div class="ma-lbl">食後のアクション</div>
+        <div class="ma-row">
+          <button class="ma-btn" id="maMap" onclick="mealAct('map')">🗺 道案内</button>
+          <button class="ma-btn" onclick="mealAct('taxi')">🚕 タクシー</button>
+          <button class="ma-btn" onclick="mealAct('another')">🍺 もう一軒</button>
+        </div>
+        <div class="rbox" id="mealRes"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- コンビニ -->
+<div class="panel" id="panel-cvs">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🏪</span><div><div class="pc-title">コンビニを探す</div><div class="pc-sub" id="cvs-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div class="list" id="cvsList"><div class="loading">コンビニを検索中</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ホテル -->
+<div class="panel" id="panel-hotel">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🏨</span><div><div class="pc-title">ホテルへ戻る</div><div class="pc-sub" id="hotel-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div class="hotel-saved" id="hotelSaved"></div>
+      <div class="dest-wrap">
+        <label>ホテル名・住所</label>
+        <div class="dest-row">
+          <input type="text" id="hotelInput" placeholder="例：新宿プリンスホテル">
+          <button onclick="saveHotel()" style="background:var(--green);color:#0d0f14;">保存</button>
+          <button onclick="deleteHotel()" style="background:rgba(255,80,80,.15);color:#ff5050;font-size:11px;padding:8px 10px;">削除</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:5px;">次回から自動で入力されます</div>
+      </div>
+      <div class="alist">
+        <div class="aitem" onclick="goHotel('transit')"><span class="aitem-icon">🚇</span><div><div class="aitem-title">電車・地下鉄で戻る</div><div class="aitem-sub">乗換案内込みでGoogleマップへ</div></div></div>
+        <div class="aitem" onclick="goHotel('walking')"><span class="aitem-icon">🚶</span><div><div class="aitem-title">徒歩で戻る</div><div class="aitem-sub">徒歩ルートをGoogleマップへ</div></div></div>
+        <div class="aitem" onclick="goHotel('taxi')"><span class="aitem-icon">🚕</span><div><div class="aitem-title">タクシーで戻る</div><div class="aitem-sub">GOタクシーアプリへ</div></div></div>
+      </div>
+      <!-- 楽天トラベル予約セクション -->
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
+        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;">🏨 周辺のホテルを予約</div>
+        <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">現在地を取得するとホテル検索リンクが表示されます</div>
+        <div class="af-row">
+          <button class="af-btn rak" id="hotelRakutenBtn" onclick="bookHotelRakuten()">🏨 楽天トラベルで探す</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- お土産 -->
+<div class="panel" id="panel-omiyage">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🎁</span><div><div class="pc-title">お土産を探す</div><div class="pc-sub" id="omiyage-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div class="list" id="omiList"><div class="loading">お土産を検索中</div></div>
+      <div class="rbox" id="omiRes"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.app -->
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════
+   CONFIG — ここを書き換えるだけで本番になります
+   ══════════════════════════════════════════════ */
+const CONFIG = {
+  // Google Places API キー（取得後に差し替え）
+  GOOGLE_API_KEY: 'AIzaSyD0kvjqEUy7sTFjW4O4hbq3nkD-b8zFwKI',
+
+  // Amazon アソシエイトタグ（審査通過後に差し替え）
+  AMAZON_TAG: 'shuchouconcI-22',
+
+  // 楽天アフィリエイトID
+  RAKUTEN_ID: '5232d4b6.de66cdcc.5232d4b7.29dddb44',
+
+  // ホットペッパーアフィリエイトID（任意）
+  HOTPEPPER_AF: '',
+
+  // 検索半径（メートル）
+  RADIUS: 500,
+};
+
+/* ══════════════════════════════════════════════
+   状態管理
+   ══════════════════════════════════════════════ */
+let gpsLoc = null;
+let gpsBusy = false;
+let activePanel = null;
+const now = new Date();
+const nowMins = now.getHours() * 60 + now.getMinutes();
+
+/* ══════════════════════════════════════════════
+   ユーティリティ
+   ══════════════════════════════════════════════ */
+const ft = m => { const n = ((m%1440)+1440)%1440; return `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`; };
+const mt = m => m < 60 ? `${m}分` : m%60===0 ? `${Math.floor(m/60)}時間` : `${Math.floor(m/60)}時間${m%60}分`;
+const openLink = url => window.open(url, '_blank');
+
+function afLink(type, keyword) {
+  const kw = encodeURIComponent(keyword);
+  if (type === 'amazon') return `https://www.amazon.co.jp/s?k=${kw}&tag=${CONFIG.AMAZON_TAG}`;
+  if (type === 'rakuten') return `https://search.rakuten.co.jp/search/mall/${kw}/?af=${CONFIG.RAKUTEN_ID}`;
+  if (type === 'hotpepper') return `https://www.hotpepper.jp/`;
+  return '#';
+}
+
+/* 楽天トラベルアフィリエイトリンク生成 */
+function rakutenTravelLink(keyword) {
+  const travelUrl = 'https://travel.rakuten.co.jp/keyword/kwSearch.html?f_keyword=' + encodeURIComponent(keyword);
+  return 'https://hb.afl.rakuten.co.jp/hgc/' + CONFIG.RAKUTEN_ID + '/?pc=' + encodeURIComponent(travelUrl) + '&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
+}
+
+/* ══════════════════════════════════════════════
+   GPS
+   ══════════════════════════════════════════════ */
+function getGPS(cb) {
+  if (gpsLoc) { cb && cb(gpsLoc); return; }
+  if (gpsBusy) { setTimeout(() => getGPS(cb), 400); return; }
+  if (!navigator.geolocation) {
+    setLocBar('GPS非対応のブラウザです', false);
+    cb && cb(null); return;
+  }
+  gpsBusy = true;
+  setLocBar('現在地を取得中…', false);
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude: la, longitude: lo } = pos.coords;
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${la}&lon=${lo}&format=json&accept-language=ja`)
+        .then(r => r.json())
+        .then(d => {
+          const city = d.address.city || d.address.town || d.address.county || '';
+          const sub  = d.address.suburb || d.address.neighbourhood || '';
+          gpsLoc = { lat: la, lng: lo, name: sub ? `${city} ${sub}` : city || `${la.toFixed(4)}, ${lo.toFixed(4)}` };
+          gpsBusy = false;
+          setLocBar(gpsLoc.name, true);
+          cb && cb(gpsLoc);
+        })
+        .catch(() => {
+          gpsLoc = { lat: la, lng: lo, name: `${la.toFixed(4)}, ${lo.toFixed(4)}` };
+          gpsBusy = false;
+          setLocBar(gpsLoc.name, true);
+          cb && cb(gpsLoc);
+        });
+    },
+    () => {
+      gpsBusy = false;
+      setLocBar('位置情報の取得に失敗しました', false);
+      cb && cb(null);
+    },
+    { timeout: 10000, maximumAge: 60000 }
+  );
+}
+
+function setLocBar(text, got) {
+  document.getElementById('locTxt').textContent = text;
+  document.getElementById('locBar').className = 'hd-loc' + (got ? ' got' : '');
+  ['taxi','map','food','cvs','hotel','omiyage'].forEach(id => {
+    const el = document.getElementById(`${id}-loc`);
+    if (el) el.textContent = got ? text : '現在地を取得中…';
+  });
+}
+
+/* ══════════════════════════════════════════════
+   Google Places API
+   ══════════════════════════════════════════════ */
+const PLACES_URL = 'https://places.googleapis.com/v1/places:searchNearby';
+
+async function searchPlaces(lat, lng, type, keyword = '', radius = CONFIG.RADIUS) {
+  if (CONFIG.GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY_HERE') {
+    return getDemoData(type);
+  }
+  const body = {
+    includedTypes: [type],
+    maxResultCount: 5,
+    locationRestriction: {
+      circle: { center: { latitude: lat, longitude: lng }, radius }
+    },
+    rankPreference: 'POPULARITY'
+  };
+  // Note: textQuery is not supported in Nearby Search API, keyword is ignored here
+  const res = await fetch(PLACES_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': CONFIG.GOOGLE_API_KEY,
+      'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.currentOpeningHours,places.formattedAddress,places.id,places.types,places.priceLevel'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error(`Places API error: ${res.status}`);
+  const data = await res.json();
+  return data.places || [];
+}
+
+// 自動で検索半径を拡大しながら検索
+async function searchWithExpand(lat, lng, type, keyword = '') {
+  const radii = [500, 1000, 3000, 5000];
+  for (const r of radii) {
+    const places = await searchPlaces(lat, lng, type, keyword, r);
+    if (places.length > 0) return { places, radius: r };
+  }
+  return { places: [], radius: 5000 };
+}
+
+/* ══════════════════════════════════════════════
+   デモデータ（APIキー未設定時）
+   ══════════════════════════════════════════════ */
+function getDemoData(type) {
+  const base = [
+    { displayName:{text:'地元の定食屋'}, rating:4.1, userRatingCount:52, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩3分・約200m' },
+    { displayName:{text:'駅前食堂'}, rating:3.8, userRatingCount:31, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩5分・約350m' },
+    { displayName:{text:'郷土料理 山里'}, rating:4.3, userRatingCount:78, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩8分・約600m' },
+  ];
+  if (type === 'bar') return [
+    { displayName:{text:'居酒屋 ふるさと'}, rating:4.0, userRatingCount:45, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩2分・約150m' },
+    { displayName:{text:'スナック 夜明け'}, rating:3.7, userRatingCount:22, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩4分・約280m' },
+  ];
+  if (type === 'convenience_store') return [
+    { displayName:{text:'セブン-イレブン'}, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩2分・約160m' },
+    { displayName:{text:'ファミリーマート'}, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩4分・約300m' },
+    { displayName:{text:'ローソン'}, currentOpeningHours:{openNow:true}, formattedAddress:'徒歩5分・約380m' },
+  ];
+  return base;
+}
+
+/* ══════════════════════════════════════════════
+   カテゴリー選択
+   ══════════════════════════════════════════════ */
+let currentCatType = 'restaurant';
+let selectedRestName = '';
+let selectedRestAddr = '';
+
+function selectCat(btn, type, icon, label) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCatType = type;
+  document.getElementById('mealActs').classList.remove('on');
+  document.getElementById('mealRes').className = 'rbox';
+  if (gpsLoc) buildFood(gpsLoc, type);
+}
+
+/* ══════════════════════════════════════════════
+   お店一覧の表示
+   ══════════════════════════════════════════════ */
+async function buildFood(loc, type = 'restaurant') {
+  const con = document.getElementById('foodList');
+  con.innerHTML = '<div class="loading">お店を検索中</div>';
+  try {
+    const { places, radius } = await searchWithExpand(loc.lat, loc.lng, type);
+    if (!places.length) {
+      con.innerHTML = '<div class="err">⚠ 近くにお店が見つかりませんでした。<br>カテゴリーを変えて試してみてください。</div>';
+      return;
+    }
+    con.innerHTML = '';
+    // 検索半径が広がった場合は通知
+    if (radius > CONFIG.RADIUS) {
+      const note = document.createElement('div');
+      note.style.cssText = 'font-size:11px;color:var(--muted);padding:4px 2px;margin-bottom:8px;';
+      note.textContent = `※ 近くに店が少ないため ${radius >= 1000 ? (radius/1000)+'km' : radius+'m'} 圏内で検索しました`;
+      con.appendChild(note);
+    }
+    places.forEach(p => {
+      const isOpen = p.currentOpeningHours?.openNow;
+      const name = p.displayName?.text || '店名不明';
+      const rating = p.rating ? `★${p.rating.toFixed(1)} (${p.userRatingCount}件)` : '';
+      const addr = p.formattedAddress || '';
+      const el = document.createElement('div');
+      el.className = 'item';
+      el.onclick = () => {
+        selectFood(el, name, addr);
+        // 直接Googleマップで道案内を開く
+        const dest = name + ' ' + addr;
+        const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
+        openLink(`https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=walking`);
+      };
+      el.innerHTML = `
+        <div>
+          <div class="item-name">${name}</div>
+          <div class="item-meta">${[rating, addr].filter(Boolean).join(' · ')}</div>
+        </div>
+        <span class="item-badge ${isOpen ? 'badge-open' : 'badge-closed'}">${isOpen ? '● 営業中' : '× 閉店'} 🗺</span>`;
+      con.appendChild(el);
+    });
+  } catch(e) {
+    con.innerHTML = `<div class="err">⚠ お店の取得に失敗しました。</div>`;
+  }
+}
+
+function selectFood(el, name, addr) {
+  document.querySelectorAll('#foodList .item').forEach(i => i.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedRestName = name;
+  selectedRestAddr = addr;
+  document.getElementById('mealActs').classList.add('on');
+  document.getElementById('mealRes').className = 'rbox';
+}
+
+/* ══════════════════════════════════════════════
+   コンビニ一覧の表示
+   ══════════════════════════════════════════════ */
+async function buildCVS(loc) {
+  const con = document.getElementById('cvsList');
+  con.innerHTML = '<div class="loading">コンビニを検索中</div>';
+  try {
+    const { places } = await searchWithExpand(loc.lat, loc.lng, 'convenience_store');
+    if (!places.length) { con.innerHTML = '<div class="err">⚠ コンビニが見つかりませんでした。</div>'; return; }
+    con.innerHTML = '';
+    places.forEach(p => {
+      const name = p.displayName?.text || 'コンビニ';
+      const addr = p.formattedAddress || '';
+      const el = document.createElement('div');
+      el.className = 'item';
+      if (gpsLoc) {
+        el.onclick = () => openLink(`https://www.google.com/maps/dir/?api=1&origin=${gpsLoc.lat},${gpsLoc.lng}&destination=${encodeURIComponent(name + ' ' + addr)}&travelmode=walking`);
+      }
+      el.innerHTML = `
+        <div>
+          <div class="item-name">${name}</div>
+          <div class="item-meta">${addr}</div>
+        </div>
+        <span class="item-badge badge-open">24時間</span>`;
+      con.appendChild(el);
+    });
+  } catch(e) {
+    con.innerHTML = `<div class="err">⚠ コンビニの取得に失敗しました。</div>`;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   お土産一覧の表示
+   ══════════════════════════════════════════════ */
+/* 都道府県別おすすめお土産（定番・No.1・珍しい/面白い） */
+const PREF_OMIYAGE_DETAIL = {
+  '北海道': { teiban:'白い恋人', no1:'ロイズ生チョコレート', rare:'マルセイバターサンド' },
+  '青森': { teiban:'りんご菓子', no1:'気になるリンゴ', rare:'いちご煮せんべい' },
+  '岩手': { teiban:'かもめの玉子', no1:'南部せんべい', rare:'前沢牛サイダー' },
+  '宮城': { teiban:'萩の月', no1:'ずんだ餅', rare:'牛タンジャーキー' },
+  '秋田': { teiban:'稲庭うどん', no1:'金萬', rare:'ババヘラアイス' },
+  '山形': { teiban:'さくらんぼ菓子', no1:'のし梅', rare:'だだちゃ豆せんべい' },
+  '福島': { teiban:'ままどおる', no1:'薄皮饅頭', rare:'いかにんじん煎餅' },
+  '茨城': { teiban:'干し芋', no1:'水戸の梅', rare:'メロンバーム' },
+  '栃木': { teiban:'日光甚五郎煎餅', no1:'とちおとめスイーツ', rare:'餃子パイ' },
+  '群馬': { teiban:'焼きまんじゅう', no1:'ガトーフェスタハラダ ラスク', rare:'下仁田ねぎ煎餅' },
+  '埼玉': { teiban:'十万石まんじゅう', no1:'草加せんべい', rare:'狭山茶ラングドシャ' },
+  '千葉': { teiban:'なごみの米屋', no1:'ぴーなっつ最中', rare:'びわゼリー' },
+  '東京': { teiban:'東京ばな奈', no1:'シュガーバターの木', rare:'雷おこし 新味' },
+  '神奈川': { teiban:'ありあけハーバー', no1:'鳩サブレー', rare:'よこすか海軍カレーパン' },
+  '新潟': { teiban:'笹団子', no1:'柿の種', rare:'ヤスダヨーグルト' },
+  '富山': { teiban:'ますの寿し', no1:'甘金丹', rare:'しろえびせんべい' },
+  '石川': { teiban:'加賀棒茶', no1:'きんつば 中田屋', rare:'ふぐの子ぬか漬け' },
+  '福井': { teiban:'羽二重餅', no1:'水ようかん', rare:'恐竜グッズ' },
+  '山梨': { teiban:'信玄餅', no1:'信玄桃', rare:'ほうとう饅頭' },
+  '長野': { teiban:'七味唐辛子', no1:'おやき', rare:'野沢菜ワサビ味' },
+  '岐阜': { teiban:'栗きんとん', no1:'飛騨牛しぐれ', rare:'鮎菓子' },
+  '静岡': { teiban:'うなぎパイ', no1:'安倍川餅', rare:'わさびチョコレート' },
+  '愛知': { teiban:'なごやん', no1:'えびせんべい ゆかり', rare:'小倉トーストラングドシャ' },
+  '三重': { teiban:'赤福', no1:'シェルレーヌ', rare:'松阪牛しぐれ煮' },
+  '滋賀': { teiban:'近江牛しぐれ煮', no1:'クラブハリエ バームクーヘン', rare:'鮒寿司' },
+  '京都': { teiban:'生八ッ橋', no1:'阿闍梨餅', rare:'京野菜チップス' },
+  '大阪': { teiban:'551蓬莱 豚まん', no1:'りくろーおじさんのチーズケーキ', rare:'たこ焼きまんじゅう' },
+  '兵庫': { teiban:'ゴーフル', no1:'神戸プリン', rare:'明石焼きせんべい' },
+  '奈良': { teiban:'奈良漬', no1:'大仏プリン', rare:'鹿のふんチョコ' },
+  '和歌山': { teiban:'梅干し', no1:'みかんお菓子', rare:'パンダグッズ 南紀白浜' },
+  '鳥取': { teiban:'砂丘らっきょう', no1:'因幡の白うさぎ', rare:'砂たまご' },
+  '島根': { teiban:'出雲そば', no1:'どじょう掬いまんじゅう', rare:'しじみ汁フリーズドライ' },
+  '岡山': { teiban:'吉備団子', no1:'大手まんぢゅう', rare:'マスキングテープ 倉敷' },
+  '広島': { teiban:'もみじ饅頭', no1:'広島レモンケーキ', rare:'がんす（揚げかまぼこ）' },
+  '山口': { teiban:'外郎', no1:'月でひろった卵', rare:'ふく刺しせんべい' },
+  '徳島': { teiban:'鳴門金時芋菓子', no1:'すだちグミ', rare:'竹ちくわ' },
+  '香川': { teiban:'讃岐うどん', no1:'おいりソフト', rare:'和三盆' },
+  '愛媛': { teiban:'タルト 愛媛', no1:'母恵夢', rare:'みかんジュース蛇口' },
+  '高知': { teiban:'かつお節', no1:'芋けんぴ', rare:'ミレービスケット' },
+  '福岡': { teiban:'博多通りもん', no1:'めんべい', rare:'チロリアン' },
+  '佐賀': { teiban:'丸ぼうろ', no1:'小城羊羹', rare:'佐賀牛カレー' },
+  '長崎': { teiban:'カステラ', no1:'角煮まんじゅう', rare:'九十九島せんぺい' },
+  '熊本': { teiban:'陣太鼓', no1:'黒糖ドーナツ棒', rare:'くまモングッズ' },
+  '大分': { teiban:'ざびえる', no1:'豊後銘菓やせうま', rare:'かぼすサイダー' },
+  '宮崎': { teiban:'チキン南蛮せんべい', no1:'チーズ饅頭', rare:'マンゴーラングドシャ' },
+  '鹿児島': { teiban:'かるかん', no1:'白熊アイス', rare:'さつまあげ' },
+  '沖縄': { teiban:'ちんすこう', no1:'紅芋タルト', rare:'海ぶどう' },
+};
+
+async function buildOmiyage(loc) {
+  const con = document.getElementById('omiList');
+  const res = document.getElementById('omiRes');
+  con.innerHTML = '<div class="loading">お土産を検索中</div>';
+  res.className = 'rbox';
+
+  try {
+    const prefKeyword = await getPrefKeyword(loc);
+    const prefDetail = await getPrefDetail(loc);
+    con.innerHTML = '';
+
+    if (prefDetail) {
+      // 3カテゴリをメインで表示（API不要・確実に出る）
+      const cats = [
+        { icon:'👑', label:'定番のお土産', name: prefDetail.teiban, tag:'定番' },
+        { icon:'🏆', label:'人気No.1', name: prefDetail.no1, tag:'人気' },
+        { icon:'✨', label:'珍しい・面白い', name: prefDetail.rare, tag:'レア' },
+      ];
+      cats.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'omi-item';
+        item.style.cssText = 'cursor:pointer;';
+        item.innerHTML = `<span class="omi-rank">${c.icon}</span><div><div class="omi-name">${c.name}</div><div class="omi-meta">${c.label}</div></div><span class="item-badge badge-open">${c.tag}</span>`;
+        item.onclick = () => {
+          document.querySelectorAll('.omi-item').forEach(i => i.classList.remove('sel'));
+          item.classList.add('sel');
+          const keyword = c.name;
+          const amzUrl = afLink('amazon', keyword + ' お土産');
+          const rakUrl = afLink('rakuten', keyword + ' お土産');
+          res.innerHTML = `
+            <div class="rb-title">${c.icon} ${c.name}</div>
+            <div class="rb-body" style="margin-bottom:10px;">${c.label}</div>
+            <div class="af-row">
+              <button class="af-btn amz" id="omi-amz-btn">📦 Amazonで買う</button>
+              <button class="af-btn rak" id="omi-rak-btn">🛒 楽天で買う</button>
+            </div>`;
+          document.getElementById('omi-amz-btn').onclick = () => openLink(amzUrl);
+          document.getElementById('omi-rak-btn').onclick = () => openLink(rakUrl);
+          res.className = 'rbox on pink';
+        };
+        con.appendChild(item);
+      });
+    } else {
+      con.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px;">位置情報からお土産を特定できませんでした</div>';
+    }
+
+    // まとめて検索ボタン
+    const af = document.createElement('div');
+    af.style.cssText = 'margin-top:12px;padding-top:10px;border-top:1px solid var(--border);';
+    af.innerHTML = `
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">ネットで注文・配送もOK</div>
+      <div class="af-row">
+        <button class="af-btn amz" onclick="openLink('${afLink('amazon', prefKeyword + ' お土産')}')">📦 Amazonで探す</button>
+        <button class="af-btn rak" onclick="openLink('${afLink('rakuten', prefKeyword + ' お土産')}')">🛒 楽天で探す</button>
+      </div>`;
+    con.appendChild(af);
+
+  } catch(e) {
+    con.innerHTML = `<div class="err">⚠ お土産情報の取得に失敗しました。<br><span style="font-size:10px;color:var(--muted);">${e.message||''}</span></div>`;
+  }
+}
+
+/* 最後に取得した都道府県名をキャッシュ */
+let _lastPrefState = '';
+
+async function getPrefKeyword(loc) {
+  // Nominatimから都道府県名を取得してキーワードにマッピング
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
+    const d = await res.json();
+    const state = d.address.state || '';
+    _lastPrefState = state; // キャッシュ
+    // 都道府県名から定番お土産名をキーワードとして返す
+    for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
+      if (state.includes(key)) return detail.teiban;
+    }
+    return state ? `${state} お土産` : 'お土産';
+  } catch {
+    return 'お土産';
+  }
+}
+
+async function getPrefDetail(loc) {
+  // getPrefKeywordで既にNominatim呼んでいるのでキャッシュを使う
+  if (_lastPrefState) {
+    for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
+      if (_lastPrefState.includes(key)) return detail;
+    }
+  }
+  // キャッシュがなければ直接取得
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
+    const d = await res.json();
+    const state = d.address.state || '';
+    _lastPrefState = state;
+    for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
+      if (state.includes(key)) return detail;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/* selectOmiyage は buildOmiyage 内のインラインに統合済み */
+
+/* ══════════════════════════════════════════════
+   パネル開閉
+   ══════════════════════════════════════════════ */
+const PANELS = ['taxi','map','food','cvs','hotel','omiyage'];
+
+function openPanel(id) {
+  if (activePanel === id) {
+    document.getElementById('panel-'+id).classList.remove('on');
+    document.getElementById('btn-'+id).classList.remove('active');
+    activePanel = null; return;
+  }
+  PANELS.forEach(p => {
+    document.getElementById('panel-'+p).classList.remove('on');
+    document.getElementById('btn-'+p).classList.remove('active');
+  });
+  activePanel = id;
+  document.getElementById('btn-'+id).classList.add('active');
+
+  getGPS(loc => {
+    if (id === 'food' && loc) buildFood(loc);
+    if (id === 'cvs'  && loc) buildCVS(loc);
+    if (id === 'omiyage' && loc) buildOmiyage(loc);
+    if (id === 'hotel') loadHotel();
+    const panel = document.getElementById('panel-'+id);
+    panel.classList.add('on');
+    setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'start' }), 50);
+  });
+}
+
+/* ══════════════════════════════════════════════
+   道案内
+   ══════════════════════════════════════════════ */
+function openMap(mode) {
+  const dest = document.getElementById('destInput').value || 'ホテル';
+  const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
+  const url = `https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=${mode||'transit'}`;
+  openLink(url);
+}
+
+/* ══════════════════════════════════════════════
+   ホテル登録・道案内
+   ══════════════════════════════════════════════ */
+function loadHotel() {
+  const saved = localStorage.getItem('hotel');
+  const hs = document.getElementById('hotelSaved');
+  if (saved) {
+    document.getElementById('hotelInput').value = saved;
+    hs.textContent = `✓ 登録済み：${saved}`;
+    hs.classList.add('on');
+  } else {
+    hs.classList.remove('on');
+  }
+  updateHotelBooking();
+}
+
+/* 楽天トラベルでホテル予約 */
+function bookHotelRakuten() {
+  const keyword = gpsLoc ? (gpsLoc.name || '駅前') + ' ビジネスホテル' : 'ビジネスホテル';
+  openLink(rakutenTravelLink(keyword));
+}
+
+/* ホテルパネル読込時に予約ボタンも更新 */
+function updateHotelBooking() {
+  const info = document.getElementById('hotelBookingInfo');
+  if (gpsLoc && info) {
+    info.textContent = '📍 ' + gpsLoc.name + ' 周辺のホテル';
+  }
+}
+
+function saveHotel() {
+  const val = document.getElementById('hotelInput').value.trim();
+  if (!val) return;
+  localStorage.setItem('hotel', val);
+  const hs = document.getElementById('hotelSaved');
+  hs.textContent = `✓ 保存しました：${val}`;
+  hs.classList.add('on');
+}
+
+function deleteHotel() {
+  localStorage.removeItem('hotel');
+  document.getElementById('hotelInput').value = '';
+  const hs = document.getElementById('hotelSaved');
+  hs.textContent = '';
+  hs.classList.remove('on');
+}
+
+function goHotel(mode) {
+  if (mode === 'taxi') { openLink('https://go.mo-t.com/'); return; }
+  const dest = document.getElementById('hotelInput').value || localStorage.getItem('hotel') || 'ホテル';
+  const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
+  const url = `https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=${mode}`;
+  openLink(url);
+}
+
+/* ══════════════════════════════════════════════
+   出発時刻・カウントダウン
+   ══════════════════════════════════════════════ */
+function toggleDep() {
+  const body = document.getElementById('depBody');
+  const btn  = document.getElementById('depBtn');
+  const isOn = body.classList.toggle('on');
+  btn.textContent = isOn ? '閉じる' : '設定する';
+  if (isOn) updateCD();
+}
+
+function updateCD() {
+  const val = document.getElementById('depTime').value;
+  if (!val) return;
+  const [h,m] = val.split(':').map(Number);
+  let dep = h*60+m;
+  if (dep <= nowMins) dep += 1440;
+  const diff = dep - nowMins;
+  const hrs = Math.floor(diff/60), mins = diff%60;
+  document.getElementById('cdVal').textContent = hrs > 0 ? `${hrs}時間${mins>0?mins+'分':''}` : `${mins}分`;
+  document.getElementById('cd').classList.add('on');
+  const lbl = `出発まで残り ${hrs>0?hrs+'時間':''}${mins>0?mins+'分':''}`;
+  document.getElementById('depLbl').textContent = lbl;
+  document.getElementById('depLbl').classList.add('set');
+  // 設定したら自動で閉じる
+  setTimeout(() => {
+    document.getElementById('depBody').classList.remove('on');
+    document.getElementById('depBtn').textContent = '変更';
+  }, 600);
+}
+
+/* ══════════════════════════════════════════════
+   食後アクション
+   ══════════════════════════════════════════════ */
+function mealAct(type) {
+  const res = document.getElementById('mealRes');
+
+  if (type === 'map') {
+    // 選択した店への道案内
+    const dest = selectedRestName ? `${selectedRestName} ${selectedRestAddr}` : 'レストラン';
+    const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
+    const url = `https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=walking`;
+    openLink(url);
+    return;
+  }
+
+  if (type === 'taxi') {
+    res.innerHTML = `<div class="rb-title">🚕 タクシーを手配</div><div class="rb-body"><div class="af-row"><button class="af-btn" style="background:rgba(78,203,141,.12);border-color:rgba(78,203,141,.3);color:var(--green);" onclick="openLink('https://go.mo-t.com/')">🟢 GOタクシー</button><button class="af-btn" style="background:rgba(0,0,0,.2);border-color:var(--border);color:var(--text);" onclick="openLink('https://www.uber.com/jp/ja/ride/')">⚫ Uber</button></div></div>`;
+    res.className = 'rbox on blue'; return;
+  }
+
+  if (type === 'another') {
+    const depVal = document.getElementById('depTime').value;
+    const depOn  = document.getElementById('depBody').classList.contains('on');
+    if (!depVal || !depOn) {
+      res.innerHTML = `<div class="rb-title">🍺 もう一軒</div><div class="rb-body">上の <strong style="color:var(--gold)">「出発時刻を設定する」</strong> を入力すると、何時まで飲めるか逆算します。</div>`;
+      res.className = 'rbox on gold'; return;
+    }
+    const [h,m] = depVal.split(':').map(Number);
+    let dep = h*60+m;
+    if (dep <= nowMins) dep += 1440;
+    const dinnerEnd  = nowMins + 60;
+    const latestOut  = dep - 60;
+    const avail      = latestOut - dinnerEnd;
+    if (avail < 30) {
+      res.innerHTML = `<div class="rb-title">⚠ 時間がありません</div><div class="rb-body">出発まで余裕がないため、ホテルへ戻ることをおすすめします。</div>`;
+      res.className = 'rbox on red'; return;
+    }
+    // もう一軒：居酒屋・バーをAPIで検索
+    res.innerHTML = `<div class="rb-title">🍺 もう一軒いけます</div><div class="rb-body">残り <strong style="color:var(--gold-l)">${mt(avail)}</strong>。<br><strong style="color:var(--blue)">${ft(latestOut)}までに出れば</strong>間に合います。<br><br>近くの居酒屋・バーを検索中…</div>`;
+    res.className = 'rbox on blue';
+    if (gpsLoc) {
+      searchWithExpand(gpsLoc.lat, gpsLoc.lng, 'bar').then(({places}) => {
+        if (!places.length) return;
+        const bHtml = places.slice(0,3).map(p => {
+          const name = p.displayName?.text || 'バー';
+          const addr = p.formattedAddress || '';
+          const rating = p.rating ? `★${p.rating.toFixed(1)}` : '';
+          const mapUrl = gpsLoc ? `https://www.google.com/maps/dir/?api=1&origin=${gpsLoc.lat},${gpsLoc.lng}&destination=${encodeURIComponent(name+' '+addr)}&travelmode=walking` : '#';
+          return `<div class="bitem" onclick="openLink('${mapUrl}')"><div><div class="b-name">${name}</div><div class="b-meta">${[rating,addr].filter(Boolean).join(' · ')}</div></div><div class="b-time">${ft(dinnerEnd+10)}〜${ft(latestOut)}</div></div>`;
+        }).join('');
+        res.innerHTML = `<div class="rb-title">🍺 もう一軒いけます</div><div class="rb-body">残り <strong style="color:var(--gold-l)">${mt(avail)}</strong>。<strong style="color:var(--blue)">${ft(latestOut)}までに出れば</strong>間に合います。</div><div class="blist">${bHtml}</div>`;
+      }).catch(() => {});
+    }
+  }
+}
+</script>
+
+
+<div id="claude-static-indicator-container" style="position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; padding: 6px 6px 6px 16px; background: rgb(250, 249, 245); border: 0.5px solid rgba(31, 30, 29, 0.3); border-radius: 14px; box-shadow: rgba(0, 0, 0, 0.15) 0px 40px 80px 0px; z-index: 2147483647; pointer-events: none; white-space: nowrap; user-select: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, sans-serif;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; flex-shrink: 0; margin-right: 8px;">
+        <path d="M3.13946 10.6399L6.28757 8.87462L6.37405 8.73821L6.28757 8.6339H6.13189L5.60432 8.6018L3.80541 8.55366L2.24865 8.48947L0.735135 8.40923H0.492973L0.354595 8.32899L0.181622 8.1685L0.0345946 8.01605L0 7.85557L0.0345946 7.62287L0.138378 7.44634L0.224865 7.40622H0.354595L0.812973 7.44634L1.82486 7.51856L3.34703 7.62287L4.44541 7.68706L6.08 7.85557H6.33946L6.37405 7.75125L6.28757 7.68706L6.21838 7.62287L4.64432 6.55567L2.94054 5.4323L2.04973 4.78235L1.57405 4.45336L1.33189 4.14845L1.22811 3.92377L1.17622 3.69107L1.22811 3.47442L1.33189 3.28185L1.46162 3.13741L1.66054 2.99298H1.87676L2.24865 3.0331L2.39568 3.07322L2.99243 3.53059L4.26378 4.51755L5.92432 5.73721L6.16649 5.93781H6.27892V5.82548L6.16649 5.64092L5.26703 4.01204L4.30703 2.35105L3.87459 1.66098L3.76216 1.25176C3.7391 1.16082 3.69297 0.977332 3.69297 0.970913V0.762287L3.77946 0.505517L3.93513 0.240722L4.18595 0.0882648L4.4627 0H4.67892L4.83459 0.0240722L5.12865 0.0882648L5.4054 0.328987L5.82054 1.27583L6.48649 2.76028L7.52432 4.78235L7.82703 5.38415L7.99135 5.93781L8.05189 6.10632H8.15567V6.01003L8.24216 4.87061L8.39784 3.47442L8.55351 1.67703L8.6054 1.17151L8.85622 0.561685L8.9773 0.417252L9.21946 0.232698H9.35784L9.74703 0.417252L9.97189 0.665998L10.067 0.874624L10.0238 1.17151L9.83351 2.40722L9.46162 4.34102L9.21946 5.64092H9.35784L9.52216 5.47242L10.1795 4.60582L11.2778 3.22568L11.7622 2.68004L12.333 2.07823L12.6962 1.78937L13.0162 1.67703L13.3881 1.78937L13.7168 2.06219L13.8897 2.54363V2.76028L13.6649 3.32197L12.9557 4.22066L12.3676 4.98295L12.0043 5.56871L11.0011 7.02106V7.08526H11.1741L13.0768 6.67603L14.1059 6.49147L15.3341 6.28285L15.5762 6.34704L15.8876 6.53962L15.9481 6.80441L15.8876 7.12538L15.7319 7.34203L14.4173 7.66299L12.8778 7.97593L10.5854 8.51559C10.5705 8.51909 10.56 8.53236 10.56 8.54764C10.56 8.56468 10.573 8.57891 10.59 8.58044L11.6238 8.67402L12.0649 8.69809H13.1459L15.1611 8.85055L15.6886 9.19559L15.9481 9.39619L16 9.62086L15.9481 9.94985L15.8443 10.1023L15.4119 10.3029L15.1351 10.3591L14.0454 10.1023L11.4941 9.49248L10.6205 9.27583H10.4995V9.34804L11.2259 10.0622L12.5665 11.2658L14.2357 12.8225L14.3222 13.0953V13.2076L14.1059 13.5125L13.9243 13.5206L13.8811 13.4804L12.4108 12.3731L12.2984 12.325L11.84 11.8756L10.56 10.7924H10.4735V10.9047L10.7676 11.338L12.333 13.6891L12.4108 14.4112L12.2984 14.6439L11.8919 14.7884L11.667 14.7563L11.4508 14.7081L11.2605 14.5396L10.5254 13.4162L9.5827 11.9719L8.82162 10.672H8.79342C8.76039 10.672 8.73278 10.6972 8.7297 10.73L8.27676 15.5667L8.06919 15.8154L7.6454 16H7.58486L7.17838 15.6951L6.96216 15.1976L7.17838 14.2106L7.43784 12.9268L7.6454 11.9077L7.83567 10.6399L7.95187 10.2164C7.9548 10.2057 7.95069 10.1944 7.94161 10.1881C7.91157 10.1672 7.87034 10.1741 7.84878 10.2037L6.89297 11.5145L5.44 13.4804L4.28973 14.7081L4.01297 14.8205H3.80541L3.5373 14.5717V14.4514L3.58054 14.1304L3.84865 13.7372L5.44 11.7151L6.4 10.4554L7.01872 9.73222C7.04511 9.70139 7.04245 9.65523 7.0127 9.62763C7.00333 9.61894 6.98925 9.61773 6.97854 9.62471L2.75027 12.3811L1.99784 12.4774L1.66919 12.1725L1.71243 11.675L1.86811 11.5145L3.13946 10.6399Z" fill="#D97757"></path>
+      </svg>
+      <span style="vertical-align: middle; color: #141413; font-size: 14px; display: inline-block;">Claude is active in this tab group</span>
+      <div style="display: inline-block; width: 0.5px; height: 32px; background: rgba(31, 30, 29, 0.15); margin: 0 8px; vertical-align: middle;"></div>
+      <button id="claude-static-chat-button" style="position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 6px; background: transparent; border: none; cursor: pointer; pointer-events: auto; vertical-align: middle; width: 32px; height: 32px; border-radius: 8px; transition: background 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="#141413" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; display: block;">
+          <path d="M10 2.5C14.1421 2.5 17.5 5.85786 17.5 10C17.5 14.1421 14.1421 17.5 10 17.5H3C2.79779 17.5 2.61549 17.3782 2.53809 17.1914C2.4607 17.0046 2.50349 16.7895 2.64648 16.6465L4.35547 14.9365C3.20124 13.6175 2.5 11.8906 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5ZM10 3.5C6.41015 3.5 3.5 6.41015 3.5 10C3.5 11.7952 4.22659 13.4199 5.40332 14.5967L5.46582 14.6729C5.52017 14.7544 5.5498 14.8508 5.5498 14.9502C5.5498 15.0828 5.49709 15.2099 5.40332 15.3037L4.20703 16.5H10C13.5899 16.5 16.5 13.5899 16.5 10C16.5 6.41015 13.5899 3.5 10 3.5ZM13.29 9.30371C13.3986 9.05001 13.6925 8.93174 13.9463 9.04004C14.2 9.14863 14.3183 9.44253 14.21 9.69629C13.8506 10.536 13.1645 11.25 12.25 11.25C11.6372 11.25 11.128 10.9289 10.75 10.4648C10.372 10.9289 9.86276 11.25 9.25 11.25C8.63724 11.25 8.12801 10.9289 7.75 10.4648C7.37198 10.9289 6.86276 11.25 6.25 11.25C5.97386 11.25 5.75 11.0261 5.75 10.75C5.75 10.4739 5.97386 10.25 6.25 10.25C6.58764 10.25 7.00448 9.97056 7.29004 9.30371L7.32422 9.2373C7.41431 9.09121 7.5749 9 7.75 9C7.9501 9 8.13123 9.11975 8.20996 9.30371L8.32227 9.53516C8.59804 10.0359 8.95442 10.25 9.25 10.25C9.58764 10.25 10.0045 9.97056 10.29 9.30371L10.3242 9.2373C10.4143 9.09121 10.5749 9 10.75 9C10.9501 9 11.1312 9.11975 11.21 9.30371L11.3223 9.53516C11.598 10.0359 11.9544 10.25 12.25 10.25C12.5876 10.25 13.0045 9.97056 13.29 9.30371Z"></path>
+        </svg>
+        <span id="claude-static-chat-tooltip" style="position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%); padding: 6px 12px; background: #30302E; color: #FAF9F5; border-radius: 6px; font-size: 12px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Open chat</span>
+      </button>
+      <button id="claude-static-close-button" style="position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 6px; background: transparent; border: none; cursor: pointer; pointer-events: auto; vertical-align: middle; width: 32px; height: 32px; margin-left: 4px; border-radius: 8px; transition: background 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; display: block;">
+          <path d="M15.1464 4.14642C15.3417 3.95121 15.6582 3.95118 15.8534 4.14642C16.0486 4.34168 16.0486 4.65822 15.8534 4.85346L10.7069 9.99997L15.8534 15.1465C16.0486 15.3417 16.0486 15.6583 15.8534 15.8535C15.6826 16.0244 15.4186 16.0461 15.2245 15.918L15.1464 15.8535L9.99989 10.707L4.85338 15.8535C4.65813 16.0486 4.34155 16.0486 4.14634 15.8535C3.95115 15.6583 3.95129 15.3418 4.14634 15.1465L9.29286 9.99997L4.14634 4.85346C3.95129 4.65818 3.95115 4.34162 4.14634 4.14642C4.34154 3.95128 4.65812 3.95138 4.85338 4.14642L9.99989 9.29294L15.1464 4.14642Z" fill="#141413"></path>
+        </svg>
+        <span id="claude-static-close-tooltip" style="position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%); padding: 6px 12px; background: #30302E; color: #FAF9F5; border-radius: 6px; font-size: 12px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">Dismiss</span>
+      </button>
+    </div></body></html>
