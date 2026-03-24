@@ -4,10 +4,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>出張コンシェルジュ｜出張h先で使えるビジネス便利ツール</title>
+<title>出張コンシェルジュ｜出張先で使えるビジネス便利ツール</title>
 <meta name="description" content="出張先での飲食店検索・タクシー手配・ホテル予約・道案内・お土産探しをワンタップで。GPS連動で現在地周辺の情報をすぐに表示。ビジネスマンの出張をサポートする無料Webアプリ。">
 <meta name="keywords" content="出張,ビジネス,飲食店検索,タクシー,ホテル予約,道案内,お土産,コンシェルジュ,出張便利ツール">
-<meta name="author" content="出張コンシェルジュ">h
+<meta name="author" content="出張コンシェルジュ">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://wlanseleven96-crypto.github.io/shuccho-concierge/">
 
@@ -74,26 +74,6 @@ body{
 .hd-loc .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .3s;}
 .hd-loc.got .dot{background:var(--green);box-shadow:0 0 6px var(--green);}
 .hd-loc.got{color:var(--text);}
-
-/* ── 出発時刻 ───────────────────────────── */
-.dep{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;}
-.dep-hd{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
-.dep-left{display:flex;align-items:center;gap:10px;}
-.dep-icon{font-size:17px;}
-.dep-lbl{font-size:13px;color:var(--muted);transition:color .2s;}
-.dep-lbl.set{color:var(--text);}
-.dep-btn{font-size:12px;color:var(--gold);padding:6px 14px;background:rgba(201,168,76,.1);border-radius:6px;white-space:nowrap;flex-shrink:0;}
-.dep-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
-.dep-body.on{display:block;}
-.dep-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.dep-row label{font-size:12px;color:var(--muted);white-space:nowrap;}
-.dep-row input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:20px;font-family:'DM Serif Display',serif;outline:none;width:130px;}
-.dep-row input:focus{border-color:var(--gold);}
-.cd{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:10px;display:none;text-align:center;}
-.cd.on{display:block;}
-.cd-lbl{font-size:11px;color:var(--muted);margin-bottom:2px;}
-.cd-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--gold-l);}
-
 /* ── メインボタン ────────────────────────── */
 .btn-full{width:100%;margin-bottom:10px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
@@ -236,26 +216,6 @@ body{
 </div>
 
 <!-- 出発時刻（任意） -->
-<div class="dep">
-  <div class="dep-hd" onclick="toggleDep()">
-    <div class="dep-left">
-      <span class="dep-icon">⏰</span>
-      <span class="dep-lbl" id="depLbl">出発時刻を設定する（任意）</span>
-    </div>
-    <span class="dep-btn" id="depBtn">設定する</span>
-  </div>
-  <div class="dep-body" id="depBody">
-    <div class="dep-row">
-      <label>明日の出発時刻</label>
-      <input type="time" id="depTime" value="06:00" oninput="updateCD()">
-    </div>
-    <div class="cd" id="cd">
-      <div class="cd-lbl">出発まで残り</div>
-      <div class="cd-val" id="cdVal">—</div>
-    </div>
-  </div>
-</div>
-
 <!-- メインボタン群（案Aレイアウト） -->
 <button class="mbtn btn-full" style="--c:var(--gold);" id="btn-food" onclick="openPanel('food')">
   <div class="mi" style="font-size:30px;">🍜</div>
@@ -390,8 +350,8 @@ body{
       </div>
       <!-- 楽天トラベル予約セクション -->
       <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
-        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;">🏨 周辺のホテルを予約</div>
-        <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">現在地を取得するとホテル検索リンクが表示されます</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;">🏨 出張先のホテルを探す（楽天トラベル）</div>
+        <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">出張先のホテルを楽天トラベルで検索</div>
         <div class="af-row">
           <button class="af-btn rak" id="hotelRakutenBtn" onclick="bookHotelRakuten()">🏨 楽天トラベルで探す</button>
         </div>
@@ -925,13 +885,9 @@ function loadHotel() {
 
 /* 楽天トラベルでホテル予約 */
 function bookHotelRakuten() {
-    const saved = localStorage.getItem('hotel') || '';
     let keyword;
-    if (saved) {
-      keyword = saved.replace(/ホテル|hotel|HOTEL/gi, '').trim() + ' ホテル';
-      if (keyword.trim() === 'ホテル') keyword = saved;
-    } else if (gpsLoc) {
-      keyword = (gpsLoc.name || '駅前') + ' ビジネスホテル';
+    if (gpsLoc) {
+      keyword = (gpsLoc.name || '') + ' ビジネスホテル';
     } else {
       keyword = 'ビジネスホテル';
     }
@@ -974,34 +930,6 @@ function goHotel(mode) {
 /* ══════════════════════════════════════════════
    出発時刻・カウントダウン
    ══════════════════════════════════════════════ */
-function toggleDep() {
-  const body = document.getElementById('depBody');
-  const btn  = document.getElementById('depBtn');
-  const isOn = body.classList.toggle('on');
-  btn.textContent = isOn ? '閉じる' : '設定する';
-  // updateCDは入力変更時のみ呼ばれる（自動クローズ防止）
-}
-
-function updateCD() {
-  const val = document.getElementById('depTime').value;
-  if (!val) return;
-  const [h,m] = val.split(':').map(Number);
-  const nowMins = getNowMins();
-  let dep = h*60+m;
-  if (dep <= nowMins) dep += 1440;
-  const diff = dep - nowMins;
-  const hrs = Math.floor(diff/60), mins = diff%60;
-  document.getElementById('cdVal').textContent = hrs > 0 ? `${hrs}時間${mins>0?mins+'分':''}` : `${mins}分`;
-  document.getElementById('cd').classList.add('on');
-  const lbl = `出発まで残り ${hrs>0?hrs+'時間':''}${mins>0?mins+'分':''}`;
-  document.getElementById('depLbl').textContent = lbl;
-  document.getElementById('depLbl').classList.add('set');
-  // 設定したら自動で閉じる
-  setTimeout(() => {
-    document.getElementById('depBody').classList.remove('on');
-    document.getElementById('depBtn').textContent = '変更';
-  }, 600);
-}
 
 /* ══════════════════════════════════════════════
    食後アクション
