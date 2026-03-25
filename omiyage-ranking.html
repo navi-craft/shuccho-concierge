@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>喜ばれる出張土産ランキング｜都道府県別おすすめ - 出張コンシェルジュ</title>
+<meta name="description" content="職場に持っていくと喜ばれる出張土産を都道府県別に紹介。定番から珍しいものまで、出張先で買えるおすすめのお土産をランキング形式でまとめました。">
+<meta name="keywords" content="出張,お土産,土産,ランキング,都道府県,おすすめ,職場">
+<link rel="canonical" href="https://navi-craft.github.io/shuccho-concierge/omiyage-ranking.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#2563eb;--primary-dark:#1d4ed8;--primary-light:#dbeafe;
+  --accent:#f59e0b;--dark:#0f172a;--dark2:#1e293b;--dark3:#334155;
+  --gray:#64748b;--light:#f8fafc;--white:#fff;--border:#e2e8f0;
+  --shadow:0 4px 6px -1px rgba(0,0,0,.1);--radius:12px;
+  --font:'Noto Sans JP',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--dark);line-height:1.8;background:var(--light)}
+.nav{background:var(--white);border-bottom:1px solid var(--border);padding:12px 24px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-weight:700;color:var(--primary);text-decoration:none;font-size:15px}
+.nav-back{font-size:13px;color:var(--gray);text-decoration:none}
+.nav-back:hover{color:var(--primary)}
+.article{max-width:800px;margin:0 auto;padding:32px 20px 60px}
+.article-tag{display:inline-block;background:#fce7f3;color:#db2777;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.article h1{font-size:clamp(22px,5vw,30px);font-weight:900;line-height:1.4;margin-bottom:16px}
+.article-meta{font-size:13px;color:var(--gray);margin-bottom:32px}
+.article h2{font-size:20px;font-weight:700;margin:40px 0 16px;padding-left:14px;border-left:4px solid #db2777}
+.article h3{font-size:17px;font-weight:700;margin:28px 0 12px;color:var(--dark2)}
+.article p{margin-bottom:16px;color:var(--dark2)}
+.article ul,.article ol{margin:0 0 16px 24px;color:var(--dark2)}
+.article li{margin-bottom:8px}
+.rank-card{background:var(--white);border-radius:var(--radius);padding:20px;margin:16px 0;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start}
+.rank-num{font-size:32px;font-weight:900;color:#db2777;line-height:1;min-width:40px}
+.rank-body h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.rank-body .area{font-size:12px;color:var(--gray);margin-bottom:6px}
+.rank-body p{font-size:14px;margin-bottom:0}
+.region-section{background:var(--white);border-radius:var(--radius);padding:20px 24px;margin:20px 0;border:1px solid var(--border)}
+.region-section h4{font-size:16px;color:#db2777;margin-bottom:12px}
+.region-section table{width:100%;border-collapse:collapse;font-size:14px}
+.region-section th{text-align:left;padding:8px;border-bottom:2px solid var(--border);color:var(--dark3);font-weight:700}
+.region-section td{padding:8px;border-bottom:1px solid var(--border)}
+.point-box{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin:20px 0;box-shadow:var(--shadow)}
+.point-box h4{font-size:15px;color:var(--primary);margin-bottom:10px}
+.point-box ul{margin:0 0 0 20px}
+.point-box li{margin-bottom:6px;font-size:14px}
+.aff-box{background:linear-gradient(135deg,#fce7f3,#fef3c7);border-radius:var(--radius);padding:24px;margin:28px 0;text-align:center}
+.aff-box p{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--dark)}
+.aff-btn{display:inline-block;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px;transition:background .2s;margin:4px}
+.aff-btn.amazon{background:#ff9900;color:var(--dark)}
+.aff-btn.amazon:hover{background:#e88b00}
+.aff-btn.rakuten{background:#bf0000;color:var(--white)}
+.aff-btn.rakuten:hover{background:#a00}
+.related{margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
+.related h2{border-left:none;text-align:center;font-size:18px;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.related-card{background:var(--white);border-radius:var(--radius);padding:16px;text-decoration:none;color:var(--dark);border:1px solid var(--border);transition:transform .2s}
+.related-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.related-card .tag{font-size:11px;color:var(--primary);font-weight:700}
+.related-card .title{font-size:14px;font-weight:700;margin-top:6px;line-height:1.5}
+.bottom-cta{text-align:center;margin:48px 0;padding:32px;background:var(--dark);border-radius:var(--radius);color:var(--white)}
+.bottom-cta h3{font-size:18px;margin-bottom:8px}
+.bottom-cta p{font-size:14px;color:var(--gray);margin-bottom:16px}
+.cta-btn{display:inline-block;background:var(--accent);color:var(--dark);padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px}
+.cta-btn:hover{filter:brightness(1.1)}
+footer{text-align:center;padding:24px;font-size:12px;color:var(--gray)}
+footer a{color:var(--gray);text-decoration:none;margin:0 8px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">&#x1F4BC; 出張コンシェルジュ</a>
+    <a href="index.html#tips" class="nav-back">&larr; お役立ち情報に戻る</a>
+  </div>
+</nav>
+
+<article class="article">
+  <div class="article-tag">お土産</div>
+  <h1>喜ばれる出張土産ランキング｜都道府県別おすすめ</h1>
+  <div class="article-meta">更新日: 2026年3月25日 ｜ 読了目安: 6分</div>
+
+  <p>出張帰りのお土産は、職場のコミュニケーションを円滑にする大切なツール。でも「何を買えばいいかわからない」「定番すぎてつまらない」という声も。この記事では、もらって嬉しいお土産の選び方と、地域別のおすすめをまとめました。</p>
+
+  <h2>職場で喜ばれるお土産の条件</h2>
+
+  <div class="point-box">
+    <h4>&#x1F381; 喜ばれる土産の5つの条件</h4>
+    <ul>
+      <li><strong>個包装</strong>であること（配りやすい）</li>
+      <li><strong>常温保存</strong>できること（冷蔵庫不要）</li>
+      <li><strong>賞味期限</strong>が1週間以上あること</li>
+      <li><strong>1個あたり100〜200円</strong>の価格帯（高すぎず安すぎず）</li>
+      <li>その<strong>土地ならでは</strong>の特色があること</li>
+    </ul>
+  </div>
+
+  <h2>全国人気お土産ランキング TOP5</h2>
+
+  <div class="rank-card">
+    <div class="rank-num">1</div>
+    <div class="rank-body">
+      <h4>白い恋人（北海道）</h4>
+      <div class="area">北海道 ｜ 定番度 &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+      <p>知名度・味・パッケージすべて完璧。北海道出張なら間違いない鉄板土産です。個包装で配りやすく、万人受けする味わいが人気の理由。</p>
+    </div>
+  </div>
+
+  <div class="rank-card">
+    <div class="rank-num">2</div>
+    <div class="rank-body">
+      <h4>東京ばな奈（東京）</h4>
+      <div class="area">東京 ｜ 定番度 &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+      <p>東京出張の定番中の定番。季節限定フレーバーを選ぶと「また東京ばな奈か」と思われず、話題性もアップします。</p>
+    </div>
+  </div>
+
+  <div class="rank-card">
+    <div class="rank-num">3</div>
+    <div class="rank-body">
+      <h4>赤福（三重・名古屋）</h4>
+      <div class="area">三重県 ｜ 定番度 &#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+      <p>名古屋駅でも購入可能な和菓子の逸品。ただし賞味期限が短いので、帰社日に配れるタイミングで購入しましょう。</p>
+    </div>
+  </div>
+
+  <div class="rank-card">
+    <div class="rank-num">4</div>
+    <div class="rank-body">
+      <h4>もみじ饅頭（広島）</h4>
+      <div class="area">広島県 ｜ 定番度 &#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+      <p>チョコ・クリーム・抹茶など味のバリエーションが豊富。個包装で配りやすく、広島出張の鉄板です。</p>
+    </div>
+  </div>
+
+  <div class="rank-card">
+    <div class="rank-num">5</div>
+    <div class="rank-body">
+      <h4>博多通りもん（福岡）</h4>
+      <div class="area">福岡県 ｜ 定番度 &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+      <p>全国菓子大博覧会で金賞受賞。しっとりした皮と白あんのバランスが絶妙で、リピーターが続出する九州を代表する銘菓です。</p>
+    </div>
+  </div>
+
+  <h2>地域別おすすめ一覧</h2>
+
+  <div class="region-section">
+    <h4>&#x1F5FE; 主要都市のおすすめ土産</h4>
+    <table>
+      <tr><th>エリア</th><th>定番</th><th>珍しい系</th></tr>
+      <tr><td>北海道</td><td>白い恋人、ロイズ</td><td>マルセイバターサンド</td></tr>
+      <tr><td>東北</td><td>萩の月（宮城）</td><td>ままどおる（福島）</td></tr>
+      <tr><td>東京</td><td>東京ばな奈</td><td>N.Y.キャラメルサンド</td></tr>
+      <tr><td>名古屋</td><td>ゆかり、赤福</td><td>小倉トーストラングドシャ</td></tr>
+      <tr><td>大阪</td><td>551蓬莱の豚まん</td><td>りくろーおじさんのチーズケーキ</td></tr>
+      <tr><td>京都</td><td>八ツ橋、茶の菓</td><td>阿闍梨餅</td></tr>
+      <tr><td>広島</td><td>もみじ饅頭</td><td>因島のはっさくゼリー</td></tr>
+      <tr><td>福岡</td><td>博多通りもん</td><td>めんべい</td></tr>
+      <tr><td>沖縄</td><td>紅いもタルト</td><td>ちんすこうショコラ</td></tr>
+    </table>
+  </div>
+
+  <h2>お土産を買い忘れた時の裏技</h2>
+  <p>「帰りの新幹線に急いで乗ったらお土産を買い忘れた！」そんな時でも大丈夫。Amazonや楽天で多くのご当地土産が購入できます。翌日配送を使えば、まるで出張先で買ってきたかのようにお渡しできます。</p>
+
+  <div class="aff-box">
+    <p>&#x1F6D2; お土産をオンラインで探す</p>
+    <a href="https://www.amazon.co.jp/s?k=%E5%87%BA%E5%BC%B5+%E3%81%8A%E5%9C%9F%E7%94%A3+%E5%80%8B%E5%8C%85%E8%A3%85&tag=shucchouconci-22" target="_blank" rel="noopener" class="aff-btn amazon">Amazonで探す</a>
+    <a href="https://hb.afl.rakuten.co.jp/hsc/2a6d2e09.522e8c45.2a6d2e0a.a579a735/?link_type=hybrid_url&ut=eyJwYWdlIjoic2hvcCIsInR5cGUiOiJoeWJyaWRfdXJsIiwiY29sIjoxLCJjYXQiOiIxIiwiYmFuIjoiMjQ5NTU5MSIsImFtcCI6ZmFsc2V9" target="_blank" rel="noopener" class="aff-btn rakuten">楽天で探す</a>
+  </div>
+
+  <h2>まとめ：お土産選びも出張スキルの一つ</h2>
+  <p>お土産ひとつで職場の雰囲気が良くなったり、取引先との関係が深まったりすることもあります。出張先での時間がない時は、出張コンシェルジュのお土産検索機能を使えば、最寄りのお土産スポットがすぐに見つかります。</p>
+
+  <div class="bottom-cta">
+    <h3>出張先でお土産スポットを探す</h3>
+    <p>現在地から近いお土産屋をワンタップ検索</p>
+    <a href="app.html" class="cta-btn">&#x1F4F1; 出張コンシェルジュを使う</a>
+  </div>
+
+  <div class="related">
+    <h2>関連記事</h2>
+    <div class="related-grid">
+      <a href="hotel-tips.html" class="related-card">
+        <div class="tag">ホテル</div>
+        <div class="title">出張ホテルの賢い選び方｜ビジネスホテル比較のコツ</div>
+      </a>
+      <a href="save-money.html" class="related-card">
+        <div class="tag">節約術</div>
+        <div class="title">出張経費を年間10万円節約する方法</div>
+      </a>
+      <a href="restaurant-tips.html" class="related-card">
+        <div class="tag">グルメ</div>
+        <div class="title">出張先で失敗しない飲食店の選び方</div>
+      </a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <a href="index.html">トップページ</a>
+  <a href="app.html">ツールを使う</a>
+  <a href="index.html#tips">お役立ち情報</a>
+  <p style="margin-top:12px">&copy; 2025-2026 出張コンシェルジュ All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
