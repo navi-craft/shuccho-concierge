@@ -348,12 +348,13 @@ body{
         <div class="aitem" onclick="goHotel('walking')"><span class="aitem-icon">🚶</span><div><div class="aitem-title">徒歩で戻る</div><div class="aitem-sub">徒歩ルートをGoogleマップへ</div></div></div>
         <div class="aitem" onclick="goHotel('taxi')"><span class="aitem-icon">🚕</span><div><div class="aitem-title">タクシーで戻る</div><div class="aitem-sub">GOタクシーアプリへ</div></div></div>
       </div>
-      <!-- 楽天トラベル予約セクション -->
+      <!-- ホテル予約セクション -->
       <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
-        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;">🏨 出張先のホテルを探す（楽天トラベル）</div>
-        <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">出張先のホテルを楽天トラベルで検索</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;">🏨 出張先のホテルを探す</div>
+        <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">出張先のホテルを検索</div>
         <div class="af-row">
-          <button class="af-btn rak" id="hotelRakutenBtn" onclick="bookHotelRakuten()">🏨 楽天トラベルで探す</button>
+          <button class="af-btn rak" id="hotelRakutenBtn" onclick="bookHotelRakuten()">🏨 楽天トラベル</button>
+          <button class="af-btn hot" id="hotelIkyuBtn" onclick="bookHotelIkyu()">🏨 一休.com</button>
         </div>
       </div>
     </div>
@@ -392,6 +393,9 @@ const CONFIG = {
   // ホットペッパーアフィリエイトID（任意）
   HOTPEPPER_AF: '',
 
+  // 一休.com A8.netアフィリエイト a8mat
+  IKYU_A8MAT: '4AZO4I+CGWUWI+10K+BW8O2',
+
   // 検索半径（メートル）
   RADIUS: 500,
 };
@@ -423,6 +427,40 @@ function afLink(type, keyword) {
 function rakutenTravelLink(keyword) {
   const travelUrl = 'https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=' + encodeURIComponent(keyword);
   return 'https://hb.afl.rakuten.co.jp/hgc/' + CONFIG.RAKUTEN_ID + '/?pc=' + encodeURIComponent(travelUrl) + '&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
+}
+
+
+/* 一休.com 都道府県→エリアURLマッピング */
+const IKYU_AREA_MAP = {
+  '北海道':'hokkaido/010000/', '青森':'aomori/020000/', '岩手':'iwate/030000/',
+  '宮城':'miyagi/040000/', '秋田':'akita/050000/', '山形':'yamagata/060000/',
+  '福島':'fukushima/070000/', '茨城':'ibaraki/080000/', '栃木':'tochigi/090000/',
+  '群馬':'gunma/100000/', '埼玉':'saitama/110000/', '千葉':'chiba/120000/',
+  '東京':'tokyo/140000/', '神奈川':'kanagawa/130000/', '新潟':'niigata/150000/',
+  '富山':'toyama/160000/', '石川':'ishikawa/170000/', '福井':'fukui/180000/',
+  '山梨':'yamanashi/190000/', '長野':'nagano/200000/', '岐阜':'gifu/210000/',
+  '静岡':'shizuoka/220000/', '愛知':'aichi/230000/', '三重':'mie/240000/',
+  '滋賀':'shiga/250000/', '京都':'kyoto/260000/', '大阪':'osaka/270000/',
+  '兵庫':'hyogo/280000/', '奈良':'nara/290000/', '和歌山':'wakayama/300000/',
+  '鳥取':'tottori/310000/', '島根':'shimane/320000/', '岡山':'okayama/330000/',
+  '広島':'hiroshima/340000/', '山口':'yamaguchi/350000/', '徳島':'tokushima/360000/',
+  '香川':'kagawa/370000/', '愛媛':'ehime/380000/', '高知':'kochi/390000/',
+  '福岡':'fukuoka/400000/', '佐賀':'saga/410000/', '長崎':'nagasaki/420000/',
+  '熊本':'kumamoto/430000/', '大分':'oita/440000/', '宮崎':'miyazaki/450000/',
+  '鹿児島':'kagoshima/460000/', '沖縄':'okinawa/470000/'
+};
+
+/* 一休.comアフィリエイトリンク生成 */
+function ikyuTravelLink(prefState) {
+  let areaPath = '';
+  for (const [key, path] of Object.entries(IKYU_AREA_MAP)) {
+    if (prefState && prefState.includes(key)) { areaPath = path; break; }
+  }
+  const destUrl = areaPath
+    ? 'https://www.ikyu.com/' + areaPath + '?ppc=2&rc=1&discsort=1'
+    : 'https://www.ikyu.com/';
+  const ikyuTrackUrl = 'https://www.ikyu.com/ikCo.ashx?cosid=a8ikyu&surl=' + encodeURIComponent(destUrl);
+  return 'https://px.a8.net/svt/ejp?a8mat=' + CONFIG.IKYU_A8MAT + '&a8ejpredirect=' + encodeURIComponent(ikyuTrackUrl);
 }
 
 /* ══════════════════════════════════════════════
@@ -892,6 +930,11 @@ function bookHotelRakuten() {
       keyword = 'ビジネスホテル';
     }
     openLink(rakutenTravelLink(keyword));
+  }
+
+/* 一休.comでホテル予約 */
+function bookHotelIkyu() {
+    openLink(ikyuTravelLink(_lastPrefState));
   }
 
 /* ホテルパネル読込時に予約ボタンも更新 */
