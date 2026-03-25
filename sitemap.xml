@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+          <loc>https://navi-craft.github.io/shuccho-concierge/</loc>
+          <lastmod>2026-03-25</lastmod>
+          <priority>1.0</priority>
+    </url>
+    <url>
+          <loc>https://navi-craft.github.io/shuccho-concierge/tokyo.html</loc>
+          <lastmod>2026-03-25</lastmod>
+          <priority>0.8</priority>
+    </url>
+    <url>
+          <loc>https://navi-craft.github.io/shuccho-concierge/kanagawa.html</loc>
+          <lastmod>2026-03-25</lastmod>
+          <priority>0.8</priority>
+    </url>
+    <url>
+          <loc>https://navi-craft.github.io/shuccho-concierge/ishikawa.html</loc>
+          <lastmod>2026-03-25</lastmod>
+          <priority>0.8</priority>
+    </url>
+</urlset>
