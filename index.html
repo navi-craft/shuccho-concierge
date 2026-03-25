@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>åºå¼µã³ã³ã·ã§ã«ã¸ã¥ï½åºå¼µåã§ä½¿ãããã¸ãã¹ä¾¿å©ãã¼ã«ãç¡æã</title>
-<meta name="description" content="åºå¼µåã§ã®é£²é£åºæ¤ç´¢ã»ã¿ã¯ã·ã¼æéã»ããã«äºç´ã»éæ¡åã»ã³ã³ããã»ãåç£æ¢ããã¯ã³ã¿ããã§ãGPSé£åã§ç¾å¨å°å¨è¾ºã®æå ±ãããã«è¡¨ç¤ºããç¡æWebã¢ããªãç»é²ä¸è¦ã»ã¤ã³ã¹ãã¼ã«ä¸è¦ã§ããä½¿ãã¾ãã">
-<meta name="keywords" content="åºå¼µ,ãã¸ãã¹,ã³ã³ã·ã§ã«ã¸ã¥,é£²é£åºæ¤ç´¢,ã¿ã¯ã·ã¼æé,ããã«äºç´,éæ¡å,åºå¼µä¾¿å©ãã¼ã«,åºå¼µã¢ããª,ç¡æ">
-<meta property="og:title" content="åºå¼µã³ã³ã·ã§ã«ã¸ã¥ï½åºå¼µåã§ä½¿ãããã¸ãã¹ä¾¿å©ãã¼ã«">
-<meta property="og:description" content="åºå¼µåã§å¿è¦ãªãã¨ãã¯ã³ã¿ããã§ãé£²é£åºã»ã¿ã¯ã·ã¼ã»ããã«ã»ã³ã³ããã»ãåç£ãç¾å¨å°ããå³æ¤ç´¢ãç»é²ä¸è¦ã®ç¡æWebã¢ããªã">
+<title>出張コンシェルジュ｜出張先で使えるビジネス便利ツール【無料】</title>
+<meta name="description" content="出張先での飲食店検索・タクシー手配・ホテル予約・道案内・コンビニ・お土産探しをワンタップで。GPS連動で現在地周辺の情報をすぐに表示する無料Webアプリ。登録不要・インストール不要ですぐ使えます。">
+<meta name="keywords" content="出張,ビジネス,コンシェルジュ,飲食店検索,タクシー手配,ホテル予約,道案内,出張便利ツール,出張アプリ,無料">
+<meta property="og:title" content="出張コンシェルジュ｜出張先で使えるビジネス便利ツール">
+<meta property="og:description" content="出張先で必要なことがワンタップで。飲食店・タクシー・ホテル・コンビニ・お土産を現在地から即検索。登録不要の無料Webアプリ。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://navi-craft.github.io/shuccho-concierge/">
 <meta name="twitter:card" content="summary_large_image">
@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-/* ===== ãªã»ããã»å¤æ° ===== */
+/* ===== リセット・変数 ===== */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --primary:#2563eb;
@@ -39,7 +39,7 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--font);color:var(--dark);line-height:1.7;overflow-x:hidden;background:var(--white)}
 
-/* ===== ãã ===== */
+/* ===== ナビ ===== */
 .nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(255,255,255,.92);
@@ -78,7 +78,7 @@ body{font-family:var(--font);color:var(--dark);line-height:1.7;overflow-x:hidden
 }
 @media(min-width:769px){.nav-cta-mobile{display:none}}
 
-/* ===== ãã¼ã­ã¼ ===== */
+/* ===== ヒーロー ===== */
 .hero{
   min-height:100vh;
   background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 40%,#2563eb 100%);
@@ -141,7 +141,7 @@ body{font-family:var(--font);color:var(--dark);line-height:1.7;overflow-x:hidden
 .hero-stat-num{color:#fbbf24;font-size:28px;font-weight:900}
 .hero-stat-label{color:rgba(255,255,255,.6);font-size:12px;margin-top:2px}
 
-/* ãã¼ã­ã¼å³å´ï¼ã¢ãã¯ã¢ãã */
+/* ヒーロー右側：モックアップ */
 .hero-visual{
   display:flex;justify-content:center;align-items:center;
 }
@@ -182,7 +182,7 @@ body{font-family:var(--font);color:var(--dark);line-height:1.7;overflow-x:hidden
 .mock-btn-full{grid-column:1/-1}
 @media(max-width:768px){.phone-mock{width:240px}.phone-screen{min-height:400px;padding:16px 12px}}
 
-/* ===== ã»ã¯ã·ã§ã³å±é ===== */
+/* ===== セクション共通 ===== */
 section{padding:80px 24px}
 .section-inner{max-width:1100px;margin:0 auto}
 .section-label{
@@ -202,7 +202,7 @@ section{padding:80px 24px}
 .text-center{text-align:center}
 .text-center .section-desc{margin-left:auto;margin-right:auto}
 
-/* ===== èª²é¡æèµ· ===== */
+/* ===== 課題提起 ===== */
 .problems{background:var(--light)}
 .problem-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
@@ -218,7 +218,7 @@ section{padding:80px 24px}
 .problem-title{font-size:16px;font-weight:700;margin-bottom:8px}
 .problem-text{color:var(--gray);font-size:14px;line-height:1.7}
 
-/* ===== æ©è½ç´¹ä» ===== */
+/* ===== 機能紹介 ===== */
 .features{background:var(--white)}
 .feat-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
@@ -246,7 +246,7 @@ section{padding:80px 24px}
   border-radius:8px;margin-top:12px;position:relative;z-index:1;
 }
 
-/* ===== ä½¿ãæ¹ã¹ããã ===== */
+/* ===== 使い方ステップ ===== */
 .howto{background:var(--light)}
 .step-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
@@ -273,7 +273,7 @@ section{padding:80px 24px}
 }
 @media(min-width:769px){.step-arrow{display:block}}
 
-/* ===== åç»ã»ã¯ã·ã§ã³ ===== */
+/* ===== 動画セクション ===== */
 .video-section{background:var(--white)}
 .video-grid{
   display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
@@ -294,7 +294,7 @@ section{padding:80px 24px}
   font-size:24px;margin-bottom:12px;
 }
 
-/* ===== åºå¼µãå½¹ç«ã¡æå ± ===== */
+/* ===== 出張お役立ち情報 ===== */
 .tips{background:var(--light)}
 .tips-grid{
   display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
@@ -319,7 +319,7 @@ section{padding:80px 24px}
 .tip-excerpt{color:var(--gray);font-size:14px;line-height:1.7}
 .tip-arrow{color:var(--primary);font-size:13px;font-weight:700;margin-top:12px;display:inline-block}
 
-/* ===== X (Twitter) ã»ã¯ã·ã§ã³ ===== */
+/* ===== X (Twitter) セクション ===== */
 .twitter-section{background:var(--white)}
 .twitter-inner{
   max-width:640px;margin:0 auto;text-align:center;
@@ -349,7 +349,7 @@ section{padding:80px 24px}
 .twitter-handle{color:var(--gray);font-size:13px}
 .twitter-body{font-size:14px;line-height:1.8;color:var(--dark3)}
 
-/* ===== CTAæçµ ===== */
+/* ===== CTA最終 ===== */
 .final-cta{
   background:linear-gradient(135deg,var(--primary),var(--primary-dark));
   text-align:center;color:#fff;padding:80px 24px;
@@ -367,7 +367,7 @@ section{padding:80px 24px}
 }
 .btn-white:hover{background:transparent;color:#fff;box-shadow:0 8px 25px rgba(0,0,0,.3)}
 
-/* ===== ããã¿ã¼ ===== */
+/* ===== フッター ===== */
 footer{
   background:var(--dark);color:rgba(255,255,255,.6);
   padding:40px 24px;text-align:center;font-size:13px;
@@ -379,7 +379,7 @@ footer a:hover{color:#fff}
   margin-bottom:16px;flex-wrap:wrap;
 }
 
-/* ===== ã¢ãã¡ã¼ã·ã§ã³ ===== */
+/* ===== アニメーション ===== */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
 .reveal.visible{opacity:1;transform:none}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -388,47 +388,47 @@ footer a:hover{color:#fff}
 </head>
 <body>
 
-<!-- ===== ãã ===== -->
+<!-- ===== ナビ ===== -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><span>&#x1F4BC;</span> åºå¼µã³ã³ã·ã§ã«ã¸ã¥</a>
+    <a href="/" class="nav-logo"><span>&#x1F4BC;</span> 出張コンシェルジュ</a>
     <ul class="nav-links">
-      <li><a href="#features">æ©è½ç´¹ä»</a></li>
-      <li><a href="#howto">ä½¿ãæ¹</a></li>
-      <li><a href="#tips">ãå½¹ç«ã¡æå ±</a></li>
-      <li><a href="app.html" class="nav-cta">ä»ããä½¿ã</a></li>
+      <li><a href="#features">機能紹介</a></li>
+      <li><a href="#howto">使い方</a></li>
+      <li><a href="#tips">お役立ち情報</a></li>
+      <li><a href="app.html" class="nav-cta">今すぐ使う</a></li>
     </ul>
-    <a href="app.html" class="nav-cta-mobile">ä»ããä½¿ã</a>
+    <a href="app.html" class="nav-cta-mobile">今すぐ使う</a>
   </div>
 </nav>
 
-<!-- ===== ãã¼ã­ã¼ ===== -->
+<!-- ===== ヒーロー ===== -->
 <section class="hero" id="top">
   <div class="hero-inner">
     <div>
-      <div class="hero-badge">&#x2728; å®å¨ç¡æã»ç»é²ä¸è¦</div>
-      <h1>åºå¼µåã§å°ã£ãã<br><em>ã¯ã³ã¿ãã</em>ã§è§£æ±º</h1>
+      <div class="hero-badge">&#x2728; 完全無料・登録不要</div>
+      <h1>出張先で困ったら<br><em>ワンタップ</em>で解決</h1>
       <p class="hero-sub">
-        é£²é£åºã»ã¿ã¯ã·ã¼ã»ã³ã³ããã»ããã«ã»ãåç£&#8230;<br>
-        åºå¼µåã§å¿è¦ãªãã¨ããGPSã§ç¾å¨å°ããå³æ¤ç´¢ã<br>
-        ã¹ããã®ãã©ã¦ã¶ã ãã§ä½¿ããç¡æãã¼ã«ã§ãã
+        飲食店・タクシー・コンビニ・ホテル・お土産&#8230;<br>
+        出張先で必要なことを、GPSで現在地から即検索。<br>
+        スマホのブラウザだけで使える無料ツールです。
       </p>
       <div class="hero-btns">
-        <a href="app.html" class="btn btn-primary">&#x1F4F1; ä»ããä½¿ã£ã¦ã¿ã</a>
-        <a href="#features" class="btn btn-secondary">&#x2193; æ©è½ãè¦ã</a>
+        <a href="app.html" class="btn btn-primary">&#x1F4F1; 今すぐ使ってみる</a>
+        <a href="#features" class="btn btn-secondary">&#x2193; 機能を見る</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="hero-stat-num">6</div>
-          <div class="hero-stat-label">ä¾¿å©æ©è½</div>
+          <div class="hero-stat-label">便利機能</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">0&#x5186;</div>
-          <div class="hero-stat-label">å®å¨ç¡æ</div>
+          <div class="hero-stat-label">完全無料</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">47</div>
-          <div class="hero-stat-label">é½éåºçå¯¾å¿</div>
+          <div class="hero-stat-label">都道府県対応</div>
         </div>
       </div>
     </div>
@@ -436,15 +436,15 @@ footer a:hover{color:#fff}
       <div class="phone-mock float">
         <div class="phone-screen">
           <div class="phone-notch"></div>
-          <div class="mock-title">åºå¼µã³ã³ã·ã§ã«ã¸ã¥</div>
-          <div class="mock-sub">&#x1F4CD; æ±äº¬é½åä»£ç°åº å¨è¾º</div>
+          <div class="mock-title">出張コンシェルジュ</div>
+          <div class="mock-sub">&#x1F4CD; 東京都千代田区 周辺</div>
           <div class="mock-grid">
-            <div class="mock-btn mock-btn-full"><span class="mock-btn-icon">&#x1F35C;</span>ãåºãæ¢ã</div>
-            <div class="mock-btn"><span class="mock-btn-icon">&#x1F5FA;</span>éæ¡å</div>
-            <div class="mock-btn"><span class="mock-btn-icon">&#x1F695;</span>ã¿ã¯ã·ã¼</div>
-            <div class="mock-btn"><span class="mock-btn-icon">&#x1F3EA;</span>ã³ã³ãã</div>
-            <div class="mock-btn"><span class="mock-btn-icon">&#x1F3E8;</span>ããã«</div>
-            <div class="mock-btn mock-btn-full"><span class="mock-btn-icon">&#x1F381;</span>ãåç£ãæ¢ã</div>
+            <div class="mock-btn mock-btn-full"><span class="mock-btn-icon">&#x1F35C;</span>お店を探す</div>
+            <div class="mock-btn"><span class="mock-btn-icon">&#x1F5FA;</span>道案内</div>
+            <div class="mock-btn"><span class="mock-btn-icon">&#x1F695;</span>タクシー</div>
+            <div class="mock-btn"><span class="mock-btn-icon">&#x1F3EA;</span>コンビニ</div>
+            <div class="mock-btn"><span class="mock-btn-icon">&#x1F3E8;</span>ホテル</div>
+            <div class="mock-btn mock-btn-full"><span class="mock-btn-icon">&#x1F381;</span>お土産を探す</div>
           </div>
         </div>
       </div>
@@ -452,168 +452,168 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- ===== åºå¼µããããï¼èª²é¡æèµ·ï¼ ===== -->
+<!-- ===== 出張あるある（課題提起） ===== -->
 <section class="problems" id="problems">
   <div class="section-inner text-center">
     <div class="section-label">Problems</div>
-    <h2 class="section-title">åºå¼µåã§ããããªçµé¨ããã¾ãããï¼</h2>
-    <p class="section-desc">æ£ããªãåå°ã§æéã«è¿½ããããã¸ãã¹ãã³ã®ãå°ã£ããããåºå¼µã³ã³ã·ã§ã«ã¸ã¥ãè§£æ±ºãã¾ãã</p>
+    <h2 class="section-title">出張先で、こんな経験ありませんか？</h2>
+    <p class="section-desc">慣れない土地で時間に追われるビジネスマンの「困った」を、出張コンシェルジュが解決します。</p>
     <div class="problem-grid">
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F613;</div>
-        <div class="problem-title">å¤éãã«çãã¦é£äºå ´æãè¦ã¤ãããªã</div>
-        <div class="problem-text">åºå¼µåã«çãã®ã¯å¤ãåå°åããªãããå¶æ¥­ä¸­ã®ãåºãåããããçµå±ã³ã³ããã§æ¸ã¾ãã¦ãã¾ã&#8230;</div>
+        <div class="problem-title">夜遅くに着いて食事場所が見つからない</div>
+        <div class="problem-text">出張先に着くのは夜。土地勘がないから営業中のお店が分からず、結局コンビニで済ませてしまう&#8230;</div>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F4B8;</div>
-        <div class="problem-title">é åæ¸OKã®åºãåãããªã</div>
-        <div class="problem-text">çµè²»ç²¾ç®ã®ããã«é åæ¸ãå¿è¦ãªã®ã«ããã§ã¼ã³åºä»¥å¤ã§å¯¾å¿ãã¦ãããåºãæ¢ãã®ãé¢å&#8230;</div>
+        <div class="problem-title">領収書OKの店が分からない</div>
+        <div class="problem-text">経費精算のために領収書が必要なのに、チェーン店以外で対応してくれる店を探すのが面倒&#8230;</div>
       </div>
       <div class="problem-card reveal">
         <div class="problem-icon">&#x1F3E8;</div>
-        <div class="problem-title">ããã«ã¸ã®å¸°ãéãåãããªã</div>
-        <div class="problem-text">æè¦ªä¼ã®å¾ãéã£ãç¶æã§ããã«ã®ä½æãæ¤ç´¢&#8230;ãã£ã¨ç°¡åã«å¸°ãéãè¡¨ç¤ºãããã</div>
+        <div class="problem-title">ホテルへの帰り道が分からない</div>
+        <div class="problem-text">懇親会の後、酔った状態でホテルの住所を検索&#8230;もっと簡単に帰り道を表示したい。</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== æ©è½ç´¹ä» ===== -->
+<!-- ===== 機能紹介 ===== -->
 <section class="features" id="features">
   <div class="section-inner text-center">
     <div class="section-label">Features</div>
-    <h2 class="section-title">åºå¼µã«å¿è¦ãª6ã¤ã®æ©è½ã<br>ã¯ã³ã¿ããã§</h2>
-    <p class="section-desc">é¢åãªã¢ããªã®ã¤ã³ã¹ãã¼ã«ã¯ä¸è¦ããã©ã¦ã¶ã§ã¢ã¯ã»ã¹ããã ãã§ãåºå¼µåã§å¿è¦ãªãã¹ã¦ãæãã¾ãã</p>
+    <h2 class="section-title">出張に必要な6つの機能を<br>ワンタップで</h2>
+    <p class="section-desc">面倒なアプリのインストールは不要。ブラウザでアクセスするだけで、出張先で必要なすべてが揃います。</p>
     <div class="feat-grid">
       <div class="feat-card reveal">
         <div class="feat-icon">&#x1F35C;</div>
-        <div class="feat-title">ãåºãæ¢ã</div>
-        <div class="feat-desc">GPSé£åã§è¿ãã®é£²é£åºãå³æ¤ç´¢ãå®é£ãå±éå±ãå¯¿å¸ãç¼èãã«ãã§ãªã©ã¸ã£ã³ã«å¥ã«å¶æ¥­ä¸­ã®ãåºãè¡¨ç¤ºã</div>
-        <div class="feat-badge">å¶æ¥­ä¸­ã®ã¿è¡¨ç¤º</div>
+        <div class="feat-title">お店を探す</div>
+        <div class="feat-desc">GPS連動で近くの飲食店を即検索。定食、居酒屋、寿司、焼肉、カフェなどジャンル別に営業中のお店を表示。</div>
+        <div class="feat-badge">営業中のみ表示</div>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon">&#x1F5FA;</div>
-        <div class="feat-title">éæ¡åã»ä¹ãæã</div>
-        <div class="feat-desc">ç®çå°ãå¥åããã ãã§é»è»ã»å¾æ­©ã»ã¿ã¯ã·ã¼ã®ã«ã¼ããè¡¨ç¤ºãä¹ææ¡åãã¯ã³ã¿ããã§ã</div>
-        <div class="feat-badge">Google Mapsé£æº</div>
+        <div class="feat-title">道案内・乗り換え</div>
+        <div class="feat-desc">目的地を入力するだけで電車・徒歩・タクシーのルートを表示。乗換案内もワンタップで。</div>
+        <div class="feat-badge">Google Maps連携</div>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon">&#x1F695;</div>
-        <div class="feat-title">ã¿ã¯ã·ã¼ãå¼ã¶</div>
-        <div class="feat-desc">GOãUberãDiDiã®3å¤§ã¿ã¯ã·ã¼ã¢ããªã«ã¯ã³ã¿ããã§æ¥ç¶ãæ¥ãã§ããã¨ããå®å¿ã</div>
-        <div class="feat-badge">3ç¤¾å¯¾å¿</div>
+        <div class="feat-title">タクシーを呼ぶ</div>
+        <div class="feat-desc">GO、Uber、DiDiの3大タクシーアプリにワンタップで接続。急いでいるときも安心。</div>
+        <div class="feat-badge">3社対応</div>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon">&#x1F3EA;</div>
-        <div class="feat-title">ã³ã³ãããæ¢ã</div>
-        <div class="feat-desc">æå¯ãã®24æéå¶æ¥­ã®ã³ã³ãããããã«è¦ã¤ãããã¾ããå¤ä¸­ã®æ¥ãªè²·ãç©ã«ãå¯¾å¿ã</div>
-        <div class="feat-badge">24æéå¯¾å¿</div>
+        <div class="feat-title">コンビニを探す</div>
+        <div class="feat-desc">最寄りの24時間営業のコンビニをすぐに見つけられます。夜中の急な買い物にも対応。</div>
+        <div class="feat-badge">24時間対応</div>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon">&#x1F3E8;</div>
-        <div class="feat-title">ããã«ã¸æ»ã</div>
-        <div class="feat-desc">å®¿æ³åãç»é²ãã¦ããã°ãã¯ã³ã¿ããã§å¸°ãéãè¡¨ç¤ºãé»è»ã»å¾æ­©ã»ã¿ã¯ã·ã¼ããé¸ã¹ã¾ãã</div>
-        <div class="feat-badge">ããã«äºç´ãOK</div>
+        <div class="feat-title">ホテルへ戻る</div>
+        <div class="feat-desc">宿泊先を登録しておけば、ワンタップで帰り道を表示。電車・徒歩・タクシーから選べます。</div>
+        <div class="feat-badge">ホテル予約もOK</div>
       </div>
       <div class="feat-card reveal">
         <div class="feat-icon">&#x1F381;</div>
-        <div class="feat-title">ãåç£ãæ¢ã</div>
-        <div class="feat-desc">ç¾å¨å°ã®é½éåºçã«åããã¦ãå®çªã»äººæ°No.1ã»çãããåç£ãææ¡ããããæ³¨æãã§ãã¾ãã</div>
-        <div class="feat-badge">47é½éåºçå¯¾å¿</div>
+        <div class="feat-title">お土産を探す</div>
+        <div class="feat-desc">現在地の都道府県に合わせて、宙番・人気No.1・珍しいお土産を提案。ネット注文もできます。</div>
+        <div class="feat-badge">47都道府県対応</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== ä½¿ãæ¹ ===== -->
+<!-- ===== 使い方 ===== -->
 <section class="howto" id="howto">
   <div class="section-inner text-center">
     <div class="section-label">How to Use</div>
-    <h2 class="section-title">ä½¿ãæ¹ã¯ã«ã³ã¿ã³3ã¹ããã</h2>
-    <p class="section-desc">ã¢ããªã®ã¤ã³ã¹ãã¼ã«ãã¢ã«ã¦ã³ãç»é²ãä¸è¦ãã¹ããã®ãã©ã¦ã¶ã ãã§ããã«ä½¿ãã¾ãã</p>
+    <h2 class="section-title">使い方はカンタン3ステッブ</h2>
+    <p class="section-desc">アプリのインストールもアカウント登録も不要。スマホのブラウザだけですぐに使えます。</p>
     <div class="step-grid">
       <div class="step-card reveal">
         <div class="step-num">1</div>
-        <div class="step-title">ãµã¤ãã«ã¢ã¯ã»ã¹</div>
-        <div class="step-text">ã¹ããã®ãã©ã¦ã¶ã§åºå¼µã³ã³ã·ã§ã«ã¸ã¥ãéãã ããããã¯ãã¼ã¯ãã¦ããã¨ä¾¿å©ã§ãã</div>
+        <div class="step-title">サイトにアクセス</div>
+        <div class="step-text">スマホのブラウザで出張コンシェルジュを開くだけ。ブックマークしておくと便利です。</div>
         <div class="step-arrow">&rarr;</div>
       </div>
       <div class="step-card reveal">
         <div class="step-num">2</div>
-        <div class="step-title">ä½ç½®æå ±ãè¨±å¯</div>
-        <div class="step-text">ãä½ç½®æå ±ã®ä½¿ç¨ãè¨±å¯ãã¾ããï¼ãã¨èãããããè¨±å¯ããã¿ãããããã§ç¾å¨å°ãåå¾ããã¾ãã</div>
+        <div class="step-title">位置情報を許可</div>
+        <div class="step-text">「位置情報の使用を許可しますか？」と聞かれたら「許可」をタップ。これで現在地が取得されます。</div>
         <div class="step-arrow">&rarr;</div>
       </div>
       <div class="step-card reveal">
         <div class="step-num">3</div>
-        <div class="step-title">ä½¿ãããæ©è½ãã¿ãã</div>
-        <div class="step-text">ããåºãæ¢ãããã¿ã¯ã·ã¼ãå¼ã¶ããªã©ãå¿è¦ãªæ©è½ã®ãã¿ã³ãã¿ããããã ããããã«çµæãè¡¨ç¤ºããã¾ãã</div>
+        <div class="step-title">使いたい機能をタッブ</div>
+        <div class="step-text">「お店を探す」「タクシーを呼ぶ」など、必要な機能のボタンをタップするだけ。すぐに結果が表示されます。</div>
       </div>
     </div>
     <div style="text-align:center;margin-top:40px">
       <a href="app.html" class="btn btn-primary" style="background:var(--primary);color:#fff;border-color:var(--primary)">
-        &#x1F4F1; ä»ããè©¦ãã¦ã¿ã
+        &#x1F4F1; 今すぐ試してみる
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===== åç»ã»ã¯ã·ã§ã³ ===== -->
+<!-- ===== 動画セクション ===== -->
 <section class="video-section" id="videos">
   <div class="section-inner text-center">
     <div class="section-label">Videos</div>
-    <h2 class="section-title">åç»ã§è¦ãåºå¼µã³ã³ã·ã§ã«ã¸ã¥</h2>
-    <p class="section-desc">ä½¿ãæ¹ããå½¹ç«ã¡æå ±ãåç»ã§åãããããè§£èª¬ãã¦ãã¾ãã</p>
+    <h2 class="section-title">動画で見る出張コンシェルジュ</h2>
+    <p class="section-desc">使い方やお役立ち情報を動画で分かりやすく解説しています。</p>
     <div class="video-grid">
       <div class="video-placeholder reveal">
         <div class="play-icon">&#x25B6;</div>
-        <p>ä½¿ãæ¹ç´¹ä»åç»</p>
+        <p>使い方紹介動画</p>
         <p style="font-size:11px;margin-top:4px;color:var(--dark3)">Coming Soon</p>
-        <!-- YouTubeåãè¾¼ã¿ä¾:
+        <!-- YouTube埋め込み例:
         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
         -->
       </div>
       <div class="video-placeholder reveal">
         <div class="play-icon">&#x25B6;</div>
-        <p>åºå¼µããããåç»</p>
+        <p>出張あるある動画</p>
         <p style="font-size:11px;margin-top:4px;color:var(--dark3)">Coming Soon</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== åºå¼µãå½¹ç«ã¡æå ± ===== -->
+<!-- ===== 出張お役立ち情報 ===== -->
 <section class="tips" id="tips">
   <div class="section-inner">
     <div class="text-center">
       <div class="section-label">Tips &amp; Guides</div>
-      <h2 class="section-title">åºå¼µãå½¹ç«ã¡æå ±</h2>
-      <p class="section-desc">åºå¼µããã£ã¨ãå¾ã«ããã£ã¨å¿«é©ã«ããããã®æå ±ãã¾ã¨ãã¾ããã</p>
+      <h2 class="section-title">出張お役立ち情報</h2>
+      <p class="section-desc">出張をもっとお得に、もっと快適にするための情報をまとめました。</p>
     </div>
     <div class="tips-grid">
       <a href="#" class="tip-card reveal">
-        <div class="tip-tag hotel">ããã«</div>
-        <div class="tip-title">åºå¼µããã«ã®è³¢ãé¸ã³æ¹ï½ãã¸ãã¹ããã«æ¯è¼ã®ã³ã</div>
-        <div class="tip-excerpt">æ¥½å¤©ãã©ãã«ãä¸ä¼.comãä½¿ã£ã¦ãã³ã¹ãæå¼·ã®ãã¸ãã¹ããã«ãè¦ã¤ããæ¹æ³ãè§£èª¬ãã¾ãã</div>
-        <span class="tip-arrow">ç¶ããèª­ã &rarr;</span>
+        <div class="tip-tag hotel">ホテル</div>
+        <div class="tip-title">出張ホテルの賢い選び方｜ビジネスホテル比較のコツ</div>
+        <div class="tip-excerpt">楽天トラベルや一休.comを使って、コスパ最強のビジネスホテルを見つける方法を解説します。</div>
+        <span class="tip-arrow">続きを読む &rarr;</span>
       </a>
       <a href="#" class="tip-card reveal">
-        <div class="tip-tag save">ç¯ç´è¡</div>
-        <div class="tip-title">åºå¼µçµè²»ãå¹´é10ä¸åç¯ç´ããæ¹æ³</div>
-        <div class="tip-excerpt">äº¤éè²»ãå®¿æ³è²»ãé£è²»&#8230;åºå¼µã«ãããã³ã¹ããè³¢ãæãããã¯ããã¯ãç´¹ä»ãã¾ãã</div>
-        <span class="tip-arrow">ç¶ããèª­ã &rarr;</span>
+        <div class="tip-tag save">節約術</div>
+        <div class="tip-title">出張経費を年間10万円節約する方法</div>
+        <div class="tip-excerpt">交通費、宿泊費、食費&#8230;出張にかかるコストを賢く抑えるテクニックを紹介します。</div>
+        <span class="tip-arrow">続きを読む &rarr;</span>
       </a>
       <a href="#" class="tip-card reveal">
-        <div class="tip-tag food">ã°ã«ã¡</div>
-        <div class="tip-title">åºå¼µåã§å¤±æããªãé£²é£åºã®é¸ã³æ¹</div>
-        <div class="tip-excerpt">åå°åã®ãªãå ´æã§ãç¾å³ãããåºãè¦ã¤ããã³ããé åæ¸å¯¾å¿ãã²ã¨ãã§ãå¥ãããããåºã®è¦åãæ¹ã</div>
-        <span class="tip-arrow">ç¶ããèª­ã &rarr;</span>
+        <div class="tip-tag food">グルメ</div>
+        <div class="tip-title">出張先で失敗しない飲食店の選び方</div>
+        <div class="tip-excerpt">土地勘のない場所でも美味しいお店を見つけるコツ。領収書対応やひとりでも入りやすいお店の見分け方。</div>
+        <span class="tip-arrow">続きを読む &rarr;</span>
       </a>
       <a href="#" class="tip-card reveal">
-        <div class="tip-tag hack">ãåç£</div>
-        <div class="tip-title">åã°ããåºå¼µåç£ã©ã³ã­ã³ã°ï½é½éåºçå¥ãããã</div>
-        <div class="tip-excerpt">è·å ´ã«æã£ã¦ããã¨åã°ãããåç£ãé½éåºçå¥ã«ç´¹ä»ãå®çªããçãããã®ã¾ã§ç¶²ç¾ã</div>
-        <span class="tip-arrow">ç¶ããèª­ã &rarr;</span>
+        <div class="tip-tag hack">お土産</div>
+        <div class="tip-title">喜ばれる出張土産ランキング｜都道府県別おすすめ</div>
+        <div class="tip-excerpt">職場に持っていくと喜ばれるお土産を都道府県別に紹介。定番から珍しいものまで網羅。</div>
+        <span class="tip-arrow">続きを読む &rarr;</span>
       </a>
     </div>
   </div>
@@ -624,57 +624,57 @@ footer a:hover{color:#fff}
   <div class="section-inner">
     <div class="twitter-inner">
       <div class="section-label">Follow Us</div>
-      <h2 class="section-title">X (Twitter) ã§æ¯æ¥çºä¿¡ä¸­</h2>
-      <p class="section-desc" style="max-width:500px;margin:0 auto 24px">åºå¼µãããããä¾¿å©ãªè±ç¥è­ãæ¯æ¥æç¨¿ãã¦ãã¾ãããã©ã­ã¼ãã¦åºå¼µããã£ã¨å¿«é©ã«ã</p>
+      <h2 class="section-title">X (Twitter) で毎日発信中</h2>
+      <p class="section-desc" style="max-width:500px;margin:0 auto 24px">出張あるあるや便利な豆知識を毎日投稿しています。フォローして出張をもっと快適に。</p>
       <a href="https://x.com/709PPeWlSe25290" class="twitter-cta" id="twitter-link" target="_blank" rel="noopener">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        ãã©ã­ã¼ãã
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.04l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        フォローする
       </a>
       <div class="twitter-preview reveal">
         <div class="twitter-preview-header">
           <div class="twitter-avatar">&#x1F4BC;</div>
           <div>
-            <div class="twitter-name">åºå¼µã³ã³ã·ã§ã«ã¸ã¥</div>
+            <div class="twitter-name">出張コンシェルジュ</div>
             <div class="twitter-handle">@709PPeWlSe25290</div>
           </div>
         </div>
         <div class="twitter-body">
-          åºå¼µããããï¼æ°å¹¹ç·ã§çç¡ãã¦éãéããããã«ãªããã®ç¦ããã§ããã®è²»ç©´ããã®æ¯è²ãæ¥½ããä½è£ãããæ¥ã¯ãä¸æè­°ã¨ããåè«ãã§ããæ°ãããã<br><br>
-          #åºå¼µ #ãã¸ãã¹
+          出張あるある：新幹線で爆睡して降り過ごしそうになるあの焦り。でもあの車窓からの景色を楽しむ余裕がある日は、不思議といい商談ができる気がする。<br><br>
+          #出張 #ビジネス
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== æçµCTA ===== -->
+<!-- ===== 最終CTA ===== -->
 <section class="final-cta">
-  <h2>åºå¼µã®ãå°ã£ããã<br>ä»ããè§£æ±ºããã</h2>
-  <p>ã¤ã³ã¹ãã¼ã«ä¸è¦ã»å®å¨ç¡æãã¹ããã®ãã©ã¦ã¶ã§ããã«ä½¿ãã¾ãã</p>
-  <a href="app.html" class="btn btn-white">&#x1F4F1; åºå¼µã³ã³ã·ã§ã«ã¸ã¥ãä½¿ã</a>
+  <h2>出張の「困った」を<br>今すぐ解決しよう</h2>
+  <p>インストール不要・完全無料。スマホのブラウザですぐに使えます。</p>
+  <a href="app.html" class="btn btn-white">&#x1F4F1; 出張コンシェルジュを使う</a>
 </section>
 
-<!-- ===== ããã¿ã¼ ===== -->
+<!-- ===== フッター ===== -->
 <footer>
   <div class="footer-links">
-    <a href="app.html">ãã¼ã«ãä½¿ã</a>
-    <a href="#features">æ©è½ç´¹ä»</a>
-    <a href="#howto">ä½¿ãæ¹</a>
-    <a href="#tips">ãå½¹ç«ã¡æå ±</a>
+    <a href="app.html">ツールを使う</a>
+    <a href="#features">機能紹介</a>
+    <a href="#howto">使い方</a>
+    <a href="#tips">お役立ち情報</a>
     <a href="#twitter">X (Twitter)</a>
   </div>
-  <p>&copy; 2025-2026 åºå¼µã³ã³ã·ã§ã«ã¸ã¥ All Rights Reserved.</p>
+  <p>&copy; 2025-2026 出張コンシェルジュ All Rights Reserved.</p>
 </footer>
 
-<!-- ===== ã¹ã¯ãªãã ===== -->
+<!-- ===== スクリプト ===== -->
 <script>
-// ããã¹ã¯ã­ã¼ã«ã¨ãã§ã¯ã
+// ナビスクロールエフェクト
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 10);
 });
 
-// ã¹ã¯ã­ã¼ã«ã¢ãã¡ã¼ã·ã§ã³
+// スクロールアニメーション
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -685,7 +685,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ã¹ã ã¼ã¹ã¹ã¯ã­ã¼ã«
+// スムーススクロール
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -695,8 +695,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 </script>
 
-<!-- Google Search Console ç¢ºèªã¿ã°ï¼æ¢å­ã®ãã®ãããã°ç½®æï¼ -->
+<!-- Google Search Console 確認タグ（既存のものがあれば置換） -->
 <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
 
 </body>
 </html>
+
