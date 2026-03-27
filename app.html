@@ -1,31 +1,39 @@
+<!--
+  ================================================================
+  出張コンシェルジュ AIアプリ (app.html)
+  ================================================================
+  【よく修正する場所】
+  ・Google API キー → CONFIG.GOOGLE_API_KEY
+  ・アフィリエイトリンク → CONFIG 内の各URL
+  ・都道府県マップ → IKYU_AREA_MAP
+  ・お土産情報 → PREF_OMIYAGE_DETAIL
+  ・地域スポット → PREF_SPOTS_DATA（追加機能）
+  ================================================================
+  最終更新: 2026-03-27
+  ================================================================
+-->
 <!DOCTYPE html>
 <html lang="ja"><head>
 <meta charset="UTF-8">
-      <meta name="google-site-verification" content="bdOGSySwg18qOdBZs5hH9rS4VcplVwYfS6ZX6xeKubA" />
+<meta name="google-site-verification" content="bdOGSySwg18qOdBZs5hH9rS4VcplVwYfS6ZX6xeKubA" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>出張コンシェルジュ｜出張先で使えるビジネス便利ツール</title>
-<meta name="description" content="出張先での飲食店検索・タクシー手配・ホテル予約・道案内・お土産探しをワンタップで。GPS連動で現在地周辺の情報をすぐに表示。ビジネスマンの出張をサポートする無料Webアプリ。">
-<meta name="keywords" content="出張,ビジネス,飲食店検索,タクシー,ホテル予約,道案内,お土産,コンシェルジュ,出張便利ツール">
+<meta name="description" content="出張先での飲食店検索・タクシー手配・ホテル予約・道案内・お土産探し・地域トピック・定番スポットをワンタップで。GPS連動で現在地周辺の情報をすぐに表示。ビジネスマンの出張をサポートする無料Webアプリ。">
+<meta name="keywords" content="出張,ビジネス,飲食店検索,タクシー,ホテル予約,道案内,お土産,コンシェルジュ,出張便利ツール,地域トピック,観光スポット">
 <meta name="author" content="出張コンシェルジュ">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://navi-craft.github.io/shuccho-concierge/app.html">
-
-<!-- OGP（SNSシェア用） -->
 <meta property="og:title" content="出張コンシェルジュ｜出張先で使えるビジネス便利ツール">
-<meta property="og:description" content="飲食店・タクシー・ホテル予約・道案内・お土産をワンタップで。GPS連動で出張先の情報をすぐに表示。">
+<meta property="og:description" content="飲食店・タクシー・ホテル予約・道案内・お土産・地域トピック・定番スポットをワンタップで。GPS連動で出張先の情報をすぐに表示。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://navi-craft.github.io/shuccho-concierge/app.html">
 <meta property="og:site_name" content="出張コンシェルジュ">
 <meta property="og:locale" content="ja_JP">
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="出張コンシェルジュ｜出張先で使えるビジネス便利ツール">
-<meta name="twitter:description" content="飲食店・タクシー・ホテル予約・道案内・お土産をワンタップで。GPS連動で出張先の情報をすぐに表示。">
-
-<!-- Google Analytics -->
+<meta name="twitter:description" content="飲食店・タクシー・ホテル予約・道案内・お土産・地域トピック・定番スポットをワンタップで。">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-L2Y4KKEJMQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -33,29 +41,7 @@
   gtag('js', new Date());
   gtag('config', 'G-L2Y4KKEJMQ');
 </script>
-
-<!--
-=============================================================
-  出張コンシェルジュ v2.0
-  
-  【APIキー設定手順】
-  1. https://console.cloud.google.com でプロジェクト作成
-  2. 以下のAPIを有効化：
-     - Maps JavaScript API
-     - Places API (New)
-  3. APIキーを作成し、HTTPリファラー制限を設定
-     （例：stately-gumption-339741.netlify.app/*）
-  4. 下記 CONFIG.GOOGLE_API_KEY を差し替える
-  
-  【アフィリエイト設定手順】
-  1. Amazonアソシエイト: https://affiliate.amazon.co.jp
-     → 審査通過後 CONFIG.AMAZON_TAG を差し替える
-  2. 楽天アフィリエイト: https://affiliate.rakuten.co.jp
-     → 審査通過後 CONFIG.RAKUTEN_ID を差し替える
-=============================================================
--->
-
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 /* ── リセット & 変数 ─────────────────────── */
 :root{
@@ -63,6 +49,7 @@
   --gold:#c9a84c; --gold-l:#e8c97a;
   --text:#e8eaf0; --muted:#7a7f94;
   --blue:#4a8fff; --green:#4ecb8d; --red:#ff6b6b; --orange:#ff9f43; --pink:#e879a0;
+  --cyan:#06b6d4; --cyan-l:#22d3ee;
   --radius:14px; --safe-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -84,6 +71,12 @@ body{
 .hd-loc .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:all .3s;}
 .hd-loc.got .dot{background:var(--green);box-shadow:0 0 6px var(--green);}
 .hd-loc.got{color:var(--text);}
+
+/* ── セクション区切り ─────────────────────── */
+.sec-div{margin:18px 0 14px;display:flex;align-items:center;gap:10px;}
+.sec-div::before,.sec-div::after{content:'';flex:1;height:1px;background:var(--border);}
+.sec-div span{font-size:10px;letter-spacing:2px;color:var(--muted);white-space:nowrap;text-transform:uppercase;}
+
 /* ── メインボタン ────────────────────────── */
 .btn-full{width:100%;margin-bottom:10px;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
@@ -103,7 +96,6 @@ body{
 .mi{font-size:26px;margin-bottom:6px;}
 .mt{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
 .ms{font-size:10px;color:var(--muted);}
-.coming{font-size:10px;font-weight:500;margin-top:3px;}
 
 /* ── パネル ──────────────────────────────── */
 .panel{display:none;margin-bottom:14px;animation:fadeUp .3s ease;}
@@ -125,12 +117,6 @@ body{
 .item-badge{font-size:11px;font-weight:600;white-space:nowrap;margin-left:8px;flex-shrink:0;}
 .badge-open{color:var(--green);}
 .badge-closed{color:var(--red);}
-.item-tags{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;}
-.tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;}
-.tag-r{background:rgba(201,168,76,.15);color:var(--gold);}
-.tag-s{background:rgba(74,143,255,.15);color:var(--blue);}
-.tag-l{background:rgba(78,203,141,.15);color:var(--green);}
-.tag-c{background:rgba(122,127,148,.15);color:var(--muted);}
 
 /* ── アクションリスト ────────────────────── */
 .alist{display:flex;flex-direction:column;gap:7px;}
@@ -159,13 +145,6 @@ body{
 .rbox.pink{background:rgba(232,121,160,.08);border:1px solid rgba(232,121,160,.2);}
 .rb-title{font-size:13px;font-weight:700;margin-bottom:5px;}
 .rb-body{color:var(--muted);}
-
-/* ── バーリスト ──────────────────────────── */
-.blist{margin-top:8px;display:flex;flex-direction:column;gap:5px;}
-.bitem{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;}
-.b-name{font-size:12px;font-weight:500;}
-.b-meta{font-size:11px;color:var(--muted);margin-top:1px;}
-.b-time{font-size:11px;color:var(--blue);font-weight:600;white-space:nowrap;margin-left:8px;}
 
 /* ── 目的地入力 ──────────────────────────── */
 .dest-wrap{margin-bottom:12px;}
@@ -207,6 +186,37 @@ body{
 /* ── エラー ──────────────────────────────── */
 .err{background:rgba(255,107,107,.07);border:1px solid rgba(255,107,107,.2);border-radius:10px;padding:11px;font-size:12px;color:var(--red);line-height:1.7;}
 
+/* ══ 地域トピック ════════════════════════════ */
+.topic-hint{font-size:11px;color:var(--muted);margin-bottom:12px;padding:8px 10px;background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.15);border-radius:8px;line-height:1.6;}
+.topic-item{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:12px 14px;cursor:pointer;transition:all .18s;display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;}
+.topic-item:active{transform:scale(.98);}
+.topic-item:hover{border-color:var(--cyan);}
+.topic-num{font-size:15px;font-weight:700;color:var(--cyan);width:20px;flex-shrink:0;text-align:center;margin-top:1px;}
+.topic-body{flex:1;min-width:0;}
+.topic-title{font-size:13px;font-weight:500;margin-bottom:3px;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.topic-meta{font-size:10px;color:var(--muted);}
+.topic-arrow{font-size:16px;color:var(--muted);flex-shrink:0;margin-top:2px;}
+.topic-footer{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);text-align:center;}
+.topic-footer a{font-size:11px;color:var(--cyan);text-decoration:none;}
+
+/* ══ せっかく来たなら ══════════════════════════ */
+.spots-region{background:rgba(255,159,67,.06);border:1px solid rgba(255,159,67,.2);border-radius:11px;padding:13px 14px;margin-bottom:12px;}
+.spots-region-title{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:10px;}
+.spots-row{display:flex;flex-direction:column;gap:8px;}
+.spots-chip{font-size:12px;color:var(--text);display:flex;align-items:flex-start;gap:7px;line-height:1.55;}
+.spots-chip-icon{font-size:15px;flex-shrink:0;margin-top:0px;}
+.spots-chip-label{font-size:10px;color:var(--muted);margin-right:4px;}
+.spot-item{background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:12px 14px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.spot-item:active{transform:scale(.98);}
+.spot-item:hover{border-color:var(--orange);}
+.spot-icon-area{font-size:22px;width:30px;text-align:center;flex-shrink:0;}
+.spot-body{flex:1;min-width:0;}
+.spot-name{font-size:13px;font-weight:500;margin-bottom:2px;}
+.spot-meta{font-size:11px;color:var(--muted);}
+.walk-badge{font-size:11px;color:var(--orange);font-weight:600;white-space:nowrap;flex-shrink:0;background:rgba(255,159,67,.1);border:1px solid rgba(255,159,67,.2);border-radius:6px;padding:3px 7px;}
+.spots-section-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:14px 0 8px;display:flex;align-items:center;gap:6px;}
+.spots-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 @keyframes spin{to{transform:rotate(360deg);}}
 </style>
@@ -225,8 +235,7 @@ body{
   </div>
 </div>
 
-<!-- 出発時刻（任意） -->
-<!-- メインボタン群（案Aレイアウト） -->
+<!-- ══ メインボタン群 ══ -->
 <button class="mbtn btn-full" style="--c:var(--gold);" id="btn-food" onclick="openPanel('food')">
   <div class="mi" style="font-size:30px;">🍜</div>
   <div class="mt" style="font-size:15px;">お店を探す</div>
@@ -251,9 +260,21 @@ body{
   </button>
 </div>
 
-<button class="mbtn btn-full" style="--c:var(--pink);margin-bottom:20px;" id="btn-omiyage" onclick="openPanel('omiyage')">
+<button class="mbtn btn-full" style="--c:var(--pink);" id="btn-omiyage" onclick="openPanel('omiyage')">
   <div class="mi">🎁</div><div class="mt">お土産を探す</div><div class="ms">現在地の名物・評価順・ネット注文OK</div>
 </button>
+
+<!-- ── この地域を知る ── -->
+<div class="sec-div"><span>この地域を知る</span></div>
+
+<div class="grid2">
+  <button class="mbtn" style="--c:var(--cyan);" id="btn-topics" onclick="openPanel('topics')">
+    <div class="mi">📰</div><div class="mt">地域トピック</div><div class="ms">今の話題を営業ネタに</div>
+  </button>
+  <button class="mbtn" style="--c:var(--orange);" id="btn-spots" onclick="openPanel('spots')">
+    <div class="mi">🏯</div><div class="mt">せっかく来たなら</div><div class="ms">定番・名物・見どころ</div>
+  </button>
+</div>
 
 <!-- ══ パネル群 ══════════════════════════════ -->
 
@@ -306,21 +327,20 @@ body{
   <div class="pc">
     <div class="pc-hd"><span class="pc-icon">🍜</span><div><div class="pc-title">お店を探す</div><div class="pc-sub" id="food-loc">現在地を取得中…</div></div></div>
     <div class="pc-body">
-      <!-- カテゴリー選択 -->
       <div id="foodCats" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;">
-        <button class="cat-btn active" data-type="restaurant" onclick="selectCat(this,'restaurant','🍜','定食・ラーメン')">🍜 定食・ラーメン</button>
-        <button class="cat-btn" data-type="bar" onclick="selectCat(this,'bar','🍺','居酒屋・バー')">🍺 居酒屋・バー</button>
-        <button class="cat-btn" data-type="sushi_restaurant" onclick="selectCat(this,'sushi_restaurant','🍣','寿司・和食')">🍣 寿司・和食</button>
-        <button class="cat-btn" data-type="japanese_restaurant" onclick="selectCat(this,'japanese_restaurant','🍖','焼肉・中華')">🍖 焼肉・中華</button>
-        <button class="cat-btn" data-type="cafe" onclick="selectCat(this,'cafe','☕','カフェ・軽食')">☕ カフェ・軽食</button>
+        <button class="cat-btn active" data-type="restaurant" onclick="selectCat(this,'restaurant')">🍜 定食・ラーメン</button>
+        <button class="cat-btn" data-type="bar" onclick="selectCat(this,'bar')">🍺 居酒屋・バー</button>
+        <button class="cat-btn" data-type="sushi_restaurant" onclick="selectCat(this,'sushi_restaurant')">🍣 寿司・和食</button>
+        <button class="cat-btn" data-type="japanese_restaurant" onclick="selectCat(this,'japanese_restaurant')">🍖 焼肉・中華</button>
+        <button class="cat-btn" data-type="cafe" onclick="selectCat(this,'cafe')">☕ カフェ・軽食</button>
       </div>
       <div class="list" id="foodList"><div class="loading">お店を検索中</div></div>
       <div class="meal-acts" id="mealActs">
         <div class="ma-lbl">食後のアクション</div>
         <div class="ma-row">
-          <button class="ma-btn" id="maMap" onclick="mealAct('map')">🗺 道案内</button>
+          <button class="ma-btn" onclick="mealAct('map')">🗺 道案内</button>
           <button class="ma-btn" onclick="mealAct('taxi')">🚕 タクシー</button>
-</div>
+        </div>
         <div class="rbox" id="mealRes"></div>
       </div>
     </div>
@@ -357,13 +377,12 @@ body{
         <div class="aitem" onclick="goHotel('walking')"><span class="aitem-icon">🚶</span><div><div class="aitem-title">徒歩で戻る</div><div class="aitem-sub">徒歩ルートをGoogleマップへ</div></div></div>
         <div class="aitem" onclick="goHotel('taxi')"><span class="aitem-icon">🚕</span><div><div class="aitem-title">タクシーで戻る</div><div class="aitem-sub">GOタクシーアプリへ</div></div></div>
       </div>
-      <!-- ホテル予約セクション -->
       <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
         <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;">🏨 出張先のホテルを探す</div>
         <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">出張先のホテルを検索</div>
         <div class="af-row">
-          <button class="af-btn rak" id="hotelRakutenBtn" onclick="bookHotelRakuten()">🏨 楽天トラベル</button>
-          <button class="af-btn hot" id="hotelIkyuBtn" onclick="bookHotelIkyu()">🏨 一休.com</button>
+          <button class="af-btn rak" onclick="bookHotelRakuten()">🏨 楽天トラベル</button>
+          <button class="af-btn hot" onclick="bookHotelIkyu()">🏨 一休.com</button>
         </div>
       </div>
     </div>
@@ -381,31 +400,41 @@ body{
   </div>
 </div>
 
+<!-- ══ 地域トピック ════════════════════════════ -->
+<div class="panel" id="panel-topics">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">📰</span><div><div class="pc-title">地域トピック</div><div class="pc-sub" id="topics-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div class="topic-hint">💡 タップで元記事を開きます。お客様との雑談・営業トークにどうぞ。</div>
+      <div id="topicsList"><div class="loading">地域の話題を取得中</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ せっかく来たなら ══════════════════════════ -->
+<div class="panel" id="panel-spots">
+  <div class="pc">
+    <div class="pc-hd"><span class="pc-icon">🏯</span><div><div class="pc-title">せっかく来たなら</div><div class="pc-sub" id="spots-loc">現在地を取得中…</div></div></div>
+    <div class="pc-body">
+      <div id="spotsList"><div class="loading">定番スポットを検索中</div></div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /.app -->
 
 <script>
 'use strict';
 
 /* ══════════════════════════════════════════════
-   CONFIG — ここを書き換えるだけで本番になります
+   CONFIG
    ══════════════════════════════════════════════ */
 const CONFIG = {
-  // Google Places API キー（取得後に差し替え）
   GOOGLE_API_KEY: 'AIzaSyD0kvjqEUy7sTFjW4O4hbq3nkD-b8zFwKI',
-
-  // Amazon アソシエイトタグ（審査通過後に差し替え）
   AMAZON_TAG: 'shucchouconci-22',
-
-  // 楽天アフィリエイトID
   RAKUTEN_ID: '522e8c45.a579a735',
-
-  // ホットペッパーアフィリエイトID（任意）
   HOTPEPPER_AF: '',
-
-  // 一休.com A8.netアフィリエイト a8mat
-  IKYU_A8MAT: '4AZO4I+CGWUWI+10K+BW8O2',
-
-  // 検索半径（メートル）
+  IKYU_A8MAT: '4AZO4I+CGWUWI+1OK+5YRHE',
   RADIUS: 500,
 };
 
@@ -415,61 +444,78 @@ const CONFIG = {
 let gpsLoc = null;
 let gpsBusy = false;
 let activePanel = null;
-function getNowMins() { const n = new Date(); return n.getHours() * 60 + n.getMinutes(); }
 
 /* ══════════════════════════════════════════════
    ユーティリティ
    ══════════════════════════════════════════════ */
-const ft = m => { const n = ((m%1440)+1440)%1440; return `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`; };
-const mt = m => m < 60 ? `${m}分` : m%60===0 ? `${Math.floor(m/60)}時間` : `${Math.floor(m/60)}時間${m%60}分`;
 const openLink = url => window.open(url, '_blank');
 
 function afLink(type, keyword) {
   const kw = encodeURIComponent(keyword);
   if (type === 'amazon') return `https://www.amazon.co.jp/s?k=${kw}&tag=${CONFIG.AMAZON_TAG}`;
   if (type === 'rakuten') return `https://search.rakuten.co.jp/search/mall/${kw}/?af=${CONFIG.RAKUTEN_ID}`;
-  if (type === 'hotpepper') return `https://www.hotpepper.jp/`;
   return '#';
 }
 
-/* 楽天トラベルアフィリエイトリンク生成 */
 function rakutenTravelLink(keyword) {
-  const travelUrl = 'https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=' + encodeURIComponent(keyword);
-  return 'https://hb.afl.rakuten.co.jp/hgc/' + CONFIG.RAKUTEN_ID + '/?pc=' + encodeURIComponent(travelUrl) + '&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
+  const u = 'https://kw.travel.rakuten.co.jp/keyword/Search.do?charset=utf-8&f_query=' + encodeURIComponent(keyword);
+  return 'https://hb.afl.rakuten.co.jp/hgc/' + CONFIG.RAKUTEN_ID + '/?pc=' + encodeURIComponent(u) + '&link_type=hybrid_url&ut=eyJwYWdlIjoidXJsIiwidHlwZSI6Imh5YnJpZF91cmwiLCJjb2wiOjF9';
 }
 
-/* 一休.com 都道府県→エリアURLマッピング */
+/* ── 距離・徒歩時間 ── */
+function calcDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+function walkMin(meters) {
+  const m = Math.ceil(meters / 80);
+  return m >= 60 ? `${Math.floor(m/60)}時間${m%60 ? m%60+'分' : ''}` : `${m}分`;
+}
+function spotTypeIcon(types) {
+  if (!types) return '📍';
+  if (types.some(t => t.includes('shrine')))   return '⛩';
+  if (types.some(t => t.includes('temple')))   return '🏯';
+  if (types.some(t => t.includes('museum')))   return '🏛';
+  if (types.some(t => t.includes('park')))     return '🌳';
+  if (types.some(t => t.includes('aquarium'))) return '🐟';
+  if (types.some(t => t.includes('zoo')))      return '🦁';
+  if (types.some(t => t.includes('amusement')))return '🎡';
+  return '📍';
+}
+
+/* ══════════════════════════════════════════════
+   一休 エリアマップ
+   ══════════════════════════════════════════════ */
 const IKYU_AREA_MAP = {
-  '北海道':'hokkaido/010000/', '青森':'aomori/020000/', '岩手':'iwate/030000/',
-  '宮城':'miyagi/040000/', '秋田':'akita/050000/', '山形':'yamagata/060000/',
-  '福島':'fukushima/070000/', '茨城':'ibaraki/080000/', '栃木':'tochigi/090000/',
-  '群馬':'gunma/100000/', '埼玉':'saitama/110000/', '千葉':'chiba/120000/',
-  '東京':'tokyo/140000/', '神奈川':'kanagawa/130000/', '新潟':'niigata/150000/',
-  '富山':'toyama/160000/', '石川':'ishikawa/170000/', '福井':'fukui/180000/',
-  '山梨':'yamanashi/190000/', '長野':'nagano/200000/', '岐阜':'gifu/210000/',
-  '静岡':'shizuoka/220000/', '愛知':'aichi/230000/', '三重':'mie/240000/',
-  '滋賀':'shiga/250000/', '京都':'kyoto/260000/', '大阪':'osaka/270000/',
-  '兵庫':'hyogo/280000/', '奈良':'nara/290000/', '和歌山':'wakayama/300000/',
-  '鳥取':'tottori/310000/', '島根':'shimane/320000/', '岡山':'okayama/330000/',
-  '広島':'hiroshima/340000/', '山口':'yamaguchi/350000/', '徳島':'tokushima/360000/',
-  '香川':'kagawa/370000/', '愛媛':'ehime/380000/', '高知':'kochi/390000/',
-  '福岡':'fukuoka/400000/', '佐賀':'saga/410000/', '長崎':'nagasaki/420000/',
-  '熊本':'kumamoto/430000/', '大分':'oita/440000/', '宮崎':'miyazaki/450000/',
-  '鹿児島':'kagoshima/460000/', '沖縄':'okinawa/470000/'
+  '北海道':'hokkaido/010000/','青森':'aomori/020000/','岩手':'iwate/030000/',
+  '宮城':'miyagi/040000/','秋田':'akita/050000/','山形':'yamagata/060000/',
+  '福島':'fukushima/070000/','茨城':'ibaraki/080000/','栃木':'tochigi/090000/',
+  '群馬':'gunma/100000/','埼玉':'saitama/110000/','千葉':'chiba/120000/',
+  '東京':'tokyo/140000/','神奈川':'kanagawa/130000/','新潟':'niigata/150000/',
+  '富山':'toyama/160000/','石川':'ishikawa/170000/','福井':'fukui/180000/',
+  '山梨':'yamanashi/190000/','長野':'nagano/200000/','岐阜':'gifu/210000/',
+  '静岡':'shizuoka/220000/','愛知':'aichi/230000/','三重':'mie/240000/',
+  '滋賀':'shiga/250000/','京都':'kyoto/260000/','大阪':'osaka/270000/',
+  '兵庫':'hyogo/280000/','奈良':'nara/290000/','和歌山':'wakayama/300000/',
+  '鳥取':'tottori/310000/','島根':'shimane/320000/','岡山':'okayama/330000/',
+  '広島':'hiroshima/340000/','山口':'yamaguchi/350000/','徳島':'tokushima/360000/',
+  '香川':'kagawa/370000/','愛媛':'ehime/380000/','高知':'kochi/390000/',
+  '福岡':'fukuoka/400000/','佐賀':'saga/410000/','長崎':'nagasaki/420000/',
+  '熊本':'kumamoto/430000/','大分':'oita/440000/','宮崎':'miyazaki/450000/',
+  '鹿児島':'kagoshima/460000/','沖縄':'okinawa/470000/'
 };
 
-/* 一休.comアフィリエイトリンク生成 */
 function ikyuTravelLink(prefState) {
-  // 都道府県からエリアURLを取得
   let areaPath = '';
   for (const [key, path] of Object.entries(IKYU_AREA_MAP)) {
     if (prefState && prefState.includes(key)) { areaPath = path; break; }
   }
-  const destUrl = areaPath
-    ? 'https://www.ikyu.com/' + areaPath + '?ppc=2&rc=1&discsort=1'
-    : 'https://www.ikyu.com/';
-  const ikyuTrackUrl = 'https://www.ikyu.com/ikCo.ashx?cosid=a8ikyu&surl=' + encodeURIComponent(destUrl);
-  return 'https://px.a8.net/svt/ejp?a8mat=' + CONFIG.IKYU_A8MAT + '&a8ejpredirect=' + encodeURIComponent(ikyuTrackUrl);
+  const destUrl = areaPath ? 'https://www.ikyu.com/' + areaPath + '?ppc=2&rc=1&discsort=1' : 'https://www.ikyu.com/';
+  const ikyuUrl = 'https://www.ikyu.com/ikCo.ashx?cosid=a8ikyu&surl=' + encodeURIComponent(destUrl);
+  return 'https://px.a8.net/svt/ejp?a8mat=' + CONFIG.IKYU_A8MAT + '&a8ejpredirect=' + encodeURIComponent(ikyuUrl);
 }
 
 /* ══════════════════════════════════════════════
@@ -478,10 +524,7 @@ function ikyuTravelLink(prefState) {
 function getGPS(cb, forceRefresh) {
   if (gpsLoc && !forceRefresh) { cb && cb(gpsLoc); return; }
   if (gpsBusy) { setTimeout(() => getGPS(cb, forceRefresh), 400); return; }
-  if (!navigator.geolocation) {
-    setLocBar('GPS非対応のブラウザです', false);
-    cb && cb(null); return;
-  }
+  if (!navigator.geolocation) { setLocBar('GPS非対応のブラウザです', false); cb && cb(null); return; }
   gpsBusy = true;
   setLocBar('現在地を取得中…', false);
   navigator.geolocation.getCurrentPosition(
@@ -492,13 +535,15 @@ function getGPS(cb, forceRefresh) {
         .then(d => {
           const city = d.address.city || d.address.town || d.address.county || '';
           const sub  = d.address.suburb || d.address.neighbourhood || '';
-          gpsLoc = { lat: la, lng: lo, name: sub ? `${city} ${sub}` : city || `${la.toFixed(4)}, ${lo.toFixed(4)}` };
+          const state = d.address.state || d.address.province || '';
+          gpsLoc = { lat: la, lng: lo, name: sub ? `${city} ${sub}` : city || `${la.toFixed(4)}, ${lo.toFixed(4)}`, state };
+          _lastPrefState = state;
           gpsBusy = false;
           setLocBar(gpsLoc.name, true);
           cb && cb(gpsLoc);
         })
         .catch(() => {
-          gpsLoc = { lat: la, lng: lo, name: `${la.toFixed(4)}, ${lo.toFixed(4)}` };
+          gpsLoc = { lat: la, lng: lo, name: `${la.toFixed(4)}, ${lo.toFixed(4)}`, state: '' };
           gpsBusy = false;
           setLocBar(gpsLoc.name, true);
           cb && cb(gpsLoc);
@@ -507,8 +552,7 @@ function getGPS(cb, forceRefresh) {
     err => {
       gpsBusy = false;
       const msg = err.code === 1 ? '位置情報の許可が必要です（ブラウザ設定を確認）' :
-                  err.code === 2 ? '位置情報を取得できませんでした' :
-                  '位置情報の取得がタイムアウトしました';
+                  err.code === 2 ? '位置情報を取得できませんでした' : '位置情報の取得がタイムアウトしました';
       setLocBar(msg, false);
       cb && cb(null);
     },
@@ -516,15 +560,16 @@ function getGPS(cb, forceRefresh) {
   );
 }
 
-/* GPS手動リフレッシュ */
 function refreshGPS() {
   gpsLoc = null;
   _lastPrefState = '';
   getGPS(loc => {
     if (loc && activePanel) {
-      if (activePanel === 'food') buildFood(loc);
-      if (activePanel === 'cvs') buildCVS(loc);
+      if (activePanel === 'food')    buildFood(loc);
+      if (activePanel === 'cvs')     buildCVS(loc);
       if (activePanel === 'omiyage') buildOmiyage(loc);
+      if (activePanel === 'topics')  buildTopics(loc);
+      if (activePanel === 'spots')   buildSpots(loc);
     }
   }, true);
 }
@@ -532,7 +577,7 @@ function refreshGPS() {
 function setLocBar(text, got) {
   document.getElementById('locTxt').textContent = text;
   document.getElementById('locBar').className = 'hd-loc' + (got ? ' got' : '');
-  ['taxi','map','food','cvs','hotel','omiyage'].forEach(id => {
+  ['taxi','map','food','cvs','hotel','omiyage','topics','spots'].forEach(id => {
     const el = document.getElementById(`${id}-loc`);
     if (el) el.textContent = got ? text : '現在地を取得中…';
   });
@@ -544,18 +589,13 @@ function setLocBar(text, got) {
 const PLACES_URL = 'https://places.googleapis.com/v1/places:searchNearby';
 
 async function searchPlaces(lat, lng, type, keyword = '', radius = CONFIG.RADIUS) {
-  if (CONFIG.GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY_HERE') {
-    return getDemoData(type);
-  }
+  if (CONFIG.GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY_HERE') return getDemoData(type);
   const body = {
     includedTypes: [type],
     maxResultCount: 5,
-    locationRestriction: {
-      circle: { center: { latitude: lat, longitude: lng }, radius }
-    },
+    locationRestriction: { circle: { center: { latitude: lat, longitude: lng }, radius } },
     rankPreference: 'POPULARITY'
   };
-  // Note: textQuery is not supported in Nearby Search API, keyword is ignored here
   const res = await fetch(PLACES_URL, {
     method: 'POST',
     headers: {
@@ -566,24 +606,42 @@ async function searchPlaces(lat, lng, type, keyword = '', radius = CONFIG.RADIUS
     body: JSON.stringify(body)
   });
   if (!res.ok) throw new Error(`Places API error: ${res.status}`);
-  const data = await res.json();
-  return data.places || [];
+  return (await res.json()).places || [];
 }
 
-// 自動で検索半径を拡大しながら検索
+async function searchPlacesWithLocation(lat, lng, types, radius = 5000) {
+  const body = {
+    includedTypes: types,
+    maxResultCount: 8,
+    locationRestriction: { circle: { center: { latitude: lat, longitude: lng }, radius } },
+    rankPreference: 'POPULARITY'
+  };
+  const res = await fetch(PLACES_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': CONFIG.GOOGLE_API_KEY,
+      'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.formattedAddress,places.location,places.types,places.id'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error(`Places API error: ${res.status}`);
+  return (await res.json()).places || [];
+}
+
 async function searchWithExpand(lat, lng, type, keyword = '', minResults = 1) {
-    const radii = [500, 1000, 3000, 5000];
-    let best = [];
-    for (const r of radii) {
-      const places = await searchPlaces(lat, lng, type, keyword, r);
-      if (places.length >= minResults) return { places, radius: r };
-      if (places.length > best.length) best = places;
-    }
-    return { places: best, radius: 5000 };
+  const radii = [500, 1000, 3000, 5000];
+  let best = [];
+  for (const r of radii) {
+    const places = await searchPlaces(lat, lng, type, keyword, r);
+    if (places.length >= minResults) return { places, radius: r };
+    if (places.length > best.length) best = places;
   }
+  return { places: best, radius: 5000 };
+}
 
 /* ══════════════════════════════════════════════
-   デモデータ（APIキー未設定時）
+   デモデータ
    ══════════════════════════════════════════════ */
 function getDemoData(type) {
   const base = [
@@ -603,6 +661,15 @@ function getDemoData(type) {
   return base;
 }
 
+function getDemoSpots(cityName) {
+  return [
+    { displayName:{text:`${cityName}城`}, rating:4.3, types:['tourist_attraction'], location:{latitude:0,longitude:0}, formattedAddress:'市内中心部' },
+    { displayName:{text:`${cityName}神社`}, rating:4.1, types:['shrine'], location:{latitude:0,longitude:0}, formattedAddress:'駅から徒歩15分' },
+    { displayName:{text:`${cityName}博物館`}, rating:3.9, types:['museum'], location:{latitude:0,longitude:0}, formattedAddress:'バス5分' },
+    { displayName:{text:`${cityName}公園`}, rating:4.0, types:['park'], location:{latitude:0,longitude:0}, formattedAddress:'徒歩10分' },
+  ];
+}
+
 /* ══════════════════════════════════════════════
    カテゴリー選択
    ══════════════════════════════════════════════ */
@@ -610,7 +677,7 @@ let currentCatType = 'restaurant';
 let selectedRestName = '';
 let selectedRestAddr = '';
 
-function selectCat(btn, type, icon, label) {
+function selectCat(btn, type) {
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentCatType = type;
@@ -620,19 +687,15 @@ function selectCat(btn, type, icon, label) {
 }
 
 /* ══════════════════════════════════════════════
-   お店一覧の表示
+   お店一覧
    ══════════════════════════════════════════════ */
 async function buildFood(loc, type = 'restaurant') {
   const con = document.getElementById('foodList');
   con.innerHTML = '<div class="loading">お店を検索中</div>';
   try {
     const { places, radius } = await searchWithExpand(loc.lat, loc.lng, type);
-    if (!places.length) {
-      con.innerHTML = '<div class="err">⚠ 近くにお店が見つかりませんでした。<br>カテゴリーを変えて試してみてください。</div>';
-      return;
-    }
+    if (!places.length) { con.innerHTML = '<div class="err">⚠ 近くにお店が見つかりませんでした。<br>カテゴリーを変えて試してみてください。</div>'; return; }
     con.innerHTML = '';
-    // 検索半径が広がった場合は通知
     if (radius > CONFIG.RADIUS) {
       const note = document.createElement('div');
       note.style.cssText = 'font-size:11px;color:var(--muted);padding:4px 2px;margin-bottom:8px;';
@@ -648,35 +711,25 @@ async function buildFood(loc, type = 'restaurant') {
       el.className = 'item';
       el.onclick = () => {
         selectFood(el, name, addr);
-        // 直接Googleマップで道案内を開く
-        const dest = name + ' ' + addr;
         const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
-        openLink(`https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=walking`);
+        openLink(`https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(name+' '+addr)}&travelmode=walking`);
       };
-      el.innerHTML = `
-        <div>
-          <div class="item-name">${name}</div>
-          <div class="item-meta">${[rating, addr].filter(Boolean).join(' · ')}</div>
-        </div>
-        <span class="item-badge ${isOpen ? 'badge-open' : 'badge-closed'}">${isOpen ? '● 営業中' : '× 閉店'} 🗺</span>`;
+      el.innerHTML = `<div><div class="item-name">${name}</div><div class="item-meta">${[rating,addr].filter(Boolean).join(' · ')}</div></div><span class="item-badge ${isOpen?'badge-open':'badge-closed'}">${isOpen?'● 営業中':'× 閉店'} 🗺</span>`;
       con.appendChild(el);
     });
-  } catch(e) {
-    con.innerHTML = `<div class="err">⚠ お店の取得に失敗しました。</div>`;
-  }
+  } catch(e) { con.innerHTML = `<div class="err">⚠ お店の取得に失敗しました。</div>`; }
 }
 
 function selectFood(el, name, addr) {
   document.querySelectorAll('#foodList .item').forEach(i => i.classList.remove('sel'));
   el.classList.add('sel');
-  selectedRestName = name;
-  selectedRestAddr = addr;
+  selectedRestName = name; selectedRestAddr = addr;
   document.getElementById('mealActs').classList.add('on');
   document.getElementById('mealRes').className = 'rbox';
 }
 
 /* ══════════════════════════════════════════════
-   コンビニ一覧の表示
+   コンビニ一覧
    ══════════════════════════════════════════════ */
 async function buildCVS(loc) {
   const con = document.getElementById('cvsList');
@@ -690,112 +743,149 @@ async function buildCVS(loc) {
       const addr = p.formattedAddress || '';
       const el = document.createElement('div');
       el.className = 'item';
-      if (gpsLoc) {
-        el.onclick = () => openLink(`https://www.google.com/maps/dir/?api=1&origin=${gpsLoc.lat},${gpsLoc.lng}&destination=${encodeURIComponent(name + ' ' + addr)}&travelmode=walking`);
-      }
-      el.innerHTML = `
-        <div>
-          <div class="item-name">${name}</div>
-          <div class="item-meta">${addr}</div>
-        </div>
-        <span class="item-badge badge-open">24時間</span>`;
+      if (gpsLoc) el.onclick = () => openLink(`https://www.google.com/maps/dir/?api=1&origin=${gpsLoc.lat},${gpsLoc.lng}&destination=${encodeURIComponent(name+' '+addr)}&travelmode=walking`);
+      el.innerHTML = `<div><div class="item-name">${name}</div><div class="item-meta">${addr}</div></div><span class="item-badge badge-open">24時間</span>`;
       con.appendChild(el);
     });
-  } catch(e) {
-    con.innerHTML = `<div class="err">⚠ コンビニの取得に失敗しました。</div>`;
-  }
+  } catch(e) { con.innerHTML = `<div class="err">⚠ コンビニの取得に失敗しました。</div>`; }
 }
 
 /* ══════════════════════════════════════════════
-   お土産一覧の表示
+   都道府県データ — お土産
    ══════════════════════════════════════════════ */
-/* 都道府県別おすすめお土産（定番・No.1・珍しい/面白い） */
 const PREF_OMIYAGE_DETAIL = {
-  '北海道': { teiban:'白い恋人', no1:'ロイズ生チョコレート', rare:'マルセイバターサンド' },
-  '青森': { teiban:'りんご菓子', no1:'気になるリンゴ', rare:'いちご煮せんべい' },
-  '岩手': { teiban:'かもめの玉子', no1:'南部せんべい', rare:'前沢牛サイダー' },
-  '宮城': { teiban:'萩の月', no1:'ずんだ餅', rare:'牛タンジャーキー' },
-  '秋田': { teiban:'稲庭うどん', no1:'金萬', rare:'ババヘラアイス' },
-  '山形': { teiban:'さくらんぼ菓子', no1:'のし梅', rare:'だだちゃ豆せんべい' },
-  '福島': { teiban:'ままどおる', no1:'薄皮饅頭', rare:'いかにんじん煎餅' },
-  '茨城': { teiban:'干し芋', no1:'水戸の梅', rare:'メロンバーム' },
-  '栃木': { teiban:'日光甚五郎煎餅', no1:'とちおとめスイーツ', rare:'餃子パイ' },
-  '群馬': { teiban:'焼きまんじゅう', no1:'ガトーフェスタハラダ ラスク', rare:'下仁田ねぎ煎餅' },
-  '埼玉': { teiban:'十万石まんじゅう', no1:'草加せんべい', rare:'狭山茶ラングドシャ' },
-  '千葉': { teiban:'なごみの米屋', no1:'ぴーなっつ最中', rare:'びわゼリー' },
-  '東京': { teiban:'東京ばな奈', no1:'シュガーバターの木', rare:'雷おこし 新味' },
-  '神奈川': { teiban:'ありあけハーバー', no1:'鳩サブレー', rare:'よこすか海軍カレーパン' },
-  '新潟': { teiban:'笹団子', no1:'柿の種', rare:'ヤスダヨーグルト' },
-  '富山': { teiban:'ますの寿し', no1:'甘金丹', rare:'しろえびせんべい' },
-  '石川': { teiban:'加賀棒茶', no1:'きんつば 中田屋', rare:'ふぐの子ぬか漬け' },
-  '福井': { teiban:'羽二重餅', no1:'水ようかん', rare:'恐竜グッズ' },
-  '山梨': { teiban:'信玄餅', no1:'信玄桃', rare:'ほうとう饅頭' },
-  '長野': { teiban:'七味唐辛子', no1:'おやき', rare:'野沢菜ワサビ味' },
-  '岐阜': { teiban:'栗きんとん', no1:'飛騨牛しぐれ', rare:'鮎菓子' },
-  '静岡': { teiban:'うなぎパイ', no1:'安倍川餅', rare:'わさびチョコレート' },
-  '愛知': { teiban:'なごやん', no1:'えびせんべい ゆかり', rare:'小倉トーストラングドシャ' },
-  '三重': { teiban:'赤福', no1:'シェルレーヌ', rare:'松阪牛しぐれ煮' },
-  '滋賀': { teiban:'近江牛しぐれ煮', no1:'クラブハリエ バームクーヘン', rare:'鮒寿司' },
-  '京都': { teiban:'生八ッ橋', no1:'阿闍梨餅', rare:'京野菜チップス' },
-  '大阪': { teiban:'551蓬莱 豚まん', no1:'りくろーおじさんのチーズケーキ', rare:'たこ焼きまんじゅう' },
-  '兵庫': { teiban:'ゴーフル', no1:'神戸プリン', rare:'明石焼きせんべい' },
-  '奈良': { teiban:'奈良漬', no1:'大仏プリン', rare:'鹿のふんチョコ' },
-  '和歌山': { teiban:'梅干し', no1:'みかんお菓子', rare:'パンダグッズ 南紀白浜' },
-  '鳥取': { teiban:'砂丘らっきょう', no1:'因幡の白うさぎ', rare:'砂たまご' },
-  '島根': { teiban:'出雲そば', no1:'どじょう掬いまんじゅう', rare:'しじみ汁フリーズドライ' },
-  '岡山': { teiban:'吉備団子', no1:'大手まんぢゅう', rare:'マスキングテープ 倉敷' },
-  '広島': { teiban:'もみじ饅頭', no1:'広島レモンケーキ', rare:'がんす（揚げかまぼこ）' },
-  '山口': { teiban:'外郎', no1:'月でひろった卵', rare:'ふく刺しせんべい' },
-  '徳島': { teiban:'鳴門金時芋菓子', no1:'すだちグミ', rare:'竹ちくわ' },
-  '香川': { teiban:'讃岐うどん', no1:'おいりソフト', rare:'和三盆' },
-  '愛媛': { teiban:'タルト 愛媛', no1:'母恵夢', rare:'みかんジュース蛇口' },
-  '高知': { teiban:'かつお節', no1:'芋けんぴ', rare:'ミレービスケット' },
-  '福岡': { teiban:'博多通りもん', no1:'めんべい', rare:'チロリアン' },
-  '佐賀': { teiban:'丸ぼうろ', no1:'小城羊羹', rare:'佐賀牛カレー' },
-  '長崎': { teiban:'カステラ', no1:'角煮まんじゅう', rare:'九十九島せんぺい' },
-  '熊本': { teiban:'陣太鼓', no1:'黒糖ドーナツ棒', rare:'くまモングッズ' },
-  '大分': { teiban:'ざびえる', no1:'豊後銘菓やせうま', rare:'かぼすサイダー' },
-  '宮崎': { teiban:'チキン南蛮せんべい', no1:'チーズ饅頭', rare:'マンゴーラングドシャ' },
-  '鹿児島': { teiban:'かるかん', no1:'白熊アイス', rare:'さつまあげ' },
-  '沖縄': { teiban:'ちんすこう', no1:'紅芋タルト', rare:'海ぶどう' },
+  '北海道':{teiban:'白い恋人',no1:'ロイズ生チョコレート',rare:'マルセイバターサンド'},
+  '青森':{teiban:'りんご菓子',no1:'気になるリンゴ',rare:'いちご煮せんべい'},
+  '岩手':{teiban:'かもめの玉子',no1:'南部せんべい',rare:'前沢牛サイダー'},
+  '宮城':{teiban:'萩の月',no1:'ずんだ餅',rare:'牛タンジャーキー'},
+  '秋田':{teiban:'稲庭うどん',no1:'金萬',rare:'ババヘラアイス'},
+  '山形':{teiban:'さくらんぼ菓子',no1:'のし梅',rare:'だだちゃ豆せんべい'},
+  '福島':{teiban:'ままどおる',no1:'薄皮饅頭',rare:'いかにんじん煎餅'},
+  '茨城':{teiban:'干し芋',no1:'水戸の梅',rare:'メロンバーム'},
+  '栃木':{teiban:'日光甚五郎煎餅',no1:'とちおとめスイーツ',rare:'餃子パイ'},
+  '群馬':{teiban:'焼きまんじゅう',no1:'ガトーフェスタハラダ ラスク',rare:'下仁田ねぎ煎餅'},
+  '埼玉':{teiban:'十万石まんじゅう',no1:'草加せんべい',rare:'狭山茶ラングドシャ'},
+  '千葉':{teiban:'なごみの米屋',no1:'ぴーなっつ最中',rare:'びわゼリー'},
+  '東京':{teiban:'東京ばな奈',no1:'シュガーバターの木',rare:'雷おこし 新味'},
+  '神奈川':{teiban:'ありあけハーバー',no1:'鳩サブレー',rare:'よこすか海軍カレーパン'},
+  '新潟':{teiban:'笹団子',no1:'柿の種',rare:'ヤスダヨーグルト'},
+  '富山':{teiban:'ますの寿し',no1:'甘金丹',rare:'しろえびせんべい'},
+  '石川':{teiban:'加賀棒茶',no1:'きんつば 中田屋',rare:'ふぐの子ぬか漬け'},
+  '福井':{teiban:'羽二重餅',no1:'水ようかん',rare:'恐竜グッズ'},
+  '山梨':{teiban:'信玄餅',no1:'信玄桃',rare:'ほうとう饅頭'},
+  '長野':{teiban:'七味唐辛子',no1:'おやき',rare:'野沢菜ワサビ味'},
+  '岐阜':{teiban:'栗きんとん',no1:'飛騨牛しぐれ',rare:'鮎菓子'},
+  '静岡':{teiban:'うなぎパイ',no1:'安倍川餅',rare:'わさびチョコレート'},
+  '愛知':{teiban:'なごやん',no1:'えびせんべい ゆかり',rare:'小倉トーストラングドシャ'},
+  '三重':{teiban:'赤福',no1:'シェルレーヌ',rare:'松阪牛しぐれ煮'},
+  '滋賀':{teiban:'近江牛しぐれ煮',no1:'クラブハリエ バームクーヘン',rare:'鮒寿司'},
+  '京都':{teiban:'生八ッ橋',no1:'阿闍梨餅',rare:'京野菜チップス'},
+  '大阪':{teiban:'551蓬莱 豚まん',no1:'りくろーおじさんのチーズケーキ',rare:'たこ焼きまんじゅう'},
+  '兵庫':{teiban:'ゴーフル',no1:'神戸プリン',rare:'明石焼きせんべい'},
+  '奈良':{teiban:'奈良漬',no1:'大仏プリン',rare:'鹿のふんチョコ'},
+  '和歌山':{teiban:'梅干し',no1:'みかんお菓子',rare:'パンダグッズ 南紀白浜'},
+  '鳥取':{teiban:'砂丘らっきょう',no1:'因幡の白うさぎ',rare:'砂たまご'},
+  '島根':{teiban:'出雲そば',no1:'どじょう掬いまんじゅう',rare:'しじみ汁フリーズドライ'},
+  '岡山':{teiban:'吉備団子',no1:'大手まんぢゅう',rare:'マスキングテープ 倉敷'},
+  '広島':{teiban:'もみじ饅頭',no1:'広島レモンケーキ',rare:'がんす（揚げかまぼこ）'},
+  '山口':{teiban:'外郎',no1:'月でひろった卵',rare:'ふく刺しせんべい'},
+  '徳島':{teiban:'鳴門金時芋菓子',no1:'すだちグミ',rare:'竹ちくわ'},
+  '香川':{teiban:'讃岐うどん',no1:'おいりソフト',rare:'和三盆'},
+  '愛媛':{teiban:'タルト 愛媛',no1:'母恵夢',rare:'みかんジュース蛇口'},
+  '高知':{teiban:'かつお節',no1:'芋けんぴ',rare:'ミレービスケット'},
+  '福岡':{teiban:'博多通りもん',no1:'めんべい',rare:'チロリアン'},
+  '佐賀':{teiban:'丸ぼうろ',no1:'小城羊羹',rare:'佐賀牛カレー'},
+  '長崎':{teiban:'カステラ',no1:'角煮まんじゅう',rare:'九十九島せんぺい'},
+  '熊本':{teiban:'陣太鼓',no1:'黒糖ドーナツ棒',rare:'くまモングッズ'},
+  '大分':{teiban:'ざびえる',no1:'豊後銘菓やせうま',rare:'かぼすサイダー'},
+  '宮崎':{teiban:'チキン南蛮せんべい',no1:'チーズ饅頭',rare:'マンゴーラングドシャ'},
+  '鹿児島':{teiban:'かるかん',no1:'白熊アイス',rare:'さつまあげ'},
+  '沖縄':{teiban:'ちんすこう',no1:'紅芋タルト',rare:'海ぶどう'},
 };
+
+/* ══════════════════════════════════════════════
+   都道府県データ — せっかく来たなら
+   ══════════════════════════════════════════════ */
+const PREF_SPOTS_DATA = {
+  '北海道':{food:['ジンギスカン','スープカレー','海鮮丼'],drink:'サッポロクラシック',spot:'時計台・大通公園・小樽運河'},
+  '青森':{food:['りんご料理','十三湖のシジミ汁','せんべい汁'],drink:'田酒',spot:'弘前城・ねぶたの家ワ・ラッセ'},
+  '岩手':{food:['わんこそば','じゃじゃ麺','冷麺'],drink:'南部美人',spot:'中尊寺・盛岡城跡'},
+  '宮城':{food:['牛タン定食','ずんだシェイク','牡蠣料理'],drink:'浦霞・一ノ蔵',spot:'松島・仙台城跡'},
+  '秋田':{food:['きりたんぽ鍋','稲庭うどん','しょっつる鍋'],drink:'新政・まんさくの花',spot:'角館・男鹿半島・田沢湖'},
+  '山形':{food:['芋煮','冷やしラーメン','だし料理'],drink:'出羽桜・十四代',spot:'山寺・蔵王・銀山温泉'},
+  '福島':{food:['喜多方ラーメン','ソースかつ丼','円盤餃子'],drink:'大七・奥の松',spot:'会津若松城・五色沼'},
+  '茨城':{food:['あんこう鍋','納豆料理','干し芋スイーツ'],drink:'副将軍',spot:'偕楽園・袋田の滝・筑波山'},
+  '栃木':{food:['宇都宮餃子','日光ゆば料理','スープ餃子'],drink:'四季桜',spot:'日光東照宮・華厳の滝'},
+  '群馬':{food:['水沢うどん','峠の釜めし','もつ煮定食'],drink:'水芭蕉',spot:'草津温泉・伊香保温泉'},
+  '埼玉':{food:['武蔵野うどん','冷汁うどん','鰻料理'],drink:'神亀',spot:'川越一番街・鉄道博物館・長瀞'},
+  '千葉':{food:['落花生料理','なめろう','伊勢海老'],drink:'梅一輪',spot:'銚子灯台・成田山新勝寺'},
+  '東京':{food:['もんじゃ焼き','深川めし','築地海鮮'],drink:'澤乃井',spot:'浅草・スカイツリー・上野'},
+  '神奈川':{food:['崎陽軒シウマイ','家系ラーメン','海軍カレー'],drink:'相模灘',spot:'横浜中華街・鎌倉・江ノ島'},
+  '新潟':{food:['へぎそば','のどぐろ刺身','タレかつ丼'],drink:'久保田・八海山・越乃寒梅',spot:'古町・みなとぴあ・朱鷺メッセ'},
+  '富山':{food:['白エビ料理','ブリ刺身','富山ブラックラーメン'],drink:'立山・勝駒',spot:'富山城・雨晴海岸・黒部峡谷'},
+  '石川':{food:['のどぐろ','加賀料理','治部煮'],drink:'菊姫・手取川',spot:'兼六園・東茶屋街・21世紀美術館'},
+  '福井':{food:['越前ガニ','奉書料理','おろしそば'],drink:'黒龍',spot:'東尋坊・永平寺・恐竜博物館'},
+  '山梨':{food:['ほうとう','鳥もつ煮','甲州ワイン料理'],drink:'甲州ワイン',spot:'富士山・昇仙峡・武田神社'},
+  '長野':{food:['信州そば','おやき','馬刺し'],drink:'真澄・七笑',spot:'善光寺・松本城・上高地'},
+  '岐阜':{food:['飛騨牛','みたらし団子','鶏ちゃん'],drink:'蓬莱・白川郷（酒）',spot:'白川郷・岐阜城・下呂温泉'},
+  '静岡':{food:['桜エビのかき揚げ','静岡おでん','浜名湖うなぎ'],drink:'磯自慢',spot:'久能山東照宮・三保の松原'},
+  '愛知':{food:['みそカツ','ひつまぶし','手羽先'],drink:'義侠・醸し人九平次',spot:'名古屋城・熱田神宮'},
+  '三重':{food:['伊勢エビ','てこね寿司','松阪牛'],drink:'而今・天遊琳',spot:'伊勢神宮・鳥羽水族館'},
+  '滋賀':{food:['近江牛','鮒寿司','赤こんにゃく'],drink:'喜楽長',spot:'彦根城・琵琶湖・比叡山延暦寺'},
+  '京都':{food:['湯豆腐','京懐石','にしん蕎麦'],drink:'月桂冠・黄桜',spot:'金閣寺・嵐山・祇園'},
+  '大阪':{food:['たこ焼き','お好み焼き','串カツ'],drink:'秋鹿',spot:'道頓堀・大阪城・通天閣'},
+  '兵庫':{food:['神戸牛','明石焼き','播州ラーメン'],drink:'剣菱・菊正宗',spot:'姫路城・有馬温泉・神戸港'},
+  '奈良':{food:['三輪そうめん','柿の葉寿司','奈良漬料理'],drink:'春鹿',spot:'東大寺・興福寺・奈良公園'},
+  '和歌山':{food:['クエ料理','めはり寿司','和歌山ラーメン'],drink:'黒牛',spot:'熊野古道・那智の滝'},
+  '鳥取':{food:['松葉ガニ','砂丘の梨','白イカ料理'],drink:'鷹勇',spot:'鳥取砂丘・水木しげるロード'},
+  '島根':{food:['出雲そば','のどぐろ','宍道湖のシジミ汁'],drink:'王禄',spot:'出雲大社・石見銀山・松江城'},
+  '岡山':{food:['ままかり','祭り寿司','ひるぜんやきそば'],drink:'白菊',spot:'後楽園・倉敷美観地区'},
+  '広島':{food:['牡蠣料理','広島風お好み焼き','あなご飯'],drink:'賀茂鶴・醉心',spot:'厳島神社・原爆ドーム'},
+  '山口':{food:['フグ料理','瓦そば','外郎'],drink:'獺祭・雁木',spot:'錦帯橋・秋吉台・萩城下町'},
+  '徳島':{food:['阿波尾鶏','鳴門の鯛','徳島ラーメン'],drink:'鳴門鯛',spot:'鳴門の渦潮・大歩危・阿波おどり会館'},
+  '香川':{food:['讃岐うどん','骨付鳥','しょうゆ豆'],drink:'川鶴',spot:'栗林公園・金刀比羅宮・直島'},
+  '愛媛':{food:['じゃこ天','鯛めし','宇和島風鯛めし'],drink:'梅錦',spot:'松山城・道後温泉・しまなみ海道'},
+  '高知':{food:['カツオたたき','皿鉢料理','清水サバ'],drink:'酔鯨・土佐鶴',spot:'高知城・桂浜・四万十川'},
+  '福岡':{food:['博多ラーメン','水炊き','もつ鍋'],drink:'西の関・三井の寿',spot:'太宰府天満宮・柳川・博多祇園山笠'},
+  '佐賀':{food:['呼子のイカ','佐賀牛','有田焼ランチ'],drink:'鍋島',spot:'吉野ヶ里遺跡・唐津城・有田陶器市'},
+  '長崎':{food:['ちゃんぽん','皿うどん','卓袱料理'],drink:'福田酒造',spot:'グラバー園・出島・軍艦島'},
+  '熊本':{food:['馬刺し','からし蓮根','太平燕'],drink:'瑞鷹・香露',spot:'熊本城・阿蘇・天草'},
+  '大分':{food:['とり天','だんご汁','城下かれい'],drink:'西の関・八鹿',spot:'別府温泉・湯布院・国東半島'},
+  '宮崎':{food:['チキン南蛮','地鶏の炭火焼','冷や汁'],drink:'黒霧島',spot:'高千穂峡・宮崎神宮'},
+  '鹿児島':{food:['黒豚しゃぶしゃぶ','さつまあげ','鶏飯'],drink:'森伊蔵・魔王',spot:'桜島・指宿温泉・知覧特攻平和会館'},
+  '沖縄':{food:['沖縄そば','ゴーヤチャンプルー','海ぶどう'],drink:'泡盛（久米仙・残波）',spot:'首里城・美ら海水族館・国際通り'},
+};
+
+/* ══════════════════════════════════════════════
+   お土産一覧
+   ══════════════════════════════════════════════ */
+let _lastPrefState = '';
 
 async function buildOmiyage(loc) {
   const con = document.getElementById('omiList');
   const res = document.getElementById('omiRes');
   con.innerHTML = '<div class="loading">お土産を検索中</div>';
   res.className = 'rbox';
-
   try {
     const prefKeyword = await getPrefKeyword(loc);
     const prefDetail = await getPrefDetail(loc);
     con.innerHTML = '';
-
     if (prefDetail) {
-      // 3カテゴリをメインで表示（API不要・確実に出る）
       const cats = [
-        { icon:'👑', label:'定番のお土産', name: prefDetail.teiban, tag:'定番' },
-        { icon:'🏆', label:'人気No.1', name: prefDetail.no1, tag:'人気' },
-        { icon:'✨', label:'珍しい・面白い', name: prefDetail.rare, tag:'レア' },
+        { icon:'👑', label:'定番のお土産', name:prefDetail.teiban, tag:'定番' },
+        { icon:'🏆', label:'人気No.1', name:prefDetail.no1, tag:'人気' },
+        { icon:'✨', label:'珍しい・面白い', name:prefDetail.rare, tag:'レア' },
       ];
       cats.forEach(c => {
         const item = document.createElement('div');
         item.className = 'omi-item';
-        item.style.cssText = 'cursor:pointer;';
         item.innerHTML = `<span class="omi-rank">${c.icon}</span><div><div class="omi-name">${c.name}</div><div class="omi-meta">${c.label}</div></div><span class="item-badge badge-open">${c.tag}</span>`;
         item.onclick = () => {
           document.querySelectorAll('.omi-item').forEach(i => i.classList.remove('sel'));
           item.classList.add('sel');
-          const keyword = c.name;
-          const amzUrl = afLink('amazon', keyword + ' お土産');
-          const rakUrl = afLink('rakuten', keyword + ' お土産');
-          res.innerHTML = `
-            <div class="rb-title">${c.icon} ${c.name}</div>
-            <div class="rb-body" style="margin-bottom:10px;">${c.label}</div>
-            <div class="af-row">
-              <button class="af-btn amz" id="omi-amz-btn">📦 Amazonで買う</button>
-              <button class="af-btn rak" id="omi-rak-btn">🛒 楽天で買う</button>
-            </div>`;
+          const amzUrl = afLink('amazon', c.name + ' お土産');
+          const rakUrl = afLink('rakuten', c.name + ' お土産');
+          res.innerHTML = `<div class="rb-title">${c.icon} ${c.name}</div><div class="rb-body" style="margin-bottom:10px;">${c.label}</div><div class="af-row"><button class="af-btn amz" id="omi-amz-btn">📦 Amazonで買う</button><button class="af-btn rak" id="omi-rak-btn">🛒 楽天で買う</button></div>`;
           document.getElementById('omi-amz-btn').onclick = () => openLink(amzUrl);
           document.getElementById('omi-rak-btn').onclick = () => openLink(rakUrl);
           res.className = 'rbox on pink';
@@ -805,51 +895,32 @@ async function buildOmiyage(loc) {
     } else {
       con.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px;">位置情報からお土産を特定できませんでした</div>';
     }
-
-    // まとめて検索ボタン
     const af = document.createElement('div');
     af.style.cssText = 'margin-top:12px;padding-top:10px;border-top:1px solid var(--border);';
-    af.innerHTML = `
-      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">ネットで注文・配送もOK</div>
-      <div class="af-row">
-        <button class="af-btn amz" onclick="openLink('${afLink('amazon', prefKeyword + ' お土産')}')">📦 Amazonで探す</button>
-        <button class="af-btn rak" onclick="openLink('${afLink('rakuten', prefKeyword + ' お土産')}')">🛒 楽天で探す</button>
-      </div>`;
+    af.innerHTML = `<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">ネットで注文・配送もOK</div><div class="af-row"><button class="af-btn amz" onclick="openLink('${afLink('amazon', prefKeyword+' お土産')}')">📦 Amazonで探す</button><button class="af-btn rak" onclick="openLink('${afLink('rakuten', prefKeyword+' お土産')}')">🛒 楽天で探す</button></div>`;
     con.appendChild(af);
-
-  } catch(e) {
-    con.innerHTML = `<div class="err">⚠ お土産情報の取得に失敗しました。<br><span style="font-size:10px;color:var(--muted);">${e.message||''}</span></div>`;
-  }
+  } catch(e) { con.innerHTML = `<div class="err">⚠ お土産情報の取得に失敗しました。</div>`; }
 }
 
-/* 最後に取得した都道府県名をキャッシュ */
-let _lastPrefState = '';
-
 async function getPrefKeyword(loc) {
-  // Nominatimから都道府県名を取得してキーワードにマッピング
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
     const d = await res.json();
     const state = d.address.state || d.address.province || '';
-    _lastPrefState = state; // キャッシュ
-    // 都道府県名から定番お土産名をキーワードとして返す
+    _lastPrefState = state;
     for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
       if (state.includes(key)) return detail.teiban;
     }
     return state ? `${state} お土産` : 'お土産';
-  } catch {
-    return 'お土産';
-  }
+  } catch { return 'お土産'; }
 }
 
 async function getPrefDetail(loc) {
-  // getPrefKeywordで既にNominatim呼んでいるのでキャッシュを使う
   if (_lastPrefState) {
     for (const [key, detail] of Object.entries(PREF_OMIYAGE_DETAIL)) {
       if (_lastPrefState.includes(key)) return detail;
     }
   }
-  // キャッシュがなければ直接取得
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
     const d = await res.json();
@@ -859,17 +930,181 @@ async function getPrefDetail(loc) {
       if (state.includes(key)) return detail;
     }
     return null;
-  } catch {
-    return null;
+  } catch { return null; }
+}
+
+async function getPrefState(loc) {
+  if (_lastPrefState) return _lastPrefState;
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${loc.lat}&lon=${loc.lng}&format=json&accept-language=ja`);
+    const d = await res.json();
+    const state = d.address.state || d.address.province || '';
+    _lastPrefState = state;
+    return state;
+  } catch { return ''; }
+}
+
+/* ══════════════════════════════════════════════
+   地域トピック
+   ══════════════════════════════════════════════ */
+async function buildTopics(loc) {
+  const con = document.getElementById('topicsList');
+  con.innerHTML = '<div class="loading">地域の話題を取得中</div>';
+  try {
+    const state = await getPrefState(loc);
+    const searchQuery = state || gpsLoc?.name?.split(' ')[0] || '現在地';
+
+    // rss2json.com（無料枠）でGoogle News RSSを取得
+    const rssUrl = encodeURIComponent(`https://news.google.com/rss/search?q=${encodeURIComponent(searchQuery)}&hl=ja&gl=JP&ceid=JP:ja`);
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&count=7`;
+
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    con.innerHTML = '';
+
+    if (data.status === 'ok' && data.items?.length) {
+      data.items.slice(0, 7).forEach((item, i) => {
+        const pub = new Date(item.pubDate);
+        const dateStr = isNaN(pub) ? '' : `${pub.getMonth()+1}/${pub.getDate()}`;
+        const source = item.author || '';
+        const el = document.createElement('div');
+        el.className = 'topic-item';
+        el.innerHTML = `
+          <div class="topic-num">${i+1}</div>
+          <div class="topic-body">
+            <div class="topic-title">${item.title}</div>
+            <div class="topic-meta">${[source, dateStr].filter(Boolean).join('  ·  ')}</div>
+          </div>
+          <div class="topic-arrow">›</div>`;
+        el.onclick = () => openLink(item.link);
+        con.appendChild(el);
+      });
+      const footer = document.createElement('div');
+      footer.className = 'topic-footer';
+      footer.innerHTML = `<a href="https://news.google.com/search?q=${encodeURIComponent(searchQuery)}&hl=ja" target="_blank">Googleニュースでもっと見る →</a>`;
+      con.appendChild(footer);
+    } else {
+      // 取得失敗時はGoogleニュース直リンクへ誘導
+      con.innerHTML = `
+        <div class="err" style="margin-bottom:12px;">ニュースの自動取得ができませんでした。<br>以下からGoogleニュースをご覧ください。</div>
+        <div class="alist">
+          <div class="aitem" onclick="openLink('https://news.google.com/search?q=${encodeURIComponent(searchQuery)}&hl=ja')">
+            <span class="aitem-icon">📰</span>
+            <div><div class="aitem-title">Googleニュースで「${searchQuery}」を検索</div><div class="aitem-sub">ブラウザで開きます</div></div>
+          </div>
+        </div>`;
+    }
+  } catch(e) {
+    const q = encodeURIComponent(_lastPrefState || '現在地');
+    document.getElementById('topicsList').innerHTML = `
+      <div class="err" style="margin-bottom:12px;">⚠ ニュースの取得に失敗しました。</div>
+      <div class="alist">
+        <div class="aitem" onclick="openLink('https://news.google.com/search?q=${q}&hl=ja')">
+          <span class="aitem-icon">📰</span>
+          <div><div class="aitem-title">Googleニュースで検索する</div><div class="aitem-sub">ブラウザで開きます</div></div>
+        </div>
+      </div>`;
   }
 }
 
-/* selectOmiyage は buildOmiyage 内のインラインに統合済み */
+/* ══════════════════════════════════════════════
+   せっかく来たなら
+   ══════════════════════════════════════════════ */
+async function buildSpots(loc) {
+  const con = document.getElementById('spotsList');
+  con.innerHTML = '<div class="loading">定番スポットを検索中</div>';
+  try {
+    const state = await getPrefState(loc);
+    con.innerHTML = '';
+
+    // ── 地域の定番セクション ──
+    const spotsData = (() => {
+      for (const [key, val] of Object.entries(PREF_SPOTS_DATA)) {
+        if (state.includes(key)) return { pref: key, ...val };
+      }
+      return null;
+    })();
+
+    if (spotsData) {
+      const regionBox = document.createElement('div');
+      regionBox.className = 'spots-region';
+      regionBox.innerHTML = `
+        <div class="spots-region-title">🗾 ${spotsData.pref}の定番</div>
+        <div class="spots-row">
+          <div class="spots-chip">
+            <span class="spots-chip-icon">🍽</span>
+            <div><span class="spots-chip-label">グルメ</span>${spotsData.food.join('・')}</div>
+          </div>
+          <div class="spots-chip">
+            <span class="spots-chip-icon">🍶</span>
+            <div><span class="spots-chip-label">お酒</span>${spotsData.drink}</div>
+          </div>
+          <div class="spots-chip">
+            <span class="spots-chip-icon">📍</span>
+            <div><span class="spots-chip-label">スポット</span>${spotsData.spot}</div>
+          </div>
+        </div>`;
+      con.appendChild(regionBox);
+    }
+
+    // ── 近くの観光スポット ──
+    const label = document.createElement('div');
+    label.className = 'spots-section-label';
+    label.textContent = '近くの観光スポット';
+    con.appendChild(label);
+
+    if (CONFIG.GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY_HERE') {
+      const cityName = gpsLoc?.name?.split(' ')[0] || '現在地';
+      getDemoSpots(cityName).forEach(p => renderSpotItem(con, p, loc));
+    } else {
+      try {
+        const spotTypes = ['tourist_attraction','museum','shrine','temple','park','amusement_park','aquarium'];
+        const places = await searchPlacesWithLocation(loc.lat, loc.lng, spotTypes, 5000);
+        if (places.length) {
+          places.slice(0, 7).forEach(p => renderSpotItem(con, p, loc));
+        } else {
+          const noResult = document.createElement('div');
+          noResult.style.cssText = 'font-size:12px;color:var(--muted);padding:8px;';
+          noResult.textContent = '近くの観光スポットが見つかりませんでした。';
+          con.appendChild(noResult);
+        }
+      } catch(e) {
+        const fallback = document.createElement('div');
+        fallback.className = 'alist';
+        fallback.innerHTML = `<div class="aitem" onclick="openLink('https://www.google.com/maps/search/観光スポット/@${loc.lat},${loc.lng},14z')"><span class="aitem-icon">🗺</span><div><div class="aitem-title">Googleマップで観光スポットを見る</div><div class="aitem-sub">現在地周辺を表示</div></div></div>`;
+        con.appendChild(fallback);
+      }
+    }
+  } catch(e) { con.innerHTML = `<div class="err">⚠ スポット情報の取得に失敗しました。</div>`; }
+}
+
+function renderSpotItem(con, p, loc) {
+  const name = p.displayName?.text || '';
+  const rating = p.rating ? `★${p.rating.toFixed(1)}` : '';
+  const addr = p.formattedAddress || '';
+  const icon = spotTypeIcon(p.types);
+  let walkStr = '';
+  if (p.location && loc && (p.location.latitude !== 0 || p.location.longitude !== 0)) {
+    const dist = calcDistance(loc.lat, loc.lng, p.location.latitude, p.location.longitude);
+    walkStr = `徒歩${walkMin(dist)}`;
+  }
+  const el = document.createElement('div');
+  el.className = 'spot-item';
+  el.innerHTML = `
+    <div class="spot-icon-area">${icon}</div>
+    <div class="spot-body">
+      <div class="spot-name">${name}</div>
+      <div class="spot-meta">${[rating, addr].filter(Boolean).join('  ')}</div>
+    </div>
+    ${walkStr ? `<span class="walk-badge">${walkStr}</span>` : ''}`;
+  el.onclick = () => openLink(`https://www.google.com/maps/dir/?api=1&origin=${loc.lat},${loc.lng}&destination=${encodeURIComponent(name+(addr?' '+addr:''))}&travelmode=walking`);
+  con.appendChild(el);
+}
 
 /* ══════════════════════════════════════════════
    パネル開閉
    ══════════════════════════════════════════════ */
-const PANELS = ['taxi','map','food','cvs','hotel','omiyage'];
+const PANELS = ['taxi','map','food','cvs','hotel','omiyage','topics','spots'];
 
 function openPanel(id) {
   if (activePanel === id) {
@@ -891,11 +1126,19 @@ function openPanel(id) {
     }
     if (id === 'cvs') {
       if (loc) buildCVS(loc);
-      else document.getElementById('cvsList').innerHTML = '<div class="err">⚠ 位置情報を取得できませんでした。<br>ブラウザの位置情報の許可を確認して🔄で再取得してください。</div>';
+      else document.getElementById('cvsList').innerHTML = '<div class="err">⚠ 位置情報を取得できませんでした。</div>';
     }
     if (id === 'omiyage') {
       if (loc) buildOmiyage(loc);
-      else document.getElementById('omiList').innerHTML = '<div class="err">⚠ 位置情報を取得できませんでした。<br>ブラウザの位置情報の許可を確認して🔄で再取得してください。</div>';
+      else document.getElementById('omiList').innerHTML = '<div class="err">⚠ 位置情報を取得できませんでした。</div>';
+    }
+    if (id === 'topics') {
+      if (loc) buildTopics(loc);
+      else document.getElementById('topicsList').innerHTML = '<div class="err">⚠ 位置情報を取得できませんでした。</div>';
+    }
+    if (id === 'spots') {
+      if (loc) buildSpots(loc);
+      else document.getElementById('spotsList').innerHTML = '<div class="err">⚠ 位置情報を取得できませんでした。</div>';
     }
     if (id === 'hotel') loadHotel();
     const panel = document.getElementById('panel-'+id);
@@ -910,8 +1153,7 @@ function openPanel(id) {
 function openMap(mode) {
   const dest = document.getElementById('destInput').value || 'ホテル';
   const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
-  const url = `https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=${mode||'transit'}`;
-  openLink(url);
+  openLink(`https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=${mode||'transit'}`);
 }
 
 /* ══════════════════════════════════════════════
@@ -924,36 +1166,15 @@ function loadHotel() {
     document.getElementById('hotelInput').value = saved;
     hs.textContent = `✓ 登録済み：${saved}`;
     hs.classList.add('on');
-  } else {
-    hs.classList.remove('on');
-  }
+  } else { hs.classList.remove('on'); }
   updateHotelBooking();
 }
-
-/* 楽天トラベルでホテル予約 */
-function bookHotelRakuten() {
-    let keyword;
-    if (gpsLoc) {
-      keyword = (gpsLoc.name || '') + ' ビジネスホテル';
-    } else {
-      keyword = 'ビジネスホテル';
-    }
-    openLink(rakutenTravelLink(keyword));
-  }
-
-/* 一休.comでホテル予約 */
-function bookHotelIkyu() {
-    openLink(ikyuTravelLink(_lastPrefState));
-  }
-
-/* ホテルパネル読込時に予約ボタンも更新 */
+function bookHotelRakuten() { openLink(rakutenTravelLink((gpsLoc?.name||'')+' ビジネスホテル')); }
+function bookHotelIkyu()    { openLink(ikyuTravelLink(_lastPrefState)); }
 function updateHotelBooking() {
   const info = document.getElementById('hotelBookingInfo');
-  if (gpsLoc && info) {
-    info.textContent = '📍 ' + gpsLoc.name + ' 周辺のホテル';
-  }
+  if (gpsLoc && info) info.textContent = '📍 ' + gpsLoc.name + ' 周辺のホテル';
 }
-
 function saveHotel() {
   const val = document.getElementById('hotelInput').value.trim();
   if (!val) return;
@@ -962,46 +1183,35 @@ function saveHotel() {
   hs.textContent = `✓ 保存しました：${val}`;
   hs.classList.add('on');
 }
-
 function deleteHotel() {
   localStorage.removeItem('hotel');
   document.getElementById('hotelInput').value = '';
   const hs = document.getElementById('hotelSaved');
-  hs.textContent = '';
-  hs.classList.remove('on');
+  hs.textContent = ''; hs.classList.remove('on');
 }
-
 function goHotel(mode) {
   if (mode === 'taxi') { openLink('https://go.mo-t.com/'); return; }
   const dest = document.getElementById('hotelInput').value || localStorage.getItem('hotel') || 'ホテル';
   const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
-  const url = `https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=${mode}`;
-  openLink(url);
+  openLink(`https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=${mode}`);
 }
-
-/* ══════════════════════════════════════════════
-   出発時刻・カウントダウン
-   ══════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════
    食後アクション
    ══════════════════════════════════════════════ */
 function mealAct(type) {
   const res = document.getElementById('mealRes');
-
   if (type === 'map') {
-    // 選択した店への道案内
     const dest = selectedRestName ? `${selectedRestName} ${selectedRestAddr}` : 'レストラン';
     const origin = gpsLoc ? `${gpsLoc.lat},${gpsLoc.lng}` : '';
-    const url = `https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=walking`;
-    openLink(url);
+    openLink(`https://www.google.com/maps/dir/?api=1${origin?'&origin='+encodeURIComponent(origin):''}&destination=${encodeURIComponent(dest)}&travelmode=walking`);
     return;
   }
-
   if (type === 'taxi') {
     res.innerHTML = `<div class="rb-title">🚕 タクシーを手配</div><div class="rb-body"><div class="af-row"><button class="af-btn" style="background:rgba(78,203,141,.12);border-color:rgba(78,203,141,.3);color:var(--green);" onclick="openLink('https://go.mo-t.com/')">🟢 GOタクシー</button><button class="af-btn" style="background:rgba(0,0,0,.2);border-color:var(--border);color:var(--text);" onclick="openLink('https://www.uber.com/jp/ja/ride/')">⚫ Uber</button></div></div>`;
-    res.className = 'rbox on blue'; return;
+    res.className = 'rbox on blue';
   }
 }
 </script>
-</body></html>
+</body>
+</html>
