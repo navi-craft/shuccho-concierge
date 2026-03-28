@@ -93,6 +93,36 @@ body{font-family:var(--font);color:var(--dark);line-height:1.8;background:var(--
 
 footer{text-align:center;padding:24px;font-size:12px;color:var(--gray)}
 footer a{color:var(--gray);text-decoration:none;margin:0 8px}
+
+/* ホテル絞り込みツール */
+.finder-tool{background:var(--white);border:2px solid var(--primary);border-radius:var(--radius);padding:28px 24px;margin-bottom:40px;box-shadow:0 8px 24px rgba(37,99,235,.12)}
+.finder-header{text-align:center;margin-bottom:24px}
+.finder-title{font-size:20px;font-weight:900;color:var(--primary);border-left:none;margin:0 0 8px;padding:0}
+.finder-subtitle{font-size:14px;color:var(--gray);margin:0}
+.finder-step{display:none}
+.finder-step.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.step-label{font-size:12px;font-weight:700;color:var(--primary);background:var(--primary-light);display:inline-block;padding:3px 10px;border-radius:4px;margin-bottom:12px}
+.step-question{font-size:17px;font-weight:700;margin-bottom:16px;color:var(--dark)}
+.step-btns{display:flex;flex-wrap:wrap;gap:12px}
+.finder-btn{flex:1 1 calc(50% - 6px);min-width:140px;background:var(--white);border:2px solid var(--primary);color:var(--primary);padding:16px 12px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;line-height:1.4;font-family:var(--font)}
+.finder-btn:hover{background:var(--primary-light)}
+.btn-sub{font-size:12px;font-weight:400;display:block;margin-top:4px;opacity:.8}
+.sub-step{display:none}
+.sub-step.active{display:block;animation:fadeIn .3s ease}
+.hotel-card{background:var(--light);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.hotel-name{font-size:18px;font-weight:900;color:var(--dark);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.invoice-badge{font-size:11px;background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-weight:700}
+.hotel-feature{font-size:14px;color:var(--dark2);margin-bottom:8px}
+.hotel-best{font-size:13px;color:var(--gray);margin-bottom:14px}
+.hotel-btns{display:flex;flex-wrap:wrap;gap:10px}
+.hotel-aff-btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;transition:filter .2s}
+.hotel-aff-btn.rakuten{background:#bf0000;color:#fff}
+.hotel-aff-btn.rakuten:hover{filter:brightness(1.1)}
+.hotel-aff-btn.ikkyu{background:var(--primary);color:#fff}
+.hotel-aff-btn.ikkyu:hover{filter:brightness(1.1)}
+.finder-reset{display:block;margin:20px auto 0;background:none;border:1px solid var(--border);color:var(--gray);padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-family:var(--font)}
+.finder-reset:hover{background:var(--light)}
 </style>
 </head>
 <body>
@@ -105,6 +135,92 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 </nav>
 
 <article class="article">
+
+  <!-- ホテル絞り込みツール -->
+  <div class="finder-tool">
+    <div class="finder-header">
+      <h2 class="finder-title">&#x1F3E8; あなたにぴったりのホテルを探す</h2>
+      <p class="finder-subtitle">質問に答えるだけで最適なビジネスホテルチェーンが見つかります</p>
+    </div>
+
+    <!-- STEP1: パス選択 -->
+    <div class="finder-step active" id="step1">
+      <div class="step-label">STEP 1 / 3</div>
+      <p class="step-question">まず、どちらですか？</p>
+      <div class="step-btns">
+        <button class="finder-btn" onclick="selectPath('A')">&#x1F9B3; 自分でホテルを選ぶ<span class="btn-sub">（サラリーマン・自営業）</span></button>
+        <button class="finder-btn" onclick="selectPath('B')">&#x1F4CB; 会社として手配する<span class="btn-sub">（事務・総務担当者）</span></button>
+      </div>
+    </div>
+
+    <!-- STEP2-A: 自分で選ぶ -->
+    <div class="finder-step" id="step2A">
+      <div class="sub-step active" id="step2A-1">
+        <div class="step-label">STEP 2 / 3</div>
+        <p class="step-question">大浴場・サウナはほしいですか？</p>
+        <div class="step-btns">
+          <button class="finder-btn" onclick="selectA1('yes')">&#x2600;&#xFE0F; ぜひほしい</button>
+          <button class="finder-btn" onclick="selectA1('no')">&#x1F6B6; なくていい</button>
+        </div>
+      </div>
+      <div class="sub-step" id="step2A-2">
+        <div class="step-label">STEP 2 / 3</div>
+        <p class="step-question">朝食はどうしますか？</p>
+        <div class="step-btns">
+          <button class="finder-btn" onclick="selectA2('yes')">&#x1F373; ホテルで食べたい</button>
+          <button class="finder-btn" onclick="selectA2('no')">&#x1F6AA; 自分で何とかする</button>
+        </div>
+      </div>
+      <div class="sub-step" id="step2A-3">
+        <div class="step-label">STEP 3 / 3</div>
+        <p class="step-question">1泊あたりの予算は？（税込）</p>
+        <div class="step-btns">
+          <button class="finder-btn" onclick="selectA3('low')">&#x1F4B0; 6,000円以下</button>
+          <button class="finder-btn" onclick="selectA3('mid')">&#x1F4B4; 9,000円くらいまで</button>
+          <button class="finder-btn" onclick="selectA3('any')">&#x1F31F; 快適さ重視で気にしない</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP2-B: 会社として手配 -->
+    <div class="finder-step" id="step2B">
+      <div class="sub-step active" id="step2B-1">
+        <div class="step-label">STEP 2 / 3</div>
+        <p class="step-question">法人名宛の領収書は必要ですか？</p>
+        <div class="step-btns">
+          <button class="finder-btn" onclick="selectB1('yes')">&#x1F4DD; 必要</button>
+          <button class="finder-btn" onclick="selectB1('no')">&#x1F44C; 個人精算なので不要</button>
+        </div>
+      </div>
+      <div class="sub-step" id="step2B-2">
+        <div class="step-label">STEP 2 / 3</div>
+        <p class="step-question">1泊あたりの予算上限は？</p>
+        <div class="step-btns">
+          <button class="finder-btn" onclick="selectB2('low')">&#x1F4B0; 6,000円以内</button>
+          <button class="finder-btn" onclick="selectB2('mid')">&#x1F4B4; 9,000円以内</button>
+          <button class="finder-btn" onclick="selectB2('any')">&#x2713; 制限なし</button>
+        </div>
+      </div>
+      <div class="sub-step" id="step2B-3">
+        <div class="step-label">STEP 3 / 3</div>
+        <p class="step-question">出張者が重視することは？</p>
+        <div class="step-btns">
+          <button class="finder-btn" onclick="selectB3('station')">&#x1F687; 駅から近いこと</button>
+          <button class="finder-btn" onclick="selectB3('breakfast')">&#x1F373; 朝食が充実していること</button>
+          <button class="finder-btn" onclick="selectB3('bath')">&#x1F6C1; 大浴場・疲労回復</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP3: 結果 -->
+    <div class="finder-step" id="step3">
+      <div class="step-label">結果</div>
+      <p class="step-question">あなたにおすすめのホテルチェーン</p>
+      <div id="finder-results"></div>
+      <button class="finder-reset" onclick="resetFinder()">&#x21BA; 最初からやり直す</button>
+    </div>
+  </div>
+
   <div class="article-tag">ホテル</div>
   <h1>出張ホテルの選び方【出張者・手配担当者向け】ビジネスホテル比較完全ガイド</h1>
   <div class="article-meta">更新日: 2026年3月29日 ｜ 読了目安: 8分</div>
@@ -322,5 +438,113 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
   <p style="margin-top:12px">&copy; 2025-2026 出張コンシェルジュ All Rights Reserved.</p>
 </footer>
 
+<script>
+const HOTELS = {
+  dormyinn: {
+    name: 'ドーミーイン',
+    feature: '大浴場・サウナ付きで疲労回復に最適。朝食はご当地メニューが充実。連泊の長期出張にも人気。',
+    best: '疲れを癒したい出張者・長期出張'
+  },
+  toyokoinn: {
+    name: '東横INN',
+    feature: '全国550店舗以上、駅直結が多く移動が便利。10泊で1泊無料の会員制度あり。',
+    best: 'コスパ重視・全国各地へ出張する人'
+  },
+  apa: {
+    name: 'アパホテル',
+    feature: '朝食バイキングが充実。都市部に駅近店舗が多く、ビジネス利用に便利。',
+    best: '朝食をしっかり食べたい・快適さ重視'
+  },
+  super: {
+    name: 'スーパーホテル',
+    feature: '天然温泉付き施設も。朝食無料プランが多く、長期出張にもコスパが良い。',
+    best: '長期出張・コスパと快適さのバランス重視'
+  },
+  comfort: {
+    name: 'コンフォートホテル',
+    feature: '朝食（パン・コーヒー）無料付き。シンプルで清潔、早起きの出張に最適。',
+    best: '予算を抑えながら朝食付きで泊まりたい人'
+  }
+};
+
+const RAKUTEN_URL = 'https://hb.afl.rakuten.co.jp/hsc/2a6d2e09.522e8c45.2a6d2e0a.a579a735/?link_type=hybrid_url&ut=eyJwYWdlIjoic2hvcCIsInR5cGUiOiJoeWJyaWRfdXJsIiwiY29sIjoxLCJjYXQiOiIxIiwiYmFuIjoiMjQ5NTU5MSIsImFtcCI6ZmFsc2V9';
+const IKKYU_URL = 'https://px.a8.net/svt/ejp?a8mat=4AZO4I+CGWX7U+1OK+5YRHE';
+
+let state = {};
+
+function showStep(id) {
+  document.querySelectorAll('.finder-step').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('active'); el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+
+function showSubStep(parentId, subId) {
+  document.querySelectorAll('#' + parentId + ' .sub-step').forEach(el => el.classList.remove('active'));
+  document.getElementById(subId).classList.add('active');
+}
+
+function selectPath(path) {
+  state.path = path;
+  if (path === 'A') showStep('step2A');
+  else showStep('step2B');
+}
+
+function selectA1(val) { state.a1 = val; showSubStep('step2A', 'step2A-2'); }
+function selectA2(val) { state.a2 = val; showSubStep('step2A', 'step2A-3'); }
+function selectA3(val) { state.a3 = val; showResults(); }
+function selectB1(val) { state.b1 = val; showSubStep('step2B', 'step2B-2'); }
+function selectB2(val) { state.b2 = val; showSubStep('step2B', 'step2B-3'); }
+function selectB3(val) { state.b3 = val; showResults(); }
+
+function getHotelsA() {
+  if (state.a1 === 'yes') return ['dormyinn', 'super'];
+  if (state.a2 === 'yes') {
+    if (state.a3 === 'low') return ['toyokoinn', 'comfort'];
+    if (state.a3 === 'mid') return ['apa', 'toyokoinn'];
+    return ['apa', 'dormyinn'];
+  } else {
+    if (state.a3 === 'low') return ['toyokoinn', 'super'];
+    return ['apa', 'dormyinn'];
+  }
+}
+
+function getHotelsB() {
+  if (state.b3 === 'bath') return ['dormyinn', 'super'];
+  if (state.b3 === 'breakfast') {
+    return state.b2 === 'low' ? ['comfort', 'toyokoinn'] : ['apa', 'comfort'];
+  }
+  if (state.b2 === 'low') return ['toyokoinn', 'super'];
+  if (state.b2 === 'mid') return ['toyokoinn', 'apa'];
+  return ['apa', 'toyokoinn'];
+}
+
+function showResults() {
+  const keys = state.path === 'A' ? getHotelsA() : getHotelsB();
+  const needInvoice = state.path === 'B' && state.b1 === 'yes';
+  const html = keys.map(key => {
+    const h = HOTELS[key];
+    return '<div class="hotel-card">'
+      + '<div class="hotel-name">' + h.name + (needInvoice ? '<span class="invoice-badge">領収書対応可</span>' : '') + '</div>'
+      + '<p class="hotel-feature">' + h.feature + '</p>'
+      + '<p class="hotel-best">&#x1F44D; <strong>' + h.best + '</strong>におすすめ</p>'
+      + '<div class="hotel-btns">'
+      + '<a href="' + RAKUTEN_URL + '" target="_blank" rel="noopener nofollow" class="hotel-aff-btn rakuten">楽天トラベルで探す</a>'
+      + '<a href="' + IKKYU_URL + '" target="_blank" rel="noopener nofollow" class="hotel-aff-btn ikkyu">一休.comで探す</a>'
+      + '</div></div>';
+  }).join('');
+  document.getElementById('finder-results').innerHTML = html;
+  showStep('step3');
+}
+
+function resetFinder() {
+  state = {};
+  document.querySelectorAll('.finder-step').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sub-step').forEach(el => el.classList.remove('active'));
+  document.getElementById('step2A-1').classList.add('active');
+  document.getElementById('step2B-1').classList.add('active');
+  document.getElementById('finder-results').innerHTML = '';
+  document.getElementById('step1').classList.add('active');
+}
+</script>
 </body>
 </html>
