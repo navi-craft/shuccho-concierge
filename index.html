@@ -327,6 +327,22 @@ section{padding:80px 24px}
 .tip-excerpt{color:var(--gray);font-size:14px;line-height:1.7}
 .tip-arrow{color:var(--primary);font-size:13px;font-weight:700;margin-top:12px;display:inline-block}
 
+/* ===== ホテル検索セクション ===== */
+.hotel-search{background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%)}
+.hotel-search .section-label{color:#93c5fd}
+.hotel-search .section-title{color:#fff}
+.hotel-search .section-desc{color:#93c5fd;margin-bottom:32px}
+.hotel-city-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:16px}
+.hotel-city-link{
+  display:inline-block;padding:14px 24px;background:rgba(255,255,255,.12);
+  border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:10px;
+  font-size:16px;font-weight:700;text-decoration:none;
+  transition:all .2s;font-family:var(--font);
+}
+.hotel-city-link:hover{background:rgba(255,255,255,.25);border-color:#fff;transform:translateY(-2px)}
+.hotel-search-note{color:rgba(255,255,255,.6);font-size:13px;text-align:center;margin-top:16px}
+.hotel-search-sub{color:rgba(255,255,255,.8);font-size:14px;text-align:center;margin-bottom:8px}
+
 /* ===== X (Twitter) セクション ===== */
 .twitter-section{background:var(--white)}
 .twitter-inner{
@@ -402,7 +418,7 @@ footer a:hover{color:#fff}
     <a href="/" class="nav-logo"><span>&#x1F4BC;</span> 出張コンシェルジュ</a>
     <ul class="nav-links">
       <li><a href="#features">機能紹介</a></li>
-      <li><a href="#howto">使い方</a></li>
+      <li><a href="#hotel-search">ホテルを探す</a></li>
       <li><a href="#tips">お役立ち情報</a></li>
       <li><a href="app.html" class="nav-cta">今すぐ使う</a></li>
     </ul>
@@ -601,6 +617,29 @@ footer a:hover{color:#fff}
         <p style="font-size:11px;margin-top:4px;color:var(--dark3)">Coming Soon</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ===== ホテル検索セクション ===== -->
+<section class="hotel-search" id="hotel-search">
+  <div class="section-inner text-center">
+    <div class="section-label">Hotel Finder</div>
+    <h2 class="section-title">出張先のホテルを今すぐ探す</h2>
+    <p class="section-desc">都市を選ぶだけで、コスパ重視（楽天トラベル）とワンランク上（一休.com）のおすすめホテルをすぐに比較できます。</p>
+    <p class="hotel-search-sub">&#x1F4CD; どの都市に出張しますか？</p>
+    <div class="hotel-city-grid">
+      <a href="hotel-tips.html?city=tokyo"    class="hotel-city-link">東京</a>
+      <a href="hotel-tips.html?city=osaka"    class="hotel-city-link">大阪</a>
+      <a href="hotel-tips.html?city=nagoya"   class="hotel-city-link">名古屋</a>
+      <a href="hotel-tips.html?city=fukuoka"  class="hotel-city-link">福岡</a>
+      <a href="hotel-tips.html?city=sapporo"  class="hotel-city-link">札幌</a>
+      <a href="hotel-tips.html?city=sendai"   class="hotel-city-link">仙台</a>
+      <a href="hotel-tips.html?city=hiroshima" class="hotel-city-link">広島</a>
+      <a href="hotel-tips.html?city=yokohama" class="hotel-city-link">横浜</a>
+      <a href="hotel-tips.html?city=kyoto"    class="hotel-city-link">京都</a>
+      <a href="hotel-tips.html?city=kobe"     class="hotel-city-link">神戸</a>
+    </div>
+    <p class="hotel-search-note">※ 価格は目安です。実際の料金は各予約サイトでご確認ください。</p>
   </div>
 </section>
 
