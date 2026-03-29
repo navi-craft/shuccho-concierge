@@ -99,11 +99,6 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 .finder-header{text-align:center;margin-bottom:24px}
 .finder-title{font-size:20px;font-weight:900;color:var(--primary);border-left:none;margin:0 0 8px;padding:0}
 .finder-subtitle{font-size:14px;color:var(--gray);margin:0}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.finder-reset{display:block;margin:20px auto 0;background:none;border:1px solid var(--border);color:var(--gray);padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-family:var(--font)}
-.finder-reset:hover{background:var(--light)}
-
-/* ホテル検索入力 */
 .search-input-area{margin-bottom:8px}
 .search-label{font-size:15px;font-weight:700;color:var(--dark);display:block;margin-bottom:12px}
 .search-input-row{display:flex;gap:10px;flex-wrap:wrap}
@@ -112,22 +107,23 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 .search-btn{padding:14px 24px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);transition:background .2s;white-space:nowrap}
 .search-btn:hover{background:var(--primary-dark)}
 .search-hint{font-size:13px;color:var(--gray);margin-top:10px}
-
-/* 検索結果 */
-.search-results{margin-top:24px;animation:fadeIn .3s ease}
+.search-results{margin-top:24px}
 .result-area-label{font-size:14px;color:var(--gray);margin-bottom:16px}
 .result-section{border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
-.result-section-header{padding:14px 20px;font-size:16px;font-weight:900;color:var(--white)}
+.result-section-header{padding:14px 20px;font-size:16px;font-weight:900;color:#fff}
 .rakuten-header{background:#bf0000}
 .ikyu-header{background:var(--primary)}
 .result-section-body{background:var(--white);padding:20px}
 .result-desc{font-size:14px;color:var(--dark2);margin-bottom:14px}
 .result-search-btn{display:inline-block;padding:13px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px}
+.hotel-aff-btn{display:inline-block;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;transition:filter .2s}
 .hotel-aff-btn.rakuten{background:#bf0000;color:#fff}
 .hotel-aff-btn.rakuten:hover{filter:brightness(1.1)}
 .hotel-aff-btn.ikkyu{background:var(--primary);color:#fff}
 .hotel-aff-btn.ikkyu:hover{filter:brightness(1.1)}
 .price-note{font-size:12px;color:var(--gray);text-align:center;margin:12px 0 8px;padding:8px;background:var(--light);border-radius:6px}
+.finder-reset{display:block;margin:20px auto 0;background:none;border:1px solid var(--border);color:var(--gray);padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-family:var(--font)}
+.finder-reset:hover{background:var(--light)}
 </style>
 </head>
 <body>
@@ -153,9 +149,9 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
       <label class="search-label" for="hotel-search-input">出張先のエリアや駅名を入力してください</label>
       <div class="search-input-row">
         <input type="text" id="hotel-search-input" class="hotel-search-input"
-          placeholder="例：渋谷、新宿三丁目、博多駅前、梅田…"
+          placeholder="例：渋谷、新宿三丁目、博多駅前、梅田&#x2026;"
           maxlength="50">
-        <button class="search-btn" onclick="doHotelSearch()">ホテルを探す →</button>
+        <button class="search-btn" onclick="doHotelSearch()">ホテルを探す &#x2192;</button>
       </div>
       <p class="search-hint">&#x1F4A1; 駅名で検索すると周辺ホテルが見つかりやすいです</p>
     </div>
@@ -175,12 +171,12 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
       <div class="result-section">
         <div class="result-section-header ikyu-header">&#x2728; ワンランク上｜一休.com</div>
         <div class="result-section-body">
-          <p class="result-desc">タイムセールで30〜50%OFF。接待・特別な出張にも使える上質ホテルが充実。</p>
+          <p class="result-desc">タイムセールで30&#x301C;50%OFF。接待・特別な出張にも使える上質ホテルが充実。</p>
           <a id="ikyu-btn" href="#" target="_blank" rel="noopener nofollow" class="hotel-aff-btn ikkyu result-search-btn"></a>
         </div>
       </div>
 
-      <p class="price-note">※価格・空き状況は各サイトでご確認ください。</p>
+      <p class="price-note">&#x203B; 価格・空き状況は各サイトでご確認ください。</p>
       <button class="finder-reset" onclick="resetHotelSearch()">&#x21A9; もう一度検索する</button>
     </div>
   </div>
@@ -403,8 +399,6 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 </footer>
 
 <script>
-const RAKUTEN_AFF = 'https://hb.afl.rakuten.co.jp/hsc/2a6d2e09.522e8c45.2a6d2e0a.a579a735/?link_type=hybrid_url&ut=eyJwYWdlIjoic2hvcCIsInR5cGUiOiJoeWJyaWRfdXJsIiwiY29sIjoxLCJjYXQiOiIxIiwiYmFuIjoiMjQ5NTU5MSIsImFtcCI6ZmFsc2V9';
-
 function doHotelSearch() {
   const input = document.getElementById('hotel-search-input').value.trim();
   if (!input) {
@@ -414,27 +408,20 @@ function doHotelSearch() {
 
   const ikkyuEncoded = encodeURIComponent(input);
 
-  // ラベル更新
   document.getElementById('result-area-label').textContent = '📍 「' + input + '」のホテル検索結果';
 
-  // 楽天ボタン（アフィリエイト経由でキーワード検索ページへ）
-  const rakutenSearchUrl = 'https://travel.rakuten.co.jp/keyword/' + ikkyuEncoded + '/';
-  const rakutenAff = 'https://hb.afl.rakuten.co.jp/hsc/2a6d2e09.522e8c45.2a6d2e0a.a579a735/?pc=' + encodeURIComponent(rakutenSearchUrl) + '&link_type=text&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJ0ZXh0IiwiY29sIjoxLCJjYXQiOiIxIiwiYmFuIjoiMjQ5NTU5MSIsImFtcCI6ZmFsc2V9';
+  // 楽天ボタン（楽天トラベル キーワード検索へ直リンク）
   const rakutenBtn = document.getElementById('rakuten-btn');
-  rakutenBtn.href = rakutenAff;
+  rakutenBtn.href = 'https://travel.rakuten.co.jp/keyword/' + ikkyuEncoded + '/';
   rakutenBtn.textContent = '楽天トラベルで「' + input + '」のホテルを探す →';
 
-  // 一休ボタン（A8アフィリエイト経由で一休検索へ）
-  const ikkyuSearchUrl = 'https://www.ikyu.com/search/?keyword=' + ikkyuEncoded;
-  const ikkyuAff = 'https://px.a8.net/svt/ejp?a8mat=4AZO4I+CGWX7U+1OK+5YRHE&a8ejpredirect=' + encodeURIComponent(ikkyuSearchUrl);
+  // 一休ボタン（一休.com キーワード検索へ直リンク）
   const ikkyuBtn = document.getElementById('ikyu-btn');
-  ikkyuBtn.href = ikkyuAff;
+  ikkyuBtn.href = 'https://www.ikyu.com/search/?keyword=' + ikkyuEncoded;
   ikkyuBtn.textContent = '一休.comで「' + input + '」のホテルを探す →';
 
-  // 結果表示
-  const results = document.getElementById('hotel-results');
-  results.style.display = 'block';
-  results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('hotel-results').style.display = 'block';
+  document.getElementById('hotel-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function resetHotelSearch() {
@@ -442,7 +429,6 @@ function resetHotelSearch() {
   document.getElementById('hotel-results').style.display = 'none';
 }
 
-// Enterキーでも検索できるように
 document.addEventListener('DOMContentLoaded', function() {
   const input = document.getElementById('hotel-search-input');
   if (input) {
