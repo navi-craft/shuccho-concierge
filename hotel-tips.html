@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>出張ホテルの選び方【手配担当者・出張者向け】ビジネスホテル比較完全ガイド - 出張コンシェルジュ</title>
-<meta name="description" content="出張ホテルの選び方を出張者・手配担当者の両方向けに解説。精算対応・領収書ルール・チェーン比較・会員プログラム・予約タイミングまで網羅。楽天トラベル・一休.com活用術も。">
-<meta name="keywords" content="出張,ホテル,ビジネスホテル,予約,比較,コツ,楽天トラベル,一休,会員プログラム">
+<meta name="description" content="出張ホテルの選び方を出張者・手配担当者の両方向けに解説。精算対応・領収書ルール・チェーン比較・会員プログラム・予約タイミングまで網羅。楽天トラベル・じゃらんnet活用術も。">
+<meta name="keywords" content="出張,ホテル,ビジネスホテル,予約,比較,コツ,楽天トラベル,じゃらん,会員プログラム">
 <link rel="canonical" href="https://navi-craft.github.io/shuccho-concierge/hotel-tips.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -169,7 +169,7 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
       </div>
 
       <div class="result-section">
-        <div class="result-section-header ikyu-header">&#x2728; ワンランク上｜一休.com</div>
+        <div class="result-section-header ikyu-header">&#x2728; ワンランク上｜じゃらんnet</div>
         <div class="result-section-body">
           <p class="result-desc">タイムセールで30&#x301C;50%OFF。接待・特別な出張にも使える上質ホテルが充実。</p>
           <a id="ikyu-btn" href="#" target="_blank" rel="noopener nofollow" class="hotel-aff-btn ikkyu result-search-btn"></a>
@@ -285,12 +285,12 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 
   <p><strong>楽天トラベル</strong>は楽天ポイントが貯まるため、楽天経済圏の方には特におすすめです。出張のたびにポイントが貯まり、次の出張や私的な旅行にも使えます。SPU（スーパーポイントアッププログラム）を活用すると最大15%以上の還元も可能です。セール期間中は大幅値引きもあります。</p>
 
-  <p><strong>一休.com</strong>はワンランク上のビジネスホテルやシティホテルに強みを持ちます。タイムセールで通常より30〜50%OFFになることもあり、上司への同行や大切な商談前の宿泊に最適です。会員ランクが上がると、レイトチェックアウトや朝食無料などの特典が付く場合もあります。</p>
+  <p><strong>じゃらんnet</strong>は多彩なプランと掲載ホテル数の多さが魅力です。タイムセールやキャンペーン割引で通常より30〜50%OFFになることもあり、上司への同行や大切な商談前の宿泊に最適です。条件に合わせて柔軟にホテル検索できるのが強みです。</p>
 
   <div class="aff-box">
     <p>&#x1F50D; 出張先のホテルをチェック</p>
     <a href="https://hb.afl.rakuten.co.jp/hsc/2a6d2e09.522e8c45.2a6d2e0a.a579a735/?link_type=hybrid_url&ut=eyJwYWdlIjoic2hvcCIsInR5cGUiOiJoeWJyaWRfdXJsIiwiY29sIjoxLCJjYXQiOiIxIiwiYmFuIjoiMjQ5NTU5MSIsImFtcCI6ZmFsc2V9" target="_blank" rel="noopener" class="aff-btn rakuten">楽天トラベルで探す</a>
-    <a href="https://px.a8.net/svt/ejp?a8mat=4AZO4I+CGWX7U+1OK+5YRHE" target="_blank" rel="nofollow noopener" class="aff-btn">一休.comで探す</a>
+    <a href="https://px.a8.net/svt/ejp?a8mat=4AZO4I+CGWX7U+1OK+5YRHE" target="_blank" rel="nofollow noopener" class="aff-btn">じゃらんnetで探す</a>
   </div>
 
   <h2>ホテル会員プログラムを最大限活用する</h2>
@@ -399,6 +399,24 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 </footer>
 
 <script>
+function submitShiftJISForm(action, params) {
+  const form = document.createElement('form');
+  form.method = 'get';
+  form.action = action;
+  form.acceptCharset = 'Shift_JIS';
+  form.target = '_blank';
+  for (const [name, value] of Object.entries(params)) {
+    const inp = document.createElement('input');
+    inp.type = 'hidden';
+    inp.name = name;
+    inp.value = value;
+    form.appendChild(inp);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
+
 function doHotelSearch() {
   const input = document.getElementById('hotel-search-input').value.trim();
   if (!input) {
@@ -406,19 +424,39 @@ function doHotelSearch() {
     return;
   }
 
-  const ikkyuEncoded = encodeURIComponent(input);
-
   document.getElementById('result-area-label').textContent = '📍 「' + input + '」のホテル検索結果';
 
-  // 楽天ボタン（楽天トラベル キーワード検索へ直リンク）
+  // 楽天ボタン（Shift-JISフォーム送信でキーワード検索）
   const rakutenBtn = document.getElementById('rakuten-btn');
-  rakutenBtn.href = 'https://travel.rakuten.co.jp/keyword/' + ikkyuEncoded + '/';
   rakutenBtn.textContent = '楽天トラベルで「' + input + '」のホテルを探す →';
+  rakutenBtn.onclick = function(e) {
+    e.preventDefault();
+    submitShiftJISForm('https://kw.travel.rakuten.co.jp/keyword/Event.do', {
+      f_query: input,
+      f_teikei: '',
+      f_max: '30',
+      f_category: '0',
+      f_sort: '0',
+      f_flg: '',
+      f_cd_application: '',
+      f_cd_chain: '',
+      f_all_chain: '0',
+      f_invoice_qualified: '0'
+    });
+  };
 
-  // 一休ボタン（一休.com キーワード検索へ直リンク）
+  // じゃらんボタン（Shift-JISフォーム送信でキーワード検索）
+  // ※一休.comはキーワードURL非対応のためじゃらんnetに変更
   const ikkyuBtn = document.getElementById('ikyu-btn');
-  ikkyuBtn.href = 'https://www.ikyu.com/search/?keyword=' + ikkyuEncoded;
-  ikkyuBtn.textContent = '一休.comで「' + input + '」のホテルを探す →';
+  ikkyuBtn.textContent = 'じゃらんで「' + input + '」のホテルを探す →';
+  ikkyuBtn.onclick = function(e) {
+    e.preventDefault();
+    submitShiftJISForm('https://www.jalan.net/uw/uwp2011/uww2011init.do', {
+      keyword: input,
+      distCd: '06',
+      rootCd: '7701'
+    });
+  };
 
   document.getElementById('hotel-results').style.display = 'block';
   document.getElementById('hotel-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
