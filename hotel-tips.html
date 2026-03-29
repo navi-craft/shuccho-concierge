@@ -94,55 +94,36 @@ body{font-family:var(--font);color:var(--dark);line-height:1.8;background:var(--
 footer{text-align:center;padding:24px;font-size:12px;color:var(--gray)}
 footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 
-/* ホテル絞り込みツール */
+/* ホテル検索ツール */
 .finder-tool{background:var(--white);border:2px solid var(--primary);border-radius:var(--radius);padding:28px 24px;margin-bottom:40px;box-shadow:0 8px 24px rgba(37,99,235,.12)}
 .finder-header{text-align:center;margin-bottom:24px}
 .finder-title{font-size:20px;font-weight:900;color:var(--primary);border-left:none;margin:0 0 8px;padding:0}
 .finder-subtitle{font-size:14px;color:var(--gray);margin:0}
-.finder-step{display:none}
-.finder-step.active{display:block;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.step-label{font-size:12px;font-weight:700;color:var(--primary);background:var(--primary-light);display:inline-block;padding:3px 10px;border-radius:4px;margin-bottom:12px}
-.step-question{font-size:17px;font-weight:700;margin-bottom:16px;color:var(--dark)}
-.step-btns{display:flex;flex-wrap:wrap;gap:12px}
-.finder-btn{flex:1 1 calc(50% - 6px);min-width:140px;background:var(--white);border:2px solid var(--primary);color:var(--primary);padding:16px 12px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;line-height:1.4;font-family:var(--font)}
-.finder-btn:hover{background:var(--primary-light)}
-.btn-sub{font-size:12px;font-weight:400;display:block;margin-top:4px;opacity:.8}
-.sub-step{display:none}
-.sub-step.active{display:block;animation:fadeIn .3s ease}
-.hotel-card{background:var(--light);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
-.hotel-name{font-size:18px;font-weight:900;color:var(--dark);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.invoice-badge{font-size:11px;background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:4px;font-weight:700}
-.hotel-feature{font-size:14px;color:var(--dark2);margin-bottom:8px}
-.hotel-best{font-size:13px;color:var(--gray);margin-bottom:14px}
-.hotel-btns{display:flex;flex-wrap:wrap;gap:10px}
-.hotel-aff-btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;transition:filter .2s}
+.search-input-area{margin-bottom:8px}
+.search-label{font-size:15px;font-weight:700;color:var(--dark);display:block;margin-bottom:12px}
+.search-input-row{display:flex;gap:10px;flex-wrap:wrap}
+.hotel-search-input{flex:1;min-width:200px;padding:14px 16px;border:2px solid var(--primary);border-radius:8px;font-size:15px;font-family:var(--font);outline:none;transition:border-color .2s}
+.hotel-search-input:focus{border-color:var(--primary-dark)}
+.search-btn{padding:14px 24px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);transition:background .2s;white-space:nowrap}
+.search-btn:hover{background:var(--primary-dark)}
+.search-hint{font-size:13px;color:var(--gray);margin-top:10px}
+.search-results{margin-top:24px}
+.result-area-label{font-size:14px;color:var(--gray);margin-bottom:16px}
+.result-section{border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
+.result-section-header{padding:14px 20px;font-size:16px;font-weight:900;color:#fff}
+.rakuten-header{background:#bf0000}
+.ikyu-header{background:var(--primary)}
+.result-section-body{background:var(--white);padding:20px}
+.result-desc{font-size:14px;color:var(--dark2);margin-bottom:14px}
+.result-search-btn{display:inline-block;padding:13px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px}
+.hotel-aff-btn{display:inline-block;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;transition:filter .2s}
 .hotel-aff-btn.rakuten{background:#bf0000;color:#fff}
 .hotel-aff-btn.rakuten:hover{filter:brightness(1.1)}
 .hotel-aff-btn.ikkyu{background:var(--primary);color:#fff}
 .hotel-aff-btn.ikkyu:hover{filter:brightness(1.1)}
+.price-note{font-size:12px;color:var(--gray);text-align:center;margin:12px 0 8px;padding:8px;background:var(--light);border-radius:6px}
 .finder-reset{display:block;margin:20px auto 0;background:none;border:1px solid var(--border);color:var(--gray);padding:10px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-family:var(--font)}
 .finder-reset:hover{background:var(--light)}
-
-/* 都市選択ボタン */
-.city-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.city-btn{padding:12px 18px;background:var(--white);border:2px solid var(--primary);color:var(--primary);border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;font-family:var(--font)}
-.city-btn:hover{background:var(--primary-light)}
-.city-btn.selected{background:var(--primary);color:var(--white)}
-
-/* 結果2段構え */
-.result-section{border-radius:var(--radius);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow)}
-.result-section-header{padding:14px 20px;font-size:16px;font-weight:900;color:var(--white);display:flex;align-items:center;gap:8px}
-.rakuten-header{background:#bf0000}
-.ikyu-header{background:var(--primary)}
-.result-hotel-card{background:var(--white);padding:20px;border-top:1px solid var(--border)}
-.result-hotel-name{font-size:16px;font-weight:900;color:var(--dark);margin-bottom:6px}
-.result-hotel-desc{font-size:14px;color:var(--dark2);margin-bottom:6px;line-height:1.7}
-.result-hotel-price{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:14px}
-.result-hotel-price span{font-size:12px;color:var(--gray);font-weight:400;margin-left:6px}
-.price-note{font-size:12px;color:var(--gray);text-align:center;margin:16px 0 8px;padding:8px;background:var(--light);border-radius:6px}
-.result-city-label{font-size:13px;color:var(--gray);margin-bottom:16px}
-.result-title{font-size:17px;font-weight:900;color:var(--dark);margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -156,110 +137,47 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 
 <article class="article">
 
-  <!-- ホテル絞り込みツール -->
+  <!-- ホテル検索ツール -->
   <div class="finder-tool">
     <div class="finder-header">
       <h2 class="finder-title">&#x1F3E8; 出張先のホテルをすぐ探す</h2>
-      <p class="finder-subtitle">都市と条件を選ぶだけ。コスパ重視〜ワンランク上まで一気に比較できます</p>
+      <p class="finder-subtitle">エリアや駅名を入力するだけ。全国どこでも対応します。</p>
     </div>
 
-    <!-- STEP0: 都市選択 -->
-    <div class="finder-step active" id="step0">
-      <div class="step-label">STEP 1 — どの都市に出張しますか？</div>
-      <div class="city-btns">
-        <button class="city-btn" onclick="selectCity('tokyo')">東京</button>
-        <button class="city-btn" onclick="selectCity('osaka')">大阪</button>
-        <button class="city-btn" onclick="selectCity('nagoya')">名古屋</button>
-        <button class="city-btn" onclick="selectCity('fukuoka')">福岡</button>
-        <button class="city-btn" onclick="selectCity('sapporo')">札幌</button>
-        <button class="city-btn" onclick="selectCity('sendai')">仙台</button>
-        <button class="city-btn" onclick="selectCity('hiroshima')">広島</button>
-        <button class="city-btn" onclick="selectCity('yokohama')">横浜</button>
-        <button class="city-btn" onclick="selectCity('kyoto')">京都</button>
-        <button class="city-btn" onclick="selectCity('kobe')">神戸</button>
+    <!-- 入力エリア -->
+    <div class="search-input-area">
+      <label class="search-label" for="hotel-search-input">出張先のエリアや駅名を入力してください</label>
+      <div class="search-input-row">
+        <input type="text" id="hotel-search-input" class="hotel-search-input"
+          placeholder="例：渋谷、新宿三丁目、博多駅前、梅田&#x2026;"
+          maxlength="50">
+        <button class="search-btn" onclick="doHotelSearch()">ホテルを探す &#x2192;</button>
       </div>
+      <p class="search-hint">&#x1F4A1; 駅名で検索すると周辺ホテルが見つかりやすいです</p>
     </div>
 
-    <!-- STEP1: パス選択 -->
-    <div class="finder-step" id="step1">
-      <div class="step-label">STEP 2 — まず、どちらですか？</div>
-      <div class="step-btns">
-        <button class="finder-btn" onclick="selectPath('A')">&#x1F9B3; 自分でホテルを選ぶ<span class="btn-sub">（サラリーマン・自営業）</span></button>
-        <button class="finder-btn" onclick="selectPath('B')">&#x1F4CB; 会社として手配する<span class="btn-sub">（事務・総務担当者）</span></button>
-      </div>
-    </div>
+    <!-- 結果エリア（初期非表示） -->
+    <div class="search-results" id="hotel-results" style="display:none">
+      <p class="result-area-label" id="result-area-label"></p>
 
-    <!-- STEP2-A: 自分で選ぶ -->
-    <div class="finder-step" id="step2A">
-      <div class="sub-step active" id="step2A-1">
-        <div class="step-label">STEP 3 — 大浴場・サウナはほしいですか？</div>
-        <div class="step-btns">
-          <button class="finder-btn" onclick="selectA1('yes')">&#x2600;&#xFE0F; ぜひほしい</button>
-          <button class="finder-btn" onclick="selectA1('no')">&#x1F6B6; なくていい</button>
-        </div>
-      </div>
-      <div class="sub-step" id="step2A-2">
-        <div class="step-label">STEP 3 — 朝食はどうしますか？</div>
-        <div class="step-btns">
-          <button class="finder-btn" onclick="selectA2('yes')">&#x1F373; ホテルで食べたい</button>
-          <button class="finder-btn" onclick="selectA2('no')">&#x1F6AA; 自分で何とかする</button>
-        </div>
-      </div>
-      <div class="sub-step" id="step2A-3">
-        <div class="step-label">STEP 4 — 1泊あたりの予算は？（税込）</div>
-        <div class="step-btns">
-          <button class="finder-btn" onclick="selectA3('low')">&#x1F4B0; 6,000円以下</button>
-          <button class="finder-btn" onclick="selectA3('mid')">&#x1F4B4; 9,000円くらいまで</button>
-          <button class="finder-btn" onclick="selectA3('any')">&#x1F31F; 快適さ重視で気にしない</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP2-B: 会社として手配 -->
-    <div class="finder-step" id="step2B">
-      <div class="sub-step active" id="step2B-1">
-        <div class="step-label">STEP 3 — 法人名宛の領収書は必要ですか？</div>
-        <div class="step-btns">
-          <button class="finder-btn" onclick="selectB1('yes')">&#x1F4DD; 必要</button>
-          <button class="finder-btn" onclick="selectB1('no')">&#x1F44C; 個人精算なので不要</button>
-        </div>
-      </div>
-      <div class="sub-step" id="step2B-2">
-        <div class="step-label">STEP 3 — 1泊あたりの予算上限は？</div>
-        <div class="step-btns">
-          <button class="finder-btn" onclick="selectB2('low')">&#x1F4B0; 6,000円以内</button>
-          <button class="finder-btn" onclick="selectB2('mid')">&#x1F4B4; 9,000円以内</button>
-          <button class="finder-btn" onclick="selectB2('any')">&#x2713; 制限なし</button>
-        </div>
-      </div>
-      <div class="sub-step" id="step2B-3">
-        <div class="step-label">STEP 4 — 出張者が重視することは？</div>
-        <div class="step-btns">
-          <button class="finder-btn" onclick="selectB3('station')">&#x1F687; 駅から近いこと</button>
-          <button class="finder-btn" onclick="selectB3('breakfast')">&#x1F373; 朝食が充実していること</button>
-          <button class="finder-btn" onclick="selectB3('bath')">&#x1F6C1; 大浴場・疲労回復</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 結果 -->
-    <div class="finder-step" id="step3">
-      <p class="result-city-label" id="result-city-label"></p>
-
-      <!-- 楽天トラベル section -->
       <div class="result-section">
         <div class="result-section-header rakuten-header">&#x1F4B0; コスパ重視｜楽天トラベル</div>
-        <div id="rakuten-results"></div>
+        <div class="result-section-body">
+          <p class="result-desc">楽天ポイントが貯まる。早割・タイムセールあり。全国対応。</p>
+          <a id="rakuten-btn" href="#" target="_blank" rel="noopener nofollow" class="hotel-aff-btn rakuten result-search-btn"></a>
+        </div>
       </div>
 
-      <!-- 一休.com section -->
       <div class="result-section">
         <div class="result-section-header ikyu-header">&#x2728; ワンランク上｜一休.com</div>
-        <div id="ikyu-results"></div>
+        <div class="result-section-body">
+          <p class="result-desc">タイムセールで30&#x301C;50%OFF。接待・特別な出張にも使える上質ホテルが充実。</p>
+          <a id="ikyu-btn" href="#" target="_blank" rel="noopener nofollow" class="hotel-aff-btn ikkyu result-search-btn"></a>
+        </div>
       </div>
 
-      <p class="price-note">※価格は目安です。実際の料金は予約サイトでご確認ください。</p>
-      <button class="finder-reset" onclick="resetFinder()">&#x21BA; もう一度探す（都市から選び直す）</button>
+      <p class="price-note">&#x203B; 価格・空き状況は各サイトでご確認ください。</p>
+      <button class="finder-reset" onclick="resetHotelSearch()">&#x21A9; もう一度検索する</button>
     </div>
   </div>
 
@@ -481,230 +399,59 @@ footer a{color:var(--gray);text-decoration:none;margin:0 8px}
 </footer>
 
 <script>
-/* ===== アフィリエイトURL ===== */
 const RAKUTEN_AFF = 'https://hb.afl.rakuten.co.jp/hsc/2a6d2e09.522e8c45.2a6d2e0a.a579a735/?link_type=hybrid_url&ut=eyJwYWdlIjoic2hvcCIsInR5cGUiOiJoeWJyaWRfdXJsIiwiY29sIjoxLCJjYXQiOiIxIiwiYmFuIjoiMjQ5NTU5MSIsImFtcCI6ZmFsc2V9';
-const IKKYU_AFF = 'https://px.a8.net/svt/ejp?a8mat=4AZO4I+CGWX7U+1OK+5YRHE&a8ejpredirect=https%3A%2F%2Fwww.ikyu.com%2F';
 
-/* ===== 都市名 ===== */
-const CITY_NAMES = {
-  tokyo:'東京', osaka:'大阪', nagoya:'名古屋', fukuoka:'福岡',
-  sapporo:'札幌', sendai:'仙台', hiroshima:'広島', yokohama:'横浜',
-  kyoto:'京都', kobe:'神戸'
-};
-
-/* ===== 都市別ホテルデータ ===== */
-/* chain: dormyinn=大浴場系, super=温泉系, apa=朝食系, toyokoinn=コスパ系 */
-const CITY_HOTELS = {
-  tokyo: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン新橋',            desc:'大浴場・サウナ付き。夜鳴きそば無料サービスあり。新橋駅徒歩3分の好立地。',           price:'8,000〜13,000円' },
-      { chain:'apa',       name:'アパホテル東京駅前八重洲北口', desc:'朝食バイキング充実。東京駅徒歩5分で利便性抜群。ビジネス滞在に最適。',              price:'7,500〜12,000円' },
-      { chain:'toyokoinn', name:'東横INN東京駅新大橋前',        desc:'会員で10泊1泊無料。リーズナブルで清潔感あり。全国出張者向け会員制度が充実。', price:'6,000〜9,500円'  },
-    ],
-    ikyu: [
-      { name:'三井ガーデンホテル東京新橋', desc:'洗練された内装と丁寧なサービス。重要な商談・接待前の宿泊に最適。',              price:'12,000円〜' },
-      { name:'ホテルモントレ半蔵門',       desc:'上質な空間で疲れを癒す。大切な出張・特別な滞在にふさわしいホテル。', price:'14,000円〜' },
-    ]
-  },
-  osaka: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン大阪谷町',         desc:'大浴場・サウナ完備。ご当地朝食メニューが充実。谷町4丁目駅近くの好立地。',          price:'7,000〜12,000円' },
-      { chain:'toyokoinn', name:'東横INN大阪京橋',              desc:'京橋駅近く。全国展開チェーンで会員特典も充実。清潔感あるコスパ宿。',              price:'5,500〜8,500円'  },
-      { chain:'super',     name:'スーパーホテルOsaka・天王寺',  desc:'天然温泉付き。朝食無料プランあり。天王寺エリアで主要路線へのアクセス良好。', price:'6,000〜9,000円'  },
-    ],
-    ikyu: [
-      { name:'リーガロイヤルホテル大阪',     desc:'大阪を代表する老舗シティホテル。VIP接待・重要な出張にも格式ある対応。',        price:'12,000円〜' },
-      { name:'ホテルモントレグラスミア大阪', desc:'梅田至近のクラシカルホテル。上質な空間でビジネス・観光も兼ねた出張に。', price:'13,000円〜' },
-    ]
-  },
-  nagoya: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン名古屋',  desc:'大浴場・サウナ付き。名古屋駅より徒歩圏内。ご当地朝食で手羽先も楽しめる。', price:'7,000〜11,000円' },
-      { chain:'apa',       name:'アパホテル名古屋錦',  desc:'朝食バイキング充実。栄エリアの繁華街至近。ビジネス・観光の拠点に最適。',   price:'6,500〜10,000円' },
-      { chain:'toyokoinn', name:'東横INN名古屋駅前',   desc:'名古屋駅前の好立地。新幹線・在来線ともにアクセス抜群でコスパも良好。',   price:'5,500〜8,000円'  },
-    ],
-    ikyu: [
-      { name:'ヒルトン名古屋',              desc:'名古屋随一の国際的ホテル。重要な商談・接待に格式ある環境を提供。',                price:'15,000円〜' },
-      { name:'ウェスティンナゴヤキャッスル', desc:'名古屋城を望む上質なシティホテル。ビジネス・接待に最適な上品な空間。', price:'15,000円〜' },
-    ]
-  },
-  fukuoka: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン博多祇園',       desc:'天然温泉大浴場・サウナ付き。博多駅徒歩圏。夜鳴きそばのサービスが人気。',          price:'6,500〜11,000円' },
-      { chain:'toyokoinn', name:'東横INN博多駅前',            desc:'博多駅徒歩すぐ。全国展開で会員ポイントが貯まる。ビジネス出張の定番宿。',          price:'5,500〜8,000円'  },
-      { chain:'super',     name:'スーパーホテル博多・天神南', desc:'朝食無料付きプランあり。天神エリアで繁華街も近く、長期出張にもコスパ良好。', price:'5,500〜8,500円'  },
-    ],
-    ikyu: [
-      { name:'ホテルオークラ福岡',       desc:'博多を代表するシティホテル。ビジネス・接待・特別な出張に幅広く対応。',     price:'13,000円〜' },
-      { name:'グランド ハイアット 福岡', desc:'Canal City内の高級ホテル。国際水準のサービスで特別な出張に最適。', price:'18,000円〜' },
-    ]
-  },
-  sapporo: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン札幌',              desc:'大浴場・サウナ完備。朝食は北海道グルメが充実。すすきのエリアの好立地。',   price:'7,000〜12,000円' },
-      { chain:'toyokoinn', name:'東横INN札幌すすきの交差点',     desc:'すすきの中心地。繁華街アクセス抜群でコスパ重視の出張に最適。',             price:'5,500〜8,500円'  },
-      { chain:'super',     name:'スーパーホテル札幌・すすきの',  desc:'天然温泉付き。朝食無料プランあり。北海道グルメも楽しめる快適な宿。',     price:'6,000〜9,000円'  },
-    ],
-    ikyu: [
-      { name:'JRタワーホテル日航札幌',    desc:'札幌駅直結の最上級シティホテル。最高の眺望と上質なサービスを提供。',                price:'12,000円〜' },
-      { name:'センチュリーロイヤルホテル', desc:'大通公園に面した老舗ホテル。洗練されたサービスが充実した格式ある宿。', price:'12,000円〜' },
-    ]
-  },
-  sendai: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン仙台',     desc:'大浴場・サウナ付き。仙台駅徒歩圏内。ご当地朝食で牛タンも楽しめる。',   price:'6,500〜11,000円' },
-      { chain:'apa',       name:'アパホテル仙台駅五橋', desc:'朝食バイキング充実。市内の拠点として便利な立地。ビジネスに最適。',      price:'6,000〜10,000円' },
-      { chain:'toyokoinn', name:'東横INN仙台駅前',      desc:'仙台駅至近。コスパ重視のビジネス出張に。全国チェーンで安心感あり。',   price:'5,500〜8,000円'  },
-    ],
-    ikyu: [
-      { name:'ホテルメトロポリタン仙台', desc:'仙台駅直結の東北最大級シティホテル。ビジネス・接待に対応する充実の設備。', price:'13,000円〜' },
-      { name:'ホテルモントレ仙台',       desc:'欧風の落ち着いた内装でゆったりとした滞在を。大切な出張・記念日にも。',     price:'11,000円〜' },
-    ]
-  },
-  hiroshima: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン広島',         desc:'大浴場・サウナ完備。朝食は広島名物のメニューも楽しめる好立地の宿。',   price:'6,500〜10,000円' },
-      { chain:'apa',       name:'アパホテル広島駅前大橋',   desc:'広島駅近くで交通の便が良い。朝食バイキング付きプランあり。',           price:'6,000〜9,500円'  },
-      { chain:'toyokoinn', name:'東横INN広島駅新幹線口',    desc:'新幹線口直結で出張の移動がスムーズ。コスパ重視の出張者に人気。',      price:'5,500〜8,000円'  },
-    ],
-    ikyu: [
-      { name:'ANAクラウンプラザホテル広島', desc:'広島随一の国際ホテル。ビジネス・接待・大切な出張に幅広く対応。',           price:'12,000円〜' },
-      { name:'ホテルグランヴィア広島',      desc:'広島駅直結の利便性が高い上質なホテル。大規模会議・宴席にも対応可能。', price:'12,000円〜' },
-    ]
-  },
-  yokohama: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン横浜関内',       desc:'大浴場・サウナ付き。関内・みなとみらいへのアクセス良好な好立地。',          price:'7,000〜12,000円' },
-      { chain:'toyokoinn', name:'東横INN横浜みなとみらい',    desc:'みなとみらいエリア。横浜の拠点として最適なコスパと便利さを兼ね備えた宿。', price:'6,000〜9,000円'  },
-      { chain:'super',     name:'スーパーホテル横浜・関内',   desc:'天然温泉付き。朝食無料プランでコスパよく快適に宿泊できる。',               price:'6,000〜9,000円'  },
-    ],
-    ikyu: [
-      { name:'ヨコハマグランドインターコンチネンタルホテル', desc:'みなとみらいのランドマークホテル。絶景と最高のサービスで特別な出張に。', price:'20,000円〜' },
-      { name:'横浜ロイヤルパークホテル',                   desc:'ランドマークタワー上層階の絶景ホテル。特別な出張・VIP接待に最適。',    price:'15,000円〜' },
-    ]
-  },
-  kyoto: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン京都四条烏丸', desc:'大浴場・サウナ付き。四条烏丸エリアの中心に位置する好立地。',           price:'8,000〜14,000円' },
-      { chain:'apa',       name:'アパホテル京都祇園',       desc:'朝食バイキング充実。祇園エリアで京都の文化も楽しみながら出張できる。', price:'7,000〜12,000円' },
-      { chain:'toyokoinn', name:'東横INN京都四条大宮',      desc:'四条エリアの好立地。コスパ重視の出張に最適。京都の拠点として便利。',   price:'6,000〜9,500円'  },
-    ],
-    ikyu: [
-      { name:'ホテルグランヴィア京都', desc:'京都駅直結の最上級ホテル。京都の文化を感じる上質な滞在環境を提供。',   price:'15,000円〜' },
-      { name:'THE BLOSSOM KYOTO',     desc:'京都の伝統美を取り入れたモダンなシティホテル。特別な出張・接待に。',  price:'14,000円〜' },
-    ]
-  },
-  kobe: {
-    rakuten: [
-      { chain:'dormyinn',  name:'ドーミーイン神戸',   desc:'大浴場・サウナ付き。三宮エリアの好立地。夜鳴きそば無料サービスあり。',    price:'7,000〜12,000円' },
-      { chain:'toyokoinn', name:'東横INN神戸三宮',    desc:'三宮駅前の利便性高い立地。コスパ重視の出張に。全国展開で安心感もある。', price:'5,500〜8,500円'  },
-      { chain:'super',     name:'スーパーホテル神戸', desc:'天然温泉付き施設あり。朝食無料プランでコスパよく快適に宿泊できる。',      price:'5,500〜8,000円'  },
-    ],
-    ikyu: [
-      { name:'ANAクラウンプラザホテル神戸', desc:'神戸ポートタワー近くの国際ホテル。港町の絶景と上質なサービスが魅力。',    price:'13,000円〜' },
-      { name:'ホテルピエナ神戸',            desc:'洗練されたブティックホテル。特別な出張・商談の前泊に最適な上質な宿。', price:'14,000円〜' },
-    ]
+function doHotelSearch() {
+  const input = document.getElementById('hotel-search-input').value.trim();
+  if (!input) {
+    alert('エリアや駅名を入力してください');
+    return;
   }
-};
 
-/* ===== 状態管理 ===== */
-let state = {};
+  const ikkyuEncoded = encodeURIComponent(input);
 
-/* ===== ステップ表示 ===== */
-function showStep(id) {
-  document.querySelectorAll('.finder-step').forEach(el => el.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
-}
-function showSubStep(parentId, subId) {
-  document.querySelectorAll('#' + parentId + ' .sub-step').forEach(el => el.classList.remove('active'));
-  document.getElementById(subId).classList.add('active');
-}
+  document.getElementById('result-area-label').textContent = '📍 「' + input + '」のホテル検索結果';
 
-/* ===== 都市選択（STEP0） ===== */
-function selectCity(city) {
-  state.city = city;
-  document.querySelectorAll('.city-btn').forEach(btn => btn.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
-  showStep('step1');
+  const rakutenBtn = document.getElementById('rakuten-btn');
+  rakutenBtn.href = RAKUTEN_AFF;
+  rakutenBtn.textContent = '楽天トラベルで「' + input + '」のホテルを探す →';
+
+  const ikkyuSearchUrl = 'https://www.ikyu.com/search/?keyword=' + ikkyuEncoded;
+  const ikkyuAff = 'https://px.a8.net/svt/ejp?a8mat=4AZO4I+CGWX7U+1OK+5YRHE&a8ejpredirect=' + encodeURIComponent(ikkyuSearchUrl);
+  const ikkyuBtn = document.getElementById('ikyu-btn');
+  ikkyuBtn.href = ikkyuAff;
+  ikkyuBtn.textContent = '一休.comで「' + input + '」のホテルを探す →';
+
+  document.getElementById('hotel-results').style.display = 'block';
+  document.getElementById('hotel-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-/* ===== パス・条件選択 ===== */
-function selectPath(path) { state.path = path; if (path==='A') showStep('step2A'); else showStep('step2B'); }
-function selectA1(val) { state.a1 = val; showSubStep('step2A','step2A-2'); }
-function selectA2(val) { state.a2 = val; showSubStep('step2A','step2A-3'); }
-function selectA3(val) { state.a3 = val; showResults(); }
-function selectB1(val) { state.b1 = val; showSubStep('step2B','step2B-2'); }
-function selectB2(val) { state.b2 = val; showSubStep('step2B','step2B-3'); }
-function selectB3(val) { state.b3 = val; showResults(); }
-
-/* ===== 楽天ホテル選定（条件に応じてチェーン優先度を変える） ===== */
-function getFilteredRakuten() {
-  const hotels = CITY_HOTELS[state.city].rakuten;
-  let order;
-  if      (state.a1==='yes' || state.b3==='bath')       order = ['dormyinn','super','apa','toyokoinn'];
-  else if (state.a2==='yes' || state.b3==='breakfast')  order = ['apa','dormyinn','toyokoinn','super'];
-  else if (state.a3==='low' || state.b2==='low')        order = ['toyokoinn','super','apa','dormyinn'];
-  else                                                   order = ['dormyinn','apa','toyokoinn','super'];
-  return [...hotels].sort((a,b) => order.indexOf(a.chain) - order.indexOf(b.chain)).slice(0,2);
+function resetHotelSearch() {
+  document.getElementById('hotel-search-input').value = '';
+  document.getElementById('hotel-results').style.display = 'none';
 }
 
-/* ===== 結果表示 ===== */
-function showResults() {
-  const city = state.city;
-  const cityName = CITY_NAMES[city];
-  const needInvoice = state.path === 'B' && state.b1 === 'yes';
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('hotel-search-input');
+  if (input) {
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doHotelSearch();
+    });
+  }
+});
 
-  document.getElementById('result-city-label').textContent = '📍 出張先：' + cityName;
-
-  /* 楽天セクション */
-  const rakutenHotels = getFilteredRakuten();
-  document.getElementById('rakuten-results').innerHTML = rakutenHotels.map(h =>
-    '<div class="result-hotel-card">'
-    + '<div class="result-hotel-name">' + h.name + (needInvoice ? ' <span class="invoice-badge">領収書対応可</span>' : '') + '</div>'
-    + '<p class="result-hotel-desc">' + h.desc + '</p>'
-    + '<p class="result-hotel-price">&#x1F4B4; 目安：' + h.price + '<span>（税込・時期により変動）</span></p>'
-    + '<a href="' + RAKUTEN_AFF + '" target="_blank" rel="noopener nofollow" class="hotel-aff-btn rakuten">楽天トラベルで ' + h.name + ' を探す &rarr;</a>'
-    + '</div>'
-  ).join('');
-
-  /* 一休セクション */
-  const ikkyuHotels = CITY_HOTELS[city].ikyu;
-  document.getElementById('ikyu-results').innerHTML = ikkyuHotels.map(h =>
-    '<div class="result-hotel-card">'
-    + '<div class="result-hotel-name">' + h.name + '</div>'
-    + '<p class="result-hotel-desc">' + h.desc + '</p>'
-    + '<p class="result-hotel-price">&#x1F4B4; 目安：' + h.price + '<span>（税込・時期により変動）</span></p>'
-    + '<a href="' + IKKYU_AFF + '" target="_blank" rel="noopener nofollow" class="hotel-aff-btn ikkyu">一休.comで ' + h.name + ' を予約する &rarr;</a>'
-    + '</div>'
-  ).join('');
-
-  showStep('step3');
-}
-
-/* ===== リセット ===== */
-function resetFinder() {
-  state = {};
-  document.querySelectorAll('.finder-step').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.sub-step').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.city-btn').forEach(btn => btn.classList.remove('selected'));
-  document.getElementById('step2A-1').classList.add('active');
-  document.getElementById('step2B-1').classList.add('active');
-  document.getElementById('rakuten-results').innerHTML = '';
-  document.getElementById('ikyu-results').innerHTML = '';
-  document.getElementById('step0').classList.add('active');
-}
-
-/* ===== URLパラメータで都市プリセット（LPの都市ボタンからの遷移対応） ===== */
+// URLパラメータで area が指定されていたら自動検索
 (function() {
   const params = new URLSearchParams(window.location.search);
-  const city = params.get('city');
-  if (city && CITY_HOTELS[city]) {
-    state.city = city;
-    document.querySelectorAll('.city-btn').forEach(btn => {
-      if (btn.textContent === CITY_NAMES[city]) btn.classList.add('selected');
+  const area = params.get('area');
+  if (area) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const input = document.getElementById('hotel-search-input');
+      if (input) {
+        input.value = decodeURIComponent(area);
+        doHotelSearch();
+      }
     });
-    showStep('step1');
   }
 })();
 </script>

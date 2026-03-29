@@ -302,6 +302,17 @@ section{padding:80px 24px}
   font-size:24px;margin-bottom:12px;
 }
 
+/* ===== ホテル検索セクション ===== */
+.hotel-search{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff}
+.lp-hotel-search{max-width:600px;margin:0 auto}
+.lp-search-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.lp-hotel-input{flex:1;min-width:240px;padding:16px 18px;border:2px solid rgba(255,255,255,.6);border-radius:10px;font-size:15px;font-family:var(--font);outline:none;background:rgba(255,255,255,.12);color:#fff;transition:border-color .2s}
+.lp-hotel-input::placeholder{color:rgba(255,255,255,.5)}
+.lp-hotel-input:focus{border-color:#fff;background:rgba(255,255,255,.2)}
+.lp-search-btn{padding:16px 28px;background:#fff;color:var(--primary);border:none;border-radius:10px;font-size:15px;font-weight:900;cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}
+.lp-search-btn:hover{background:var(--primary-light);transform:translateY(-1px)}
+.hotel-search-note{font-size:12px;color:rgba(255,255,255,.6);margin-top:12px;text-align:center}
+
 /* ===== 出張お役立ち情報 ===== */
 .tips{background:var(--light)}
 .tips-grid{
@@ -326,22 +337,6 @@ section{padding:80px 24px}
 .tip-title{font-size:17px;font-weight:700;margin-bottom:8px;line-height:1.5}
 .tip-excerpt{color:var(--gray);font-size:14px;line-height:1.7}
 .tip-arrow{color:var(--primary);font-size:13px;font-weight:700;margin-top:12px;display:inline-block}
-
-/* ===== ホテル検索セクション ===== */
-.hotel-search{background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%)}
-.hotel-search .section-label{color:#93c5fd}
-.hotel-search .section-title{color:#fff}
-.hotel-search .section-desc{color:#93c5fd;margin-bottom:32px}
-.hotel-city-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:16px}
-.hotel-city-link{
-  display:inline-block;padding:14px 24px;background:rgba(255,255,255,.12);
-  border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:10px;
-  font-size:16px;font-weight:700;text-decoration:none;
-  transition:all .2s;font-family:var(--font);
-}
-.hotel-city-link:hover{background:rgba(255,255,255,.25);border-color:#fff;transform:translateY(-2px)}
-.hotel-search-note{color:rgba(255,255,255,.6);font-size:13px;text-align:center;margin-top:16px}
-.hotel-search-sub{color:rgba(255,255,255,.8);font-size:14px;text-align:center;margin-bottom:8px}
 
 /* ===== X (Twitter) セクション ===== */
 .twitter-section{background:var(--white)}
@@ -418,7 +413,7 @@ footer a:hover{color:#fff}
     <a href="/" class="nav-logo"><span>&#x1F4BC;</span> 出張コンシェルジュ</a>
     <ul class="nav-links">
       <li><a href="#features">機能紹介</a></li>
-      <li><a href="#hotel-search">ホテルを探す</a></li>
+      <li><a href="#howto">使い方</a></li>
       <li><a href="#tips">お役立ち情報</a></li>
       <li><a href="app.html" class="nav-cta">今すぐ使う</a></li>
     </ul>
@@ -620,26 +615,21 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- ===== ホテル検索セクション ===== -->
+<!-- ===== ホテル検索 ===== -->
 <section class="hotel-search" id="hotel-search">
   <div class="section-inner text-center">
     <div class="section-label">Hotel Finder</div>
     <h2 class="section-title">出張先のホテルを今すぐ探す</h2>
-    <p class="section-desc">都市を選ぶだけで、コスパ重視（楽天トラベル）とワンランク上（一休.com）のおすすめホテルをすぐに比較できます。</p>
-    <p class="hotel-search-sub">&#x1F4CD; どの都市に出張しますか？</p>
-    <div class="hotel-city-grid">
-      <a href="hotel-tips.html?city=tokyo"    class="hotel-city-link">東京</a>
-      <a href="hotel-tips.html?city=osaka"    class="hotel-city-link">大阪</a>
-      <a href="hotel-tips.html?city=nagoya"   class="hotel-city-link">名古屋</a>
-      <a href="hotel-tips.html?city=fukuoka"  class="hotel-city-link">福岡</a>
-      <a href="hotel-tips.html?city=sapporo"  class="hotel-city-link">札幌</a>
-      <a href="hotel-tips.html?city=sendai"   class="hotel-city-link">仙台</a>
-      <a href="hotel-tips.html?city=hiroshima" class="hotel-city-link">広島</a>
-      <a href="hotel-tips.html?city=yokohama" class="hotel-city-link">横浜</a>
-      <a href="hotel-tips.html?city=kyoto"    class="hotel-city-link">京都</a>
-      <a href="hotel-tips.html?city=kobe"     class="hotel-city-link">神戸</a>
+    <p class="section-desc">エリアや駅名を入力するだけ。楽天トラベル・一休.comから全国のホテルをすぐ比較できます。</p>
+    <div class="lp-hotel-search">
+      <div class="lp-search-row">
+        <input type="text" id="lp-hotel-input" class="lp-hotel-input"
+          placeholder="エリアや駅名を入力（例：渋谷、博多駅前、梅田&#x2026;）"
+          maxlength="50">
+        <button class="lp-search-btn" onclick="lpHotelSearch()">探す &#x2192;</button>
+      </div>
+      <p class="hotel-search-note">&#x203B; 全国対応。価格・空き状況は各サイトでご確認ください。</p>
     </div>
-    <p class="hotel-search-note">※ 価格は目安です。実際の料金は各予約サイトでご確認ください。</p>
   </div>
 </section>
 
@@ -654,9 +644,9 @@ footer a:hover{color:#fff}
     <div class="tips-grid">
       <a href="hotel-tips.html" class="tip-card reveal">
         <div class="tip-tag hotel">ホテル</div>
-        <div class="tip-title">出張先のホテルを今すぐ比較｜楽天トラベル＋一休.com</div>
-        <div class="tip-excerpt">都市を選ぶだけでおすすめホテルをすぐ比較。楽天トラベル（コスパ重視）と一休.com（ワンランク上）の2段構えで表示します。</div>
-        <span class="tip-arrow">ホテルを探す &rarr;</span>
+        <div class="tip-title">出張ホテルの賢い選び方｜ビジネスホテル比較のコツ</div>
+        <div class="tip-excerpt">楽天トラベルや一休.comを使って、コスパ最強のビジネスホテルを見つける方法を解説します。</div>
+        <span class="tip-arrow">続きを読む &rarr;</span>
       </a>
       <a href="save-money.html" class="tip-card reveal">
         <div class="tip-tag save">節約術</div>
@@ -753,6 +743,25 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const target = document.querySelector(a.getAttribute('href'));
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+});
+
+// LPホテル検索
+function lpHotelSearch() {
+  const input = document.getElementById('lp-hotel-input').value.trim();
+  if (!input) {
+    alert('エリアや駅名を入力してください');
+    return;
+  }
+  const encoded = encodeURIComponent(input);
+  window.location.href = 'hotel-tips.html?area=' + encoded;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const lpInput = document.getElementById('lp-hotel-input');
+  if (lpInput) {
+    lpInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') lpHotelSearch();
+    });
+  }
 });
 </script>
 
