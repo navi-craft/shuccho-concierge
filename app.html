@@ -381,7 +381,7 @@ body{
         <div id="hotelBookingInfo" style="font-size:11px;color:var(--muted);margin-bottom:10px;">出張先のホテルを検索</div>
         <div class="af-row">
           <button class="af-btn rak" onclick="bookHotelRakuten()">🏨 楽天トラベル</button>
-          <button class="af-btn hot" onclick="bookHotelIkyu()">🏨 一休.com</button>
+          <button class="af-btn" style="background:rgba(0,160,64,.12);border-color:rgba(0,160,64,.3);color:#00a040;" onclick="bookHotelJalan()">🏨 じゃらんnet</button>
         </div>
       </div>
     </div>
@@ -433,7 +433,6 @@ const CONFIG = {
   AMAZON_TAG: 'shucchouconci-22',
   RAKUTEN_ID: '522e8c45.a579a735',
   HOTPEPPER_AF: '',
-  IKYU_A8MAT: '4AZO4I+CGWUWI+1OK+5YRHE',
   RADIUS: 500,
 };
 
@@ -1137,11 +1136,31 @@ function loadHotel() {
   updateHotelBooking();
 }
 function bookHotelRakuten() { openLink(rakutenTravelLink((gpsLoc?.name||'')+' ビジネスホテル')); }
-function bookHotelIkyu() {
+function submitShiftJISForm(url, params) {
+  const form = document.createElement('form');
+  form.method = 'post';
+  form.action = url;
+  form.target = '_blank';
+  form.acceptCharset = 'Shift_JIS';
+  for (const [name, value] of Object.entries(params)) {
+    const inp = document.createElement('input');
+    inp.type = 'hidden';
+    inp.name = name;
+    inp.value = value;
+    form.appendChild(inp);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
+function bookHotelJalan() {
   const keyword = gpsLoc?.name || '';
-  const destUrl = 'https://www.ikyu.com/search/?keyword=' + encodeURIComponent(keyword);
-  const afUrl = 'https://px.a8.net/svt/ejp?a8mat=' + CONFIG.IKYU_A8MAT + '&a8ejpredirect=' + encodeURIComponent(destUrl);
-  openLink(afUrl);
+  if (!keyword) { openLink('https://www.jalan.net/'); return; }
+  submitShiftJISForm('https://www.jalan.net/uw/uwp2011/uww2011init.do', {
+    keyword: keyword,
+    distCd: '06',
+    rootCd: '7701'
+  });
 }
 function updateHotelBooking() {
   const info = document.getElementById('hotelBookingInfo');
@@ -1187,3 +1206,4 @@ function mealAct(type) {
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
