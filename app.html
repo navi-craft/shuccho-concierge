@@ -5,11 +5,10 @@
   【よく修正する場所】
   ・Google API キー → CONFIG.GOOGLE_API_KEY
   ・アフィリエイトリンク → CONFIG 内の各URL
-  ・都道府県マップ → IKYU_AREA_MAP
   ・お土産情報 → PREF_OMIYAGE_DETAIL
   ・地域スポット → PREF_SPOTS_DATA（追加機能）
   ================================================================
-  最終更新: 2026-03-27
+  最終更新: 2026-03-29
   ================================================================
 -->
 <!DOCTYPE html>
@@ -484,38 +483,6 @@ function spotTypeIcon(types) {
   if (types.some(t => t.includes('zoo')))      return '🦁';
   if (types.some(t => t.includes('amusement')))return '🎡';
   return '📍';
-}
-
-/* ══════════════════════════════════════════════
-   一休 エリアマップ
-   ══════════════════════════════════════════════ */
-const IKYU_AREA_MAP = {
-  '北海道':'hokkaido/010000/','青森':'aomori/020000/','岩手':'iwate/030000/',
-  '宮城':'miyagi/040000/','秋田':'akita/050000/','山形':'yamagata/060000/',
-  '福島':'fukushima/070000/','茨城':'ibaraki/080000/','栃木':'tochigi/090000/',
-  '群馬':'gunma/100000/','埼玉':'saitama/110000/','千葉':'chiba/120000/',
-  '東京':'tokyo/140000/','神奈川':'kanagawa/130000/','新潟':'niigata/150000/',
-  '富山':'toyama/160000/','石川':'ishikawa/170000/','福井':'fukui/180000/',
-  '山梨':'yamanashi/190000/','長野':'nagano/200000/','岐阜':'gifu/210000/',
-  '静岡':'shizuoka/220000/','愛知':'aichi/230000/','三重':'mie/240000/',
-  '滋賀':'shiga/250000/','京都':'kyoto/260000/','大阪':'osaka/270000/',
-  '兵庫':'hyogo/280000/','奈良':'nara/290000/','和歌山':'wakayama/300000/',
-  '鳥取':'tottori/310000/','島根':'shimane/320000/','岡山':'okayama/330000/',
-  '広島':'hiroshima/340000/','山口':'yamaguchi/350000/','徳島':'tokushima/360000/',
-  '香川':'kagawa/370000/','愛媛':'ehime/380000/','高知':'kochi/390000/',
-  '福岡':'fukuoka/400000/','佐賀':'saga/410000/','長崎':'nagasaki/420000/',
-  '熊本':'kumamoto/430000/','大分':'oita/440000/','宮崎':'miyazaki/450000/',
-  '鹿児島':'kagoshima/460000/','沖縄':'okinawa/470000/'
-};
-
-function ikyuTravelLink(prefState) {
-  let areaPath = '';
-  for (const [key, path] of Object.entries(IKYU_AREA_MAP)) {
-    if (prefState && prefState.includes(key)) { areaPath = path; break; }
-  }
-  const destUrl = areaPath ? 'https://www.ikyu.com/' + areaPath + '?ppc=2&rc=1&discsort=1' : 'https://www.ikyu.com/';
-  const ikyuUrl = 'https://www.ikyu.com/ikCo.ashx?cosid=a8ikyu&surl=' + encodeURIComponent(destUrl);
-  return 'https://px.a8.net/svt/ejp?a8mat=' + CONFIG.IKYU_A8MAT + '&a8ejpredirect=' + encodeURIComponent(ikyuUrl);
 }
 
 /* ══════════════════════════════════════════════
@@ -1170,7 +1137,12 @@ function loadHotel() {
   updateHotelBooking();
 }
 function bookHotelRakuten() { openLink(rakutenTravelLink((gpsLoc?.name||'')+' ビジネスホテル')); }
-function bookHotelIkyu()    { openLink(ikyuTravelLink(_lastPrefState)); }
+function bookHotelIkyu() {
+  const keyword = gpsLoc?.name || '';
+  const destUrl = 'https://www.ikyu.com/search/?keyword=' + encodeURIComponent(keyword);
+  const afUrl = 'https://px.a8.net/svt/ejp?a8mat=' + CONFIG.IKYU_A8MAT + '&a8ejpredirect=' + encodeURIComponent(destUrl);
+  openLink(afUrl);
+}
 function updateHotelBooking() {
   const info = document.getElementById('hotelBookingInfo');
   if (gpsLoc && info) info.textContent = '📍 ' + gpsLoc.name + ' 周辺のホテル';
