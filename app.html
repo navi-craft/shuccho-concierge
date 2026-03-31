@@ -522,7 +522,7 @@ function getGPS(cb, forceRefresh) {
       setLocBar(msg, false);
       cb && cb(null);
     },
-    { timeout: 15000, maximumAge: 30000, enableHighAccuracy: true }
+    { timeout: 5000, maximumAge: 300000, enableHighAccuracy: false }
   );
 }
 
